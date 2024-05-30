@@ -1,3 +1,3 @@
 import '../src/styles.css';
-import firstPage from './logic-load';
+import firstPage from './logics';
 import domEl from './dom-El';

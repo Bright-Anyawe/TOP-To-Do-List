@@ -1,6 +1,5 @@
-import * as mylogic from './logic-load';
+import * as mylogic from './logics';
 const defaultProject = mylogic.getProjectDefault();
-const userInfo = mylogic.getUserInfo();
 
 const mainContainer = document.querySelector('main');
 const userList = document.querySelector('#userlist');
@@ -21,13 +20,9 @@ inboxTask.classList.add('inboxTask');
 
 const projects = document.querySelector('#projects h4');
 const defaultProjects = document.querySelector('#projects');
-const toDos = [];
+export const toDos = [];
 
-// function getInboxForm() {
-
-// }
-
-function getInboxForm() {
+export function getInboxForm() {
     const inputInboxTask = document.createElement('input');
     inputInboxTask.classList.add('inputInboxTask');
     inputInboxTask.setAttribute('placeholder', 'add title task');
@@ -83,7 +78,7 @@ function getInboxForm() {
 }
 inbox.addEventListener('click', getInboxForm);
 
-function acceptInboxInput(inputInboxTask, inputInboxDescription,inboxSelectEl) {
+export function acceptInboxInput(inputInboxTask, inputInboxDescription,inboxSelectEl) {
     let inboxTaskInputValue = inputInboxTask.value;
     let inboxDescriptionInputValue = inputInboxDescription.value;
     let inboxPriorityValueEl = inboxSelectEl.value;
@@ -97,8 +92,7 @@ function acceptInboxInput(inputInboxTask, inputInboxDescription,inboxSelectEl) {
     displayTask(userInfo)
 }
 
-
-function displayDefaultTask() {
+export function displayDefaultTask() {
     Object.entries(defaultProject).forEach(([key, value]) => {
         console.log(defaultProject);
         const task = document.createElement('p');
@@ -110,12 +104,12 @@ function displayDefaultTask() {
 }
 projects.addEventListener('click', displayDefaultTask);
 
-function displayForm() {
+export function displayForm() {
     form.style.display = 'block';
 }
 addTaskbtn.addEventListener('click', displayForm);
 
-function acceptInput() {
+export function acceptInput() {
     let taskInputValue = inputFieldEl.value;
     let descriptionInputValue = descriptionFieldEl.value;
     let priorityValueEl = selectPriorityEl.value;
@@ -133,13 +127,7 @@ function preventDefault(event) {
 
 form.addEventListener('submit', preventDefault);
 
-// function submitTaskBtn() {
-//     const submitTaskBtn = document.querySelector('#submitBtn');
-//     submitTaskBtn.addEventListener('click', acceptInput);
-// }
-// submitTaskBtn();
-
-function displayTask(todo) {
+export function displayTask(todo) {
     Object.entries(todo).forEach(([key, value]) => {
         console.log(todo);
         const task = document.createElement('p');
