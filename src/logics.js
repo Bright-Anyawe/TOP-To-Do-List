@@ -1,6 +1,7 @@
 import { addDate, format, compareAsc } from "date-fns";
-import {toDos} from './dom-El';
 
+export let toDos = [];
+console.log(toDos);
 
 export class getList {
     constructor(Title, Description, Priority) {
@@ -10,11 +11,11 @@ export class getList {
     }
 }
 
-// const date = {
-//     dueDate: function getDate() {
+const date = {
+    dueDate: function getDate() {
 
-//     }
-// }
+    }
+}
 
 // const dates = new date();
 // console.log(dates);
@@ -25,8 +26,6 @@ export class getList {
 //     new Date(1989, 6, 10),
 //   ];
 //   console.log(dates);
-console.log(getList());
-console.log(toDos);
 
 export function getProjectDefault() {
     const projectOBj = new getList();
