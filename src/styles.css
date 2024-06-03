@@ -1,12 +1,236 @@
-#form {
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /* background-image: url('./images/Bg_To_Do_List.webp');
+    background-size: cover;
+    background-repeat: no-repeat; */
+}
 
+main {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-template-rows: 50px 550px;
+    gap: 10px;
+}
+
+header {
+    grid-area: 1 / 2 / 2 / 3;
+    border-radius: 5px;
+    background-color: #fda4af;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+aside {
+    grid-area: 1/ 1/ 3/ 2;
+    border-radius: 5px;
+    background-color: #e2e8f0;
+
+}
+
+#Container {
+    grid-area: 2 / 2 / 3 / 3;
+    border-radius: 5px;
+    /* background-color: #94a3b8; */
+
+}
+
+svg {
+    width: 20px;
+    height: 20px;
+}
+
+#task {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 20px 0 0 10px;
+}
+
+/* #task:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.02);
+} */
+
+#task svg {
+    background-color: #dc2626;
+    border-radius: 50%;
+    fill: white;
+}
+
+#task :hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.09);
+}
+
+#task button {
+    border: 0;
+    font-size: 16px;
+    color: #b91c1c;
+    background-color: inherit;
+}
+
+#task button:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.09);
+}
+
+.listContainer {
+    display: flex;
+    gap: 5px;
+    /* display: grid;
+    grid-template-columns: 10px fr;
+    grid-template-rows: 20px 10px; */
+}
+.checkBoxContainer {
+    
+}
+
+.taskContainer {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+
+/* .innerTaskContainer :first-child {
+} */
+
+.taskTitle, .editableSaveTaskEl {
+    margin: 0;
+    font-size: 18px;
+
+}
+
+.taskDescription {
+    margin: 0;
+    font-size: 14px;
+
+}
+
+.taskPriority {
+    margin: 0;
+    font-size: 20px;
+
+}
+
+.innerTaskHandler {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 35px 0 0;
+}
+
+.inbox-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 10px 0 0 10px;
+}
+
+.inbox {
+    font-size: 17px;
+
+}
+
+.inboxListContainer {
+    display: flex;
+    gap: 5px;
+  
+}
+
+.inboxTaskContainer {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.inboxTaskTitle {
+    margin: 0;
+    font-size: 18px;
+}
+
+.inboxTaskDescription {
+    margin: 0;
+    font-size: 14px;
+
+}
+
+.inboxTaskPriority {
+    margin: 0 20px 0 0;
+    font-size: 20px;
+
+}
+
+#projects h3 {
+    margin: 0 0 0 10px;
+}
+
+#form {
+    background-color: #64748b;
+    border-radius: 10px;
+    height: 140px;
     display: none;
 }
 
-#newProjetEl {
-    display:none;
+.first-inputContainer input {
+    width: 838px;
+    height: 25px;
+    border: none;
+    outline: none;
+    color: white;
+    margin: 10px 0 0 0;
+    background-color: inherit;
+}
+
+.first-inputContainer input::placeholder {
+    color: white;
+    padding: 0 10px;
+    opacity: 1;
+    /* Firefox */
+}
+
+.second-inputContainer input {
+    width: 838px;
+    height: 25px;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: inherit;
+}
+
+.second-inputContainer input::placeholder {
+    padding: 0 10px;
+    color: white;
+    opacity: 1;
+    /* Firefox */
+}
+
+.other-options-on-forms {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.other-options-on-forms button, #priority {
+    padding: 7px;
+    border-radius: 9px;
+}
+
+
+
+#addNewProjectEl {
+    display: none;
 }
 
 #newProjectsFormContainerEl {
+    display: none;
+}
+
+#newProjectTasksContainer {
     display: none;
 }

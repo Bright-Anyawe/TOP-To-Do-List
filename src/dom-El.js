@@ -1,12 +1,13 @@
-import * as mylogic from './logics';
-const defaultProject = new mylogic.getList();
-let userToDos = mylogic.toDos;
+import { toDos } from './logics';
+import { edittask } from './logics';
 
 
 const mainContainer = document.querySelector('main');
 const userList = document.querySelector('#userlist');
 const inboxTaskDisplay = document.querySelector('.displayInboxTask');
 const form = document.querySelector('#form');
+const cancelForm = document.querySelector('.cancel');
+const submitBtn = document.querySelector('#submitBtn')
 const addTaskbtn = document.querySelector('.addTask');
 let inputFieldEl = document.querySelector('.task-title');
 let descriptionFieldEl = document.querySelector('.description');
@@ -20,12 +21,17 @@ inboxForm.classList.add('inboxForm');
 const inboxTask = document.createElement('div');
 inboxTask.classList.add('inboxTask');
 
-const newProjetEl = document.querySelector('#newProjetEl');
-const newProjectsFormContainerEl = document.querySelector('#newProjectsFormContainerEl');
-const newProjectFormEl = document.querySelector('.newProjectFormEl');
+class getList {
+    constructor(Title, Description, Priority) {
+        this.Title = Title;
+        this.Description = Description;
+        this.Priority = Priority;
+    }
+}
+
 // console.log(newProjectFormEl);
 
-const projects = document.querySelector('#projects h4');
+export const myProjects = document.querySelector('#projects h3');
 const defaultProjects = document.querySelector('#projects');
 
 //  function getInboxForm() {
@@ -82,7 +88,6 @@ const defaultProjects = document.querySelector('#projects');
 //         acceptInboxInput(inputInboxTask, inputInboxDescription, inboxSelectEl);
 //     });
 // }
-inbox.addEventListener('click', displayForm);
 
 //  function acceptInboxInput(inputInboxTask, inputInboxDescription,inboxSelectEl) {
 //     let inboxTaskInputValue = inputInboxTask.value;
@@ -114,41 +119,97 @@ inbox.addEventListener('click', displayForm);
 
 //Display Initial form
 export function displayForm() {
+    const header = document.querySelector('header h1');
+    header.textContent = 'Inbox';
     form.style.display = 'block';
 }
 addTaskbtn.addEventListener('click', displayForm);
 
-function acceptInput() {
+function cancelFormDisplay() {
+    form.style.display = 'none';
+}
+cancelForm.addEventListener('click', cancelFormDisplay)
+
+export default function acceptInput() {
     let taskInputValue = inputFieldEl.value;
     let descriptionInputValue = descriptionFieldEl.value;
     let priorityValueEl = selectPriorityEl.value;
-    let userInfo = new mylogic.getList(taskInputValue, descriptionInputValue, priorityValueEl);
+    let userInfo = new getList(taskInputValue, descriptionInputValue);
     inputFieldEl.value = '';
     descriptionFieldEl.value = '';
     selectPriorityEl.value = 'Select Priority';
 
-    displayTask(userInfo)
-    userToDos.push(userInfo);
-    displayAllToDos(userToDos);
+    displayTask(taskInputValue, descriptionInputValue, priorityValueEl)
+    toDos.push(userInfo);
+    displayAllToDos(toDos);
 }
-
-// let getToDos = () => acceptInput();
-// console.log(getToDos());
 
 function preventDefault(event) {
     event.preventDefault();
-    acceptInput();
 }
 form.addEventListener('submit', preventDefault);
 
-function displayTask(todo) {
-    Object.entries(todo).forEach(([key, value]) => {
-        const task = document.createElement('p');
-        task.textContent = `${key}:  ${value}`;
-        userList.appendChild(task);
+function displayTask(inputValue, descriptionValue, PriorityValue) {
+    const header = document.querySelector('header h1');
+    header.textContent = 'Create Your To-Do List.'
+    const listContainer = document.createElement('div');
+    const taskContainer = document.createElement('p');
+    const innerTaskContainer = document.createElement('div');
+    const innerTaskHandler = document.createElement('div');
+    innerTaskHandler.classList.add('innerTaskHandler');
+    innerTaskContainer.classList.add('innerTaskContainer');
+    taskContainer.classList.add('taskContainer');
+    listContainer.classList.add('listContainer');
 
-    })
+    const checkBoxContainer = document.createElement('p');
+    checkBoxContainer.classList.add('checkBoxContainer');
+    const checkBox = document.createElement('input');
+    checkBox.classList.add('checkBox');
+    checkBox.setAttribute('type', 'checkbox');
+
+    const taskTitle = document.createElement('h4');
+    taskTitle.classList.add('taskTitle');
+    const taskDescription = document.createElement('p');
+    taskDescription.classList.add('taskDescription');
+    const taskPriority = document.createElement('p');
+    const deleteTask = document.createElement('button');
+    deleteTask.classList.add('deleteTask');
+    taskPriority.classList.add('taskPriority');
+    taskTitle.textContent = `${inputValue}`;
+    taskDescription.textContent = `${descriptionValue}`;
+    taskPriority.textContent = `${PriorityValue}`;
+    deleteTask.textContent = 'Delete task';
+
+    innerTaskContainer.appendChild(taskTitle);
+    innerTaskContainer.appendChild(taskDescription);
+    innerTaskHandler.appendChild(taskPriority);
+    innerTaskHandler.appendChild(deleteTask);
+    taskContainer.appendChild(innerTaskContainer);
+    taskContainer.appendChild(innerTaskHandler);
+    checkBoxContainer.appendChild(checkBox);
+    listContainer.appendChild(checkBoxContainer);
+    listContainer.appendChild(taskContainer);
+    userList.appendChild(listContainer);
+
+    taskTitle.addEventListener('dblclick', edittask);
+    // taskDescription.addEventListener('dblclick', edittask);
+
+    // Object.entries(todo).forEach(([key, value]) => {
+    //     const taskTitle = document.createElement('h4');
+    //     const taskDescription = document.createElement('p');
+    //     taskTitle.textContent = `${key} ${value}`;
+    //     taskDescription.textContent = `${key} ${value}`;
+
+    //     taskContainer.appendChild(taskTitle);
+    //     taskContainer.appendChild(taskDescription);
+    //     checkBoxContainer.appendChild(checkBox);
+    //     listContainer.appendChild(checkBoxContainer);
+    //     listContainer.appendChild(taskContainer);
+    //     userList.appendChild(listContainer);
+
+    // })
 }
+
 
 function displayAllToDos(userToDos) {
 
@@ -171,30 +232,52 @@ function displayAllToDos(userToDos) {
 }
 displayAllToDos();
 
-//Create New Projects
-function displayNewProjects() {
-    newProjetEl.style.display = 'block';
-}
-projects.addEventListener('click', displayNewProjects)
+// function displayInboxTask(PriorityValue) {
+//     const header = document.querySelector('header h1');
+//     header.textContent = 'Inbox';
 
-function displayNewProjectForm() {
-    newProjectsFormContainerEl.style.display = 'block';
-}
-newProjetEl.addEventListener('click', displayNewProjectForm);
+//     const inboxListContainer = document.createElement('div');
+//     const inboxTaskContainer = document.createElement('p');
+//     const inboxInnerTaskContainer = document.createElement('div');
+//     inboxInnerTaskContainer.classList.add('inboxInnerTaskContainer');
+//     inboxTaskContainer.classList.add('inboxTaskContainer');
+//     inboxListContainer.classList.add('inboxListContainer');
 
-//Get New Project Input Value Function.
-const getnewProjectInputValue = () => {
-    const newProjectInputEl = document.querySelector('.newProjectInputEl');
-    const newProjectInputValue = newProjectInputEl.value;
-    console.log(newProjectInputValue);
+//     const inboxCheckBoxContainer = document.createElement('p');
+//     inboxCheckBoxContainer.classList.add('inboxCheckBoxContainer');
+//     const inboxCheckBox = document.createElement('input');
+//     inboxCheckBox.classList.add('inboxCheckBox');
+//     inboxCheckBox.setAttribute('type', 'checkbox');
 
-    newProjectInputEl.value = '';
-    return { newProjectInputValue };
-}
+//     const inboxTaskTitle = document.createElement('h4');
+//     inboxTaskTitle.classList.add('inboxTaskTitle');
+//     const inboxTaskDescription = document.createElement('p');
+//     inboxTaskDescription.classList.add('inboxTaskDescription');
+//     const inboxTaskPriority = document.createElement('p');
+//     inboxTaskPriority.classList.add('inboxTaskPriority');
+//     inboxTaskTitle.textContent = "Ironing";
+//     inboxTaskDescription.textContent = "Black trouser and pink shirt";
+//     inboxTaskPriority.textContent = `${PriorityValue}`;
 
-//Prevent form Default when submit
-const preventNewProjectFormDefault = (event) => {
-    event.preventDefault();
-    getnewProjectInputValue();
+//     inboxInnerTaskContainer.appendChild(inboxTaskTitle);
+//     inboxInnerTaskContainer.appendChild(inboxTaskDescription);
+//     inboxTaskContainer.appendChild(inboxInnerTaskContainer);
+//     inboxTaskContainer.appendChild(inboxInnerTaskContainer);
+//     inboxTaskContainer.appendChild(inboxTaskPriority);
+//     inboxCheckBoxContainer.appendChild(inboxCheckBox);
+//     inboxListContainer.appendChild(inboxCheckBoxContainer);
+//     inboxListContainer.appendChild(inboxTaskContainer);
+//     userList.appendChild(inboxListContainer);
+
+// }
+
+export function displayInboxForm() {
+    const header = document.querySelector('header h1');
+    header.textContent = 'Inbox'
+    const screenDisplay = document.querySelector('.display');
+    // displayInboxTask();
+    // screenDisplay.textContent = '';
+    form.style.display = 'block';
 }
-newProjectFormEl.addEventListener('submit', preventNewProjectFormDefault);
+inbox.addEventListener('click', displayInboxForm);
+
