@@ -227,10 +227,10 @@ svg {
     display: none;
 }
 
-#newProjectsFormContainerEl {
+.inputNewprojectNameForm {
     display: none;
 }
 
-#newProjectTasksContainer {
+/* #newProjectTasksContainer {
     display: none;
-}
+} */
