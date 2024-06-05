@@ -28,10 +28,11 @@ inboxTask.classList.add('inboxTask');
 
 
 class getList {
-    constructor(Title, Description, Priority) {
+    constructor(Title, Description, Priority, Date) {
         this.Title = Title;
         this.Description = Description;
         this.Priority = Priority;
+        this.Date = Date;
     }
 }
 
@@ -129,7 +130,7 @@ export function displayForm(event) {
     header.textContent = 'Inbox';
     form.style.display = 'block';
 
-    if(newProjectTasksContainer) {
+    if (newProjectTasksContainer) {
         newProjectTasksContainer.style.display = 'none'
     }
     // if (newProjectTasksContainer) {
@@ -155,53 +156,86 @@ export default function acceptInput() {
     descriptionFieldEl.value = '';
     dueDate.value = '';
     selectPriorityEl.value = 'Select Priority';
-    
-    saveData(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl)
 
-    displayTask(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl)
     toDos.push(userInfo);
-    displayAllToDos(toDos);
+    saveData(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl, userInfo);
 }
 
-  function saveData(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl) {
-        // const toDoTitle = document.querySelector('.task-title').value;
-        localStorage.setItem('userTitle', taskInputValue);
-        localStorage.setItem('userdescription', descriptionInputValue);
-        localStorage.setItem('userPriorityValueEl', priorityValueEl);
-        localStorage.setItem('userDueDateValueEl', dueDateValueEl);
+function saveData(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl, userInfo) {
 
-        displayData()
-    
-    }
-    
-    function displayData() {
-        const savaTitleData = localStorage.getItem('userTitle');
-        const savaDescriptionData = localStorage.getItem('userdescription');
-        const savaPriorityData = localStorage.getItem('userPriorityValueEl');
-        const savadueDateValueElData = localStorage.getItem('userDueDateValueEl');
+    // let toDos  = JSON.parse(localStorage.getItem('userList')) || [];
 
-        console.log(savaTitleData);
-        console.log(savaDescriptionData);
-        console.log(savaPriorityData);
-        console.log(savadueDateValueElData);
+    const userInfoObj = JSON.stringify(userInfo);
+    localStorage.setItem('userList', userInfoObj)
+    // localStorage.setItem('userList', JSON.stringify(userInfo));
 
-    }
+    // console.log(localStorage.setItem('userList', JSON.stringify(userInfo)))
     displayData()
 
-function preventDefault(event) {
-    event.preventDefault();
+
 }
-form.addEventListener('submit', preventDefault);
+// document.addEventListener('DOMContentLoaded', function () {
+//     displayData();
+// });
 
-function getdayfromDateInput() {
- const selectDay = new Date(dueDate.value);
- console.log(selectDay);
+// function displayData() {
+//     // Retrieve all to-dos from localStorage
+//     const allToDos = JSON.parse(localStorage.getItem('userList')) || [];
+
+//     // Check if allToDos is an array
+//     if (Array.isArray(allToDos)) {
+//         // Loop through each to-do and display it on the page
+//         allToDos.forEach(todo => {
+//             displayTask(todo.Title, todo.Description, todo.Priority, todo.Date);
+//         });
+//     } else {
+//         console.error('Data in localStorage is not in expected format.');
+//         // Optionally, you can handle this unexpected situation, such as clearing localStorage or displaying an error message.
+//     }
+// }
+
+// function displayData() {
+
+
+//     // const allToDos = JSON.parse(localStorage.getItem('userList')) || [];
+
+//     // // Loop through each to-do and display it on the page
+//     // allToDos.forEach(todo => {
+//     //     displayTask(todo.Title, todo.Description, todo.Priority, todo.Date);
+//     // });
+//     // if (saveToDoObj) {
+//         //     displayTask(saveToDoObj.Title, saveToDoObj.Description, saveToDoObj.Priority, saveToDoObj.Date);
+//         // }
+//     //     let userToDos = JSON.parse(localStorage.getItem('userList')) || [];
+
+//     // userToDos.forEach((toDo) => {
+//     //     displayTask(todo.Title, todo.Description, todo.Priority, todo.Date);
+//     // })
+// }
+
+function displayData() {
+    const saveToDoObj = JSON.parse(localStorage.getItem('userList'));
+    console.log(saveToDoObj);
+
+
+    const saveTitleData = saveToDoObj.Title;
+    const saveDescriptionData = saveToDoObj.Description;
+    const savePriorityData = saveToDoObj.Priority;
+    const saveDueDateData = saveToDoObj.Date;
+    if (saveToDoObj) {
+        displayTask(saveToDoObj.Title, saveToDoObj.Description, saveToDoObj.Priority, saveToDoObj.Date);
+    }
+    // displayTask(saveTitleData, saveDescriptionData, savePriorityData, saveDueDateData)
 }
-getdayfromDateInput()
+
+function displayAllToDos(userToDos) {
+}
+displayAllToDos();
 
 
-function displayTask(inputValue, descriptionValue, PriorityValue, dueDateValueEl) {
-    header.textContent = 'Create Your To-Do List.'
+
+function displayTask(saveTitleData, saveDescriptionData, savePriorityData, saveDueDateData) {
+    header.textContent = 'Create Your To-Do List.';
     const listContainer = document.createElement('div');
     const taskContainer = document.createElement('p');
     const innerTaskContainer = document.createElement('div');
@@ -222,17 +256,18 @@ function displayTask(inputValue, descriptionValue, PriorityValue, dueDateValueEl
     const dueDate = document.createElement('p');
     const taskPriority = document.createElement('p');
     const deleteTask = document.createElement('button');
-    
+
+
     taskTitle.classList.add('taskTitle');
     taskDescription.classList.add('taskDescription');
     dueDate.classList.add('dueDate');
     deleteTask.classList.add('deleteTask');
     taskPriority.classList.add('taskPriority');
 
-    taskTitle.textContent = `NB! double click to edit: ${inputValue}`;
-    taskDescription.textContent = `${descriptionValue}`;
-    dueDate.textContent = `${dueDateValueEl}`;
-    taskPriority.textContent = `${PriorityValue}`;
+    taskTitle.textContent = ` ${saveTitleData}`;
+    taskDescription.textContent = `${saveDescriptionData}`;
+    taskPriority.textContent = `${savePriorityData}`;
+    dueDate.textContent = `${saveDueDateData}`;
     deleteTask.textContent = 'Delete task';
 
     innerTaskContainer.appendChild(taskTitle);
@@ -252,46 +287,21 @@ function displayTask(inputValue, descriptionValue, PriorityValue, dueDateValueEl
     userList.appendChild(listContainer);
 
     taskTitle.addEventListener('dblclick', edittask);
-    // taskDescription.addEventListener('dblclick', edittask);
-
-    // Object.entries(todo).forEach(([key, value]) => {
-    //     const taskTitle = document.createElement('h4');
-    //     const taskDescription = document.createElement('p');
-    //     taskTitle.textContent = `${key} ${value}`;
-    //     taskDescription.textContent = `${key} ${value}`;
-
-    //     taskContainer.appendChild(taskTitle);
-    //     taskContainer.appendChild(taskDescription);
-    //     checkBoxContainer.appendChild(checkBox);
-    //     listContainer.appendChild(checkBoxContainer);
-    //     listContainer.appendChild(taskContainer);
-    //     userList.appendChild(listContainer);
-
-    // })
+    
+    deleteTask.addEventListener('click', deleteToDo);
 }
 
+// const deleteTask = document.createElement('button');
+// const innerTaskHandlerEl = document.querySelector('.innerTaskHandler')
+// deleteTask.classList.add('deleteTask');
+// deleteTask.textContent = 'Delete task';
+// innerTaskHandlerEl.appendChild(deleteTask);
 
-function displayAllToDos(userToDos) {
+function deleteToDo() {
+    const listContainerEl = document.querySelector('.listContainer')
+    listContainerEl.remove()
 
-    console.log(userToDos);
-    // for (const todo of Object.entries(userToDos)) {
-    //     for (let item in todo[1]) {
-    //         console.log(todo[1]);
-    //     }
-    // }
-    // userToDos.forEach((todo) => {
-    //     console.log(todo);
-    //     for (let item in todo) {
-
-    //         const allToDos = document.createElement('p');
-    //         // allToDos.textContent = `${item}: ${todo[item]}`;
-    //         // userList.appendChild(allToDos);
-    //         console.log(`${todo[item]}`)
-    //     }
-    // });
 }
-displayAllToDos();
-
 // function displayInboxTask(PriorityValue) {
 //     const header = document.querySelector('header h1');
 //     header.textContent = 'Inbox';
@@ -331,6 +341,17 @@ displayAllToDos();
 
 // }
 
+function preventDefault(event) {
+    event.preventDefault();
+}
+form.addEventListener('submit', preventDefault);
+
+function getdayfromDateInput() {
+    const selectDay = new Date(dueDate.value);
+    console.log(selectDay);
+}
+getdayfromDateInput()
+
 export function displayInboxForm() {
     const header = document.querySelector('header h1');
     header.textContent = 'Inbox'
@@ -339,13 +360,6 @@ export function displayInboxForm() {
     // screenDisplay.textContent = '';
 
     form.style.display = 'block';
-// if(form.style.display === 'block') {
-//     form.remove()
-// } 
-// else {
-//     form.style.display = 'block';
-
-// }
 }
 inbox.addEventListener('click', displayInboxForm);
 

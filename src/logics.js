@@ -1,5 +1,6 @@
 import { addDate, format, compareAsc } from "date-fns";
 import acceptUserInput from './dom-El';
+import { displayTask } from "./dom-El";
 export let toDos = [];
 console.log(toDos);
 
@@ -46,7 +47,7 @@ export function edittask(event) {
     taskInput.addEventListener('keypress', saveTask);
     taskInput.addEventListener('click', saveTask);
     event.target.parentNode.prepend(taskInput);
-    
+
     event.target.remove();
     taskInput.select();
 }
@@ -64,7 +65,4 @@ function saveTask(event) {
 }
 
 
-function deleteTask() {
-
-}
 
