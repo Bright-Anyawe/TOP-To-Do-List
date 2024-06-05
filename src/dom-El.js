@@ -1,8 +1,11 @@
 import { toDos } from './logics';
 import { edittask } from './logics';
+import { newProjectTasksContainer } from './dom-El-2';
+import { getnewProjectInputValue } from './dom-El-2';
 
 
 const mainContainer = document.querySelector('main');
+const header = document.querySelector('header h1');
 const userList = document.querySelector('#userlist');
 const inboxTaskDisplay = document.querySelector('.displayInboxTask');
 const form = document.querySelector('#form');
@@ -12,6 +15,7 @@ const addTaskbtn = document.querySelector('.addTask');
 let inputFieldEl = document.querySelector('.task-title');
 let descriptionFieldEl = document.querySelector('.description');
 let selectPriorityEl = document.querySelector('#priority');
+let dueDate = document.querySelector('#datePicker');
 
 let inbox = document.querySelector('.inbox');
 const toDoContainer = document.createElement('section');
@@ -20,6 +24,8 @@ const inboxForm = document.createElement('form');
 inboxForm.classList.add('inboxForm');
 const inboxTask = document.createElement('div');
 inboxTask.classList.add('inboxTask');
+
+
 
 class getList {
     constructor(Title, Description, Priority) {
@@ -118,10 +124,18 @@ const defaultProjects = document.querySelector('#projects');
 
 
 //Display Initial form
-export function displayForm() {
+export function displayForm(event) {
     const header = document.querySelector('header h1');
     header.textContent = 'Inbox';
     form.style.display = 'block';
+
+    if(newProjectTasksContainer) {
+        newProjectTasksContainer.style.display = 'none'
+    }
+    // if (newProjectTasksContainer) {
+    //     console.log(newProjectTasksContainer);
+    //     newProjectTasksContainer.style.display = 'none';
+    // }
 }
 addTaskbtn.addEventListener('click', displayForm);
 
@@ -134,23 +148,59 @@ export default function acceptInput() {
     let taskInputValue = inputFieldEl.value;
     let descriptionInputValue = descriptionFieldEl.value;
     let priorityValueEl = selectPriorityEl.value;
-    let userInfo = new getList(taskInputValue, descriptionInputValue);
+    let dueDateValueEl = dueDate.value;
+
+    let userInfo = new getList(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl);
     inputFieldEl.value = '';
     descriptionFieldEl.value = '';
+    dueDate.value = '';
     selectPriorityEl.value = 'Select Priority';
+    
+    saveData(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl)
 
-    displayTask(taskInputValue, descriptionInputValue, priorityValueEl)
+    displayTask(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl)
     toDos.push(userInfo);
     displayAllToDos(toDos);
 }
+
+  function saveData(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl) {
+        // const toDoTitle = document.querySelector('.task-title').value;
+        localStorage.setItem('userTitle', taskInputValue);
+        localStorage.setItem('userdescription', descriptionInputValue);
+        localStorage.setItem('userPriorityValueEl', priorityValueEl);
+        localStorage.setItem('userDueDateValueEl', dueDateValueEl);
+
+        displayData()
+    
+    }
+    
+    function displayData() {
+        const savaTitleData = localStorage.getItem('userTitle');
+        const savaDescriptionData = localStorage.getItem('userdescription');
+        const savaPriorityData = localStorage.getItem('userPriorityValueEl');
+        const savadueDateValueElData = localStorage.getItem('userDueDateValueEl');
+
+        console.log(savaTitleData);
+        console.log(savaDescriptionData);
+        console.log(savaPriorityData);
+        console.log(savadueDateValueElData);
+
+    }
+    displayData()
 
 function preventDefault(event) {
     event.preventDefault();
 }
 form.addEventListener('submit', preventDefault);
 
-function displayTask(inputValue, descriptionValue, PriorityValue) {
-    const header = document.querySelector('header h1');
+function getdayfromDateInput() {
+ const selectDay = new Date(dueDate.value);
+ console.log(selectDay);
+}
+getdayfromDateInput()
+
+
+function displayTask(inputValue, descriptionValue, PriorityValue, dueDateValueEl) {
     header.textContent = 'Create Your To-Do List.'
     const listContainer = document.createElement('div');
     const taskContainer = document.createElement('p');
@@ -168,26 +218,36 @@ function displayTask(inputValue, descriptionValue, PriorityValue) {
     checkBox.setAttribute('type', 'checkbox');
 
     const taskTitle = document.createElement('h4');
-    taskTitle.classList.add('taskTitle');
     const taskDescription = document.createElement('p');
-    taskDescription.classList.add('taskDescription');
+    const dueDate = document.createElement('p');
     const taskPriority = document.createElement('p');
     const deleteTask = document.createElement('button');
+    
+    taskTitle.classList.add('taskTitle');
+    taskDescription.classList.add('taskDescription');
+    dueDate.classList.add('dueDate');
     deleteTask.classList.add('deleteTask');
     taskPriority.classList.add('taskPriority');
-    taskTitle.textContent = `${inputValue}`;
+
+    taskTitle.textContent = `NB! double click to edit: ${inputValue}`;
     taskDescription.textContent = `${descriptionValue}`;
+    dueDate.textContent = `${dueDateValueEl}`;
     taskPriority.textContent = `${PriorityValue}`;
     deleteTask.textContent = 'Delete task';
 
     innerTaskContainer.appendChild(taskTitle);
     innerTaskContainer.appendChild(taskDescription);
+    innerTaskContainer.appendChild(dueDate);
+
     innerTaskHandler.appendChild(taskPriority);
     innerTaskHandler.appendChild(deleteTask);
+
     taskContainer.appendChild(innerTaskContainer);
     taskContainer.appendChild(innerTaskHandler);
+
     checkBoxContainer.appendChild(checkBox);
     listContainer.appendChild(checkBoxContainer);
+
     listContainer.appendChild(taskContainer);
     userList.appendChild(listContainer);
 
@@ -277,7 +337,15 @@ export function displayInboxForm() {
     const screenDisplay = document.querySelector('.display');
     // displayInboxTask();
     // screenDisplay.textContent = '';
+
     form.style.display = 'block';
+// if(form.style.display === 'block') {
+//     form.remove()
+// } 
+// else {
+//     form.style.display = 'block';
+
+// }
 }
 inbox.addEventListener('click', displayInboxForm);
 

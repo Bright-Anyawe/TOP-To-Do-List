@@ -1,97 +1,124 @@
-import { myProjects } from './dom-El'
+// import { myProjects } from './dom-El'
 import { displayForm } from './dom-El'
 
-
+const myProjects = document.querySelector('#projects h3');
+const screenContainer = document.querySelector('#Container');
+const userList = document.querySelector('#userlist');
 const addNewProjectEl = document.querySelector('#addNewProjectEl');
+const form = document.querySelector('#form');
 const newProjectsFormContainerEl = document.querySelector('#newProjectsFormContainerEl');
-const inputNewprojectNameForm = document.querySelector('.inputNewprojectNameForm')
+const inputNewprojectNameForm = document.querySelector('.inputNewprojectNameForm');
 const newProjectFormEl = document.querySelector('.newProjectFormEl');
-const newProjectTasksContainer = document.querySelector('#newProjectTasksContainer');
 const newProjectName = document.querySelector('.headerTextContent');
+export const newProjectTasksContainer = document.createElement('section');
 const newProjectTask = document.querySelector('.newProjectTask');
+export const newProjectAddBtn = document.createElement('button');
+
 console.log(newProjectTask);
 
 //Create New Projects setup
+function createNewProjectStartUp() {
+    // <div id="addNewProjectEl"> # Add new project </div>
+    const addNewProjectEl = document.createElement('div');
+    addNewProjectEl.classList.add('addNewProjectEl');
+    addNewProjectEl.textContent = '# Add new project'
+
+}
+
 function displayNewProjects() {
+
     addNewProjectEl.style.display = 'block';
+    if (userList) {
+        // userList.style.display = 'none';
+        userList.textContent = '';
+    }
+
+    if (form) {
+        console.log(form);
+        form.style.display = 'none';
+    }
+
+
     return { addNewProjectEl }
 
 }
 myProjects.addEventListener('click', displayNewProjects)
 
-//Display new form Container
 function displayNewProjectForm() {
-    inputNewprojectNameForm.style.display = 'block';
-    let addnewProjectElSetup = displayNewProjects().addNewProjectEl;
-    if (addnewProjectElSetup) {
-        addnewProjectElSetup.style.display = 'none';
-    }
-    return { inputNewprojectNameForm };
 
+    inputNewprojectNameForm.style.display = 'block';
+
+if(addNewProjectEl) {
+    addNewProjectEl.style.display = 'none';
 }
+   
+    return { inputNewprojectNameForm }
+}
+
 addNewProjectEl.addEventListener('click', displayNewProjectForm);
 
+// function displayNewProjectForm() {
+//     const inputNewprojectNameForm = document.querySelector('#newProjectsFormContainerEl');
 
+//     if (inputNewprojectNameForm !== null) {
+//         inputNewprojectNameForm.style.display = 'block';
+//         console.log(inputNewprojectNameForm);
+//     } else {
+//         console.error('inputNewprojectNameForm is null');
+//     }
+
+//     return { inputNewprojectNameForm };
+// }
+// addNewProjectEl.addEventListener('click', displayNewProjectForm);
 
 //Get New Project Input Value Function.
-function getnewProjectInputValue() {
+export function getnewProjectInputValue() {
     const newProjectInputEl = document.querySelector('.newProjectInputEl');
     const newProjectInputValue = newProjectInputEl.value;
     newProjectName.textContent = newProjectInputValue;
-    console.log(newProjectInputEl.value)
 
     displayAllProjectName(newProjectInputValue)
-   
     newProjectInputEl.value = '';
+
+    return { newProjectInputValue }
 }
 
 
 function displayAllProjectName(newProjectInputValue) {
-    // //  let newProjectTitle = getnewProjectInputValue().newProjectInputValue;
-    // const allProjectMenu = document.querySelector('.projectNames');
-    // allProjectMenu.textContent = newProjectInputValue;
     const allProjectMenu = document.querySelector('.projectNames');
     const allProjectNames = document.createElement('p');
     allProjectNames.classList.add('allProjectNames');
     allProjectNames.textContent = ` ## ${newProjectInputValue}`;
     allProjectMenu.appendChild(allProjectNames);
 
+    if(inputNewprojectNameForm) {
+        inputNewprojectNameForm.style.display = 'none';
+
+    }
+
 }
 
-{/* <section id="newProjectTasksContainer">
-<!-- <h3 class="newProjectName"></h3> -->
-<svg class="addTask" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <title>plus</title>
-    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-</svg>
-<div class="newProjectTask">Add task</div>
-
-</section> */}
-
-
-const newProjectAddBtn = document.createElement('button');
-function CreateNewProjectTaskContainer() {
-    const newProjectTasksContainer = document.createElement('section');
+function CreateNewProjectTaskBtn() {
     newProjectTasksContainer.setAttribute('id', 'newProjectTasksContainer');
-   
     newProjectAddBtn.textContent = 'Add task';
-   // Create the SVG element
-const svgNamespace = 'http://www.w3.org/2000/svg';
-const svgElement = document.createElementNS(svgNamespace, 'svg');
 
-// Set the class and viewBox attributes
-svgElement.setAttribute('class', 'addTask');
-svgElement.setAttribute('viewBox', '0 0 24 24');
+    // Create the SVG element
+    const svgNamespace = 'http://www.w3.org/2000/svg';
+    const svgElement = document.createElementNS(svgNamespace, 'svg');
 
-// Create the title element
-const titleElement = document.createElementNS(svgNamespace, 'title');
-titleElement.textContent = 'plus';
-svgElement.appendChild(titleElement);
+    // Set the class and viewBox attributes
+    svgElement.setAttribute('class', 'addTask');
+    svgElement.setAttribute('viewBox', '0 0 24 24');
 
-// Create the path element
-const pathElement = document.createElementNS(svgNamespace, 'path');
-pathElement.setAttribute('d', 'M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z');
-svgElement.appendChild(pathElement);
+    // Create the title element
+    const titleElement = document.createElementNS(svgNamespace, 'title');
+    titleElement.textContent = 'plus';
+    svgElement.appendChild(titleElement);
+
+    // Create the path element
+    const pathElement = document.createElementNS(svgNamespace, 'path');
+    pathElement.setAttribute('d', 'M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z');
+    svgElement.appendChild(pathElement);
 
     newProjectAddBtn.classList.add('newProjectAddBtn');
 
@@ -99,9 +126,7 @@ svgElement.appendChild(pathElement);
     newProjectTasksContainer.appendChild(newProjectAddBtn);
     newProjectsFormContainerEl.appendChild(newProjectTasksContainer);
 
-    // if(newProjectsFormContainerEl.textContent) {
-    //     newProjectsFormContainerEl.textContent = newProjectTasksContainer;
-    // }
+    
 
 }
 
@@ -111,7 +136,7 @@ function displayNewProjectTasksContainer() {
     // newProjectTasksContainer.style.display = 'block';
     if (newProjectForm) {
         newProjectForm.style.display = 'none'
-        CreateNewProjectTaskContainer()
+        CreateNewProjectTaskBtn()
 
     }
 }

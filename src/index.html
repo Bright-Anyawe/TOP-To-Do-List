@@ -43,15 +43,11 @@
             <!-- <div class="display"> -->
             <div id="userlist">
 
-
-
-
             </div>
 
-
-
-            <div>
+            <div class="NewProjectStartUp">
                 <div id="addNewProjectEl"> # Add new project </div>
+
             </div>
 
             <section id="newProjectsFormContainerEl">
@@ -59,23 +55,14 @@
                 <div class="inputNewprojectNameForm">
                     <h2 id="newProjectTitle">Add Project</h2>
 
-                <form action="" class="newProjectFormEl">
-                    <input type="text" class="newProjectInputEl" placeholder="Enter new project name">
-                    <input type="submit" class="newProjectInputEl submit" value="Save">
-                    <button class="newProjectButtonEl Cancel">Cancel</button>
-                </form>
+                    <form action="" class="newProjectFormEl">
+                        <input type="text" class="newProjectInputEl" placeholder="Enter new project name">
+                        <input type="submit" class="newProjectInputEl submit" value="Save">
+                        <button class="newProjectButtonEl Cancel">Cancel</button>
+                    </form>
                 </div>
             </section>
 
-            <!-- <section id="newProjectTasksContainer">
-                <h3 class="newProjectName"></h3>
-                <svg class="addTask" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <title>plus</title>
-                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-                </svg>
-                <div class="newProjectTask">Add task</div>
-
-            </section> -->
 
             <form action="" id="form">
                 <div class="inputs">
@@ -95,7 +82,8 @@
                             <option value="Done">Done</option>
                         </select>
 
-                        <button id="dueDate">Due Date</button>
+                        <input type="date" id="datePicker" placeholder="dd/mm/yyy" min="1900-03-23" max="2090-18-23">
+                        <!-- <button id="dueDate">Due Date</button> -->
                     </div>
 
                     <div class="buttons">

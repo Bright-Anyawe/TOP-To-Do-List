@@ -81,6 +81,9 @@ svg {
 .listContainer {
     display: flex;
     gap: 5px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px;
+    margin: 14px 14px 0 0;
     /* display: grid;
     grid-template-columns: 10px fr;
     grid-template-rows: 20px 10px; */
@@ -166,6 +169,11 @@ svg {
 
 }
 
+.dueDate {
+    margin: 0;
+
+}
+
 #projects h3 {
     margin: 0 0 0 10px;
 }
@@ -175,7 +183,9 @@ svg {
     border-radius: 10px;
     height: 140px;
     display: none;
+   box-shadow:  #FFEB3B -4px 5px 0px 2px;
 }
+
 
 .first-inputContainer input {
     width: 838px;
@@ -227,8 +237,24 @@ svg {
     display: none;
 }
 
+#newProjectsFormContainerEl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    /* box-shadow: 1px 3px 3px 1px; */
+}
+
+
+
 .inputNewprojectNameForm {
     display: none;
+    background-color: #cee3e3;
+    width: 300px;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 9px 3px 0px;
 }
 
 /* #newProjectTasksContainer {
