@@ -1,4 +1,3 @@
-import { toDos } from './logics';
 import { edittask } from './logics';
 import { newProjectTasksContainer } from './dom-El-2';
 import { getnewProjectInputValue } from './dom-El-2';
@@ -42,6 +41,7 @@ export const myProjects = document.querySelector('#projects h3');
 const defaultProjects = document.querySelector('#projects');
 
 //  function getInboxForm() {
+
 //     const inputInboxTask = document.createElement('input');
 //     inputInboxTask.classList.add('inputInboxTask');
 //     inputInboxTask.setAttribute('placeholder', 'add title task');
@@ -125,6 +125,14 @@ const defaultProjects = document.querySelector('#projects');
 
 
 //Display Initial form
+
+//
+
+
+
+//
+
+// Display form in block
 export function displayForm(event) {
     const header = document.querySelector('header h1');
     header.textContent = 'Inbox';
@@ -133,10 +141,6 @@ export function displayForm(event) {
     if (newProjectTasksContainer) {
         newProjectTasksContainer.style.display = 'none'
     }
-    // if (newProjectTasksContainer) {
-    //     console.log(newProjectTasksContainer);
-    //     newProjectTasksContainer.style.display = 'none';
-    // }
 }
 addTaskbtn.addEventListener('click', displayForm);
 
@@ -145,93 +149,37 @@ function cancelFormDisplay() {
 }
 cancelForm.addEventListener('click', cancelFormDisplay)
 
+//Get To-do array from local storage.
+let toDos = JSON.parse(localStorage.getItem('toDos')) || [];
+
+//Display all To-dos after complete load of html dom.
+document.addEventListener('DOMContentLoaded', () => {
+    displayToDos()
+})
+
+//Accept user data from form
 export default function acceptInput() {
     let taskInputValue = inputFieldEl.value;
     let descriptionInputValue = descriptionFieldEl.value;
     let priorityValueEl = selectPriorityEl.value;
     let dueDateValueEl = dueDate.value;
 
-    let userInfo = new getList(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl);
+    let userToDo = new getList(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl);
     inputFieldEl.value = '';
     descriptionFieldEl.value = '';
     dueDate.value = '';
     selectPriorityEl.value = 'Select Priority';
 
-    toDos.push(userInfo);
-    saveData(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl, userInfo);
-}
-
-function saveData(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl, userInfo) {
-
-    // let toDos  = JSON.parse(localStorage.getItem('userList')) || [];
-
-    const userInfoObj = JSON.stringify(userInfo);
-    localStorage.setItem('userList', userInfoObj)
-    // localStorage.setItem('userList', JSON.stringify(userInfo));
-
-    // console.log(localStorage.setItem('userList', JSON.stringify(userInfo)))
-    displayData()
-
+    toDos.push(userToDo);
 
 }
-// document.addEventListener('DOMContentLoaded', function () {
-//     displayData();
-// });
 
-// function displayData() {
-//     // Retrieve all to-dos from localStorage
-//     const allToDos = JSON.parse(localStorage.getItem('userList')) || [];
-
-//     // Check if allToDos is an array
-//     if (Array.isArray(allToDos)) {
-//         // Loop through each to-do and display it on the page
-//         allToDos.forEach(todo => {
-//             displayTask(todo.Title, todo.Description, todo.Priority, todo.Date);
-//         });
-//     } else {
-//         console.error('Data in localStorage is not in expected format.');
-//         // Optionally, you can handle this unexpected situation, such as clearing localStorage or displaying an error message.
-//     }
-// }
-
-// function displayData() {
-
-
-//     // const allToDos = JSON.parse(localStorage.getItem('userList')) || [];
-
-//     // // Loop through each to-do and display it on the page
-//     // allToDos.forEach(todo => {
-//     //     displayTask(todo.Title, todo.Description, todo.Priority, todo.Date);
-//     // });
-//     // if (saveToDoObj) {
-//         //     displayTask(saveToDoObj.Title, saveToDoObj.Description, saveToDoObj.Priority, saveToDoObj.Date);
-//         // }
-//     //     let userToDos = JSON.parse(localStorage.getItem('userList')) || [];
-
-//     // userToDos.forEach((toDo) => {
-//     //     displayTask(todo.Title, todo.Description, todo.Priority, todo.Date);
-//     // })
-// }
-
-function displayData() {
-    const saveToDoObj = JSON.parse(localStorage.getItem('userList'));
-    console.log(saveToDoObj);
-
-
-    const saveTitleData = saveToDoObj.Title;
-    const saveDescriptionData = saveToDoObj.Description;
-    const savePriorityData = saveToDoObj.Priority;
-    const saveDueDateData = saveToDoObj.Date;
-    if (saveToDoObj) {
-        displayTask(saveToDoObj.Title, saveToDoObj.Description, saveToDoObj.Priority, saveToDoObj.Date);
-    }
-    // displayTask(saveTitleData, saveDescriptionData, savePriorityData, saveDueDateData)
+//Display To-dos
+function displayToDos() {
+    toDos?.forEach(todoObj => {
+       displayTask(todoObj.Title, todoObj.Description, todoObj.Priority, todoObj.Date);
+    });
 }
-
-function displayAllToDos(userToDos) {
-}
-displayAllToDos();
-
 
 
 function displayTask(saveTitleData, saveDescriptionData, savePriorityData, saveDueDateData) {
@@ -287,20 +235,19 @@ function displayTask(saveTitleData, saveDescriptionData, savePriorityData, saveD
     userList.appendChild(listContainer);
 
     taskTitle.addEventListener('dblclick', edittask);
-    
+
     deleteTask.addEventListener('click', deleteToDo);
 }
 
-// const deleteTask = document.createElement('button');
-// const innerTaskHandlerEl = document.querySelector('.innerTaskHandler')
-// deleteTask.classList.add('deleteTask');
-// deleteTask.textContent = 'Delete task';
-// innerTaskHandlerEl.appendChild(deleteTask);
-
 function deleteToDo() {
     const listContainerEl = document.querySelector('.listContainer')
-    listContainerEl.remove()
-
+   var index = parseInt(this.id.split('_')[1]);
+   listContainerEl.remove(listContainerEl);
+   
+    toDos.splice(index, 1);
+    //update To-do item in local stor
+    localStorage.setItem('toDos', JSON.stringify(toDos));
+    console.log(toDos);
 }
 // function displayInboxTask(PriorityValue) {
 //     const header = document.querySelector('header h1');
@@ -341,10 +288,19 @@ function deleteToDo() {
 
 // }
 
-function preventDefault(event) {
+console.log(toDos);
+
+function submitForm(event) {
+
     event.preventDefault();
+    acceptInput();
+
+    userList.textContent = ''
+    localStorage.setItem('toDos', JSON.stringify(toDos));
+    displayToDos()
+
 }
-form.addEventListener('submit', preventDefault);
+form.addEventListener('submit', submitForm);
 
 function getdayfromDateInput() {
     const selectDay = new Date(dueDate.value);
@@ -362,4 +318,3 @@ export function displayInboxForm() {
     form.style.display = 'block';
 }
 inbox.addEventListener('click', displayInboxForm);
-

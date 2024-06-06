@@ -1,8 +1,6 @@
 import { addDate, format, compareAsc } from "date-fns";
 import acceptUserInput from './dom-El';
 import { displayTask } from "./dom-El";
-export let toDos = [];
-console.log(toDos);
 
 
 
@@ -11,31 +9,6 @@ const date = {
 
     }
 }
-
-// const dates = new date();
-// console.log(dates);
-
-// const dates = [
-//     new Date(1995, 6, 2),
-//     new Date(1987, 1, 11),
-//     new Date(1989, 6, 10),
-//   ];
-//   console.log(dates);
-
-// export function getProjectDefault() {
-//     const taskName = projectOBj.Title = 'Choir Rehearsal';
-//     const taskDescription = projectOBj.Description = 'All must learn three songs';
-//     const taskDueDate = projectOBj.DueDate = new Date();
-//     return projectOBj;
-// }
-
-// getProjectDefault();
-
-function addTask() {
-    submitBtn.addEventListener('click', acceptUserInput)
-
-}
-addTask()
 
 
 export function edittask(event) {
