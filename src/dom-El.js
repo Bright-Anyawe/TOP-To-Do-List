@@ -316,5 +316,7 @@ export function displayInboxForm() {
     // screenDisplay.textContent = '';
 
     form.style.display = 'block';
+    displayToDos()
+
 }
 inbox.addEventListener('click', displayInboxForm);

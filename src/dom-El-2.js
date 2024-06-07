@@ -7,9 +7,9 @@ const userList = document.querySelector('#userlist');
 const addNewProjectEl = document.querySelector('#addNewProjectEl');
 const form = document.querySelector('#form');
 const newProjectsFormContainerEl = document.querySelector('#newProjectsFormContainerEl');
-const inputNewprojectNameForm = document.querySelector('.inputNewprojectNameForm');
-const newProjectFormEl = document.querySelector('.newProjectFormEl');
-const newProjectName = document.querySelector('.headerTextContent');
+const inputNewprojectFormName = document.querySelector('.inputNewprojectFormName');
+const newProjectNameRequest = document.querySelector('.newProjectNameRequest');
+const newProjectNameTitle = document.querySelector('.headerTextContent');
 export const newProjectTasksContainer = document.createElement('section');
 const newProjectTask = document.querySelector('.newProjectTask');
 export const newProjectAddBtn = document.createElement('button');
@@ -44,45 +44,37 @@ function displayNewProjects() {
 }
 myProjects.addEventListener('click', displayNewProjects)
 
-function displayNewProjectForm() {
+function displayRequestNewProjectFormName() {
 
-    inputNewprojectNameForm.style.display = 'block';
+    inputNewprojectFormName.style.display = 'block';
 
-if(addNewProjectEl) {
-    addNewProjectEl.style.display = 'none';
+    if (addNewProjectEl) {
+        addNewProjectEl.style.display = 'none';
+    }
+
+    return { inputNewprojectFormName }
 }
-   
-    return { inputNewprojectNameForm }
-}
 
-addNewProjectEl.addEventListener('click', displayNewProjectForm);
-
-// function displayNewProjectForm() {
-//     const inputNewprojectNameForm = document.querySelector('#newProjectsFormContainerEl');
-
-//     if (inputNewprojectNameForm !== null) {
-//         inputNewprojectNameForm.style.display = 'block';
-//         console.log(inputNewprojectNameForm);
-//     } else {
-//         console.error('inputNewprojectNameForm is null');
-//     }
-
-//     return { inputNewprojectNameForm };
-// }
-// addNewProjectEl.addEventListener('click', displayNewProjectForm);
+addNewProjectEl.addEventListener('click', displayRequestNewProjectFormName);
 
 //Get New Project Input Value Function.
 export function getnewProjectInputValue() {
-    const newProjectInputEl = document.querySelector('.newProjectInputEl');
-    const newProjectInputValue = newProjectInputEl.value;
-    newProjectName.textContent = newProjectInputValue;
+    const inputNewProjectName = document.querySelector('.inputNewProjectName');
+    const inputNewProjectNameValue = inputNewProjectName.value;
+    newProjectNameTitle.textContent = inputNewProjectNameValue;
 
-    displayAllProjectName(newProjectInputValue)
-    newProjectInputEl.value = '';
+    inputNewProjectName.value = '';
 
-    return { newProjectInputValue }
+    displayAllProjectName(inputNewProjectNameValue)
+
+    return { inputNewProjectNameValue }
 }
 
+// let i = 0;
+// do {
+//   i += 1;
+//   result += `${i} `;
+// } while (i > 0 && i < 5);
 
 function displayAllProjectName(newProjectInputValue) {
     const allProjectMenu = document.querySelector('.projectNames');
@@ -91,11 +83,13 @@ function displayAllProjectName(newProjectInputValue) {
     allProjectNames.textContent = ` ## ${newProjectInputValue}`;
     allProjectMenu.appendChild(allProjectNames);
 
-    if(inputNewprojectNameForm) {
-        inputNewprojectNameForm.style.display = 'none';
+    if (inputNewprojectFormName) {
+        inputNewprojectFormName.style.display = 'none';
 
     }
-
+    else {
+        inputNewprojectFormName.style.display = 'block';
+    }
 }
 
 function CreateNewProjectTaskBtn() {
@@ -126,29 +120,42 @@ function CreateNewProjectTaskBtn() {
     newProjectTasksContainer.appendChild(newProjectAddBtn);
     newProjectsFormContainerEl.appendChild(newProjectTasksContainer);
 
-    
-
 }
 
-function displayNewProjectTasksContainer() {
-    let newProjectForm = displayNewProjectForm().inputNewprojectNameForm;
+// function displayNewProjectTasksBtn() {
+//     let newProjectForm = displayRequestNewProjectFormName().inputNewprojectFormName;
 
-    // newProjectTasksContainer.style.display = 'block';
-    if (newProjectForm) {
-        newProjectForm.style.display = 'none'
-        CreateNewProjectTaskBtn()
+//     // newProjectTasksContainer.style.display = 'block';
+//     if (newProjectForm) {
+//         newProjectForm.style.display = 'none'
+//     }
+// }
 
-    }
+let User
+
+function acceptInput() {
+    let taskInputValue = inputFieldEl.value;
+    let descriptionInputValue = descriptionFieldEl.value;
+    let priorityValueEl = selectPriorityEl.value;
+    let dueDateValueEl = dueDate.value;
+
+    let userToDoProjects = new getList(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl);
+    inputFieldEl.value = '';
+    descriptionFieldEl.value = '';
+    dueDate.value = '';
+    selectPriorityEl.value = 'Select Priority';
+
+    toDos.push(userToDoProjects);
 }
-
 
 //Prevent form Default when submit
-const preventNewProjectSubmitFormDefault = (event) => {
+const submitNewProjectForm = (event) => {
     event.preventDefault();
     getnewProjectInputValue();
-    displayNewProjectTasksContainer()
+    CreateNewProjectTaskBtn()
+    displayNewProjectTasksBtn()
 
 }
-newProjectFormEl.addEventListener('submit', preventNewProjectSubmitFormDefault);
+newProjectNameRequest.addEventListener('submit', submitNewProjectForm);
 
 newProjectAddBtn.addEventListener('click', displayForm)
