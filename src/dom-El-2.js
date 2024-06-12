@@ -153,10 +153,11 @@ fillProjectDropDown();
 
 // Display each project's to-dos when selected
 projectDropDown.addEventListener("change", () => {
+  displayProjectTodos.textContent = "";
   newProjectTasksContainer.textContent = "";
-
+  
   selectedProject = projectDropDown.value;
-  // displayToDosForCurrentProject(currentProjectName);
+  displayToDosForCurrentProject(currentProjectName);
   displayToDos(selectedProject);
   CreateNewProjectTaskBtn();
 });
@@ -223,6 +224,63 @@ projectDropDown.addEventListener("change", () => {
 //   }
 // }
 
+function addTodosNewProject() {
+  let currentProjectName = JSON.parse(localStorage.getItem("projects")) || [];
+  // let inputNewProjectName = document.querySelector(".inputNewProjectName");
+  // let projectName = inputNewProjectName.value;
+  // console.log(projectName)
+  if (form.style.display === "block") {
+    console.log(currentProjectName);
+    let toDo =
+      JSON.parse(
+        localStorage.getItem(`newProject-${currentProjectName.slice().pop()}`)
+      ) || [];
+
+    // let toDo =
+    //   JSON.parse(localStorage.getItem(`newProject-${projectName}`)) || [];
+
+    let taskInputValue = inputFieldEl.value;
+    console.log(taskInputValue);
+    let descriptionInputValue = descriptionFieldEl.value;
+    console.log(descriptionInputValue);
+    let priorityValueEl = selectPriorityEl.value;
+    let dueDateValueEl = dueDate.value;
+
+    let userTodo = new getList(
+      taskInputValue,
+      descriptionInputValue,
+      priorityValueEl,
+      dueDateValueEl
+    );
+
+    toDo.push(userTodo);
+    localStorage.setItem(
+      `newProject-${currentProjectName.slice().pop()}`,
+      JSON.stringify(toDo)
+    );
+
+    console.log(toDo);
+    inputFieldEl.value = "";
+    descriptionFieldEl.value = "";
+    selectPriorityEl.value = "Select Priority";
+    dueDate.value = "";
+    displayToDosForCurrentProject(currentProjectName);
+  }
+}
+
+function displayToDosForCurrentProject(currentProjectName) {
+  const currentTodos =
+    JSON.parse(
+      localStorage.getItem(`newProject-${currentProjectName.slice().pop()}`)
+    ) || [];
+
+  console.log(currentTodos);
+
+  currentTodos.forEach((todo) => {
+    displayTask(todo.Title, todo.Description, todo.Priority, todo.Date);
+  });
+}
+
 let selectedProject = projectDropDown.value;
 function addTodoToselectedProject() {
   console.log(selectedProject);
@@ -265,49 +323,6 @@ function addTodoToselectedProject() {
   }
 }
 
-let inputNewProjectName = document.querySelector(".inputNewProjectName");
-let projectName = inputNewProjectName.value;
-function addTodosNewProject() {
-
-  // console.log(projectName)
-  // var currentProjectName = JSON.parse(localStorage.getItem("projects")) || [];
-  if (projectName) {
-    console.log(projectName);
-    // let toDo =
-    //   JSON.parse(
-    //     localStorage.getItem(
-    //       `newProject-${currentProjectName.reduce((acc, current) => current)}`
-    //     )
-    //   ) || [];
-    let toDo =
-      JSON.parse(localStorage.getItem(`newProject-${projectName}`)) || [];
-
-    let taskInputValue = inputFieldEl.value;
-    console.log(taskInputValue);
-    let descriptionInputValue = descriptionFieldEl.value;
-    console.log(descriptionInputValue);
-    let priorityValueEl = selectPriorityEl.value;
-    let dueDateValueEl = dueDate.value;
-
-    let userTodo = new getList(
-      taskInputValue,
-      descriptionInputValue,
-      priorityValueEl,
-      dueDateValueEl
-    );
-
-    toDo.push(userTodo);
-    localStorage.setItem(`newProject-${projectName}`, JSON.stringify(toDo));
-
-    console.log(toDo);
-    inputFieldEl.value = "";
-    descriptionFieldEl.value = "";
-    selectPriorityEl.value = "Select Priority";
-    dueDate.value = "";
-    displayToDosForCurrentProject(projectName);
-  }
-}
-
 //Clear task display when a new project selection change
 function clearTaskDisplay() {
   while (displayProjectTodos.firstChild) {
@@ -317,6 +332,8 @@ function clearTaskDisplay() {
 
 function displayToDos(selectedProject) {
   if (selectedProject) {
+    console.log(selectedProject);
+
     let toDos =
       JSON.parse(localStorage.getItem(`project-${selectedProject}`)) || [];
 
@@ -333,17 +350,6 @@ function displayToDos(selectedProject) {
       );
     });
   }
-}
-
-function displayToDosForCurrentProject(projectName) {
-  const currentTodos =
-    JSON.parse(localStorage.getItem(`newProject-${projectName}`)) || [];
-
-  console.log(currentTodos);
-
-  currentTodos.forEach((todo) => {
-    displayTask(todo.Title, todo.Description, todo.Priority, todo.Date);
-  });
 }
 
 function displayTask(
@@ -433,7 +439,7 @@ function submitForm(event) {
 
   displayProjectTodos.textContent = "";
   addTodosNewProject();
-  displayToDosForCurrentProject(projectName);
+  // displayToDosForCurrentProject(projectName);
 
   addTodoToselectedProject();
   //   addTodosNewProject();
