@@ -11,10 +11,7 @@ const form = document.querySelector('#form');
 const cancelForm = document.querySelector('.cancel');
 const submitBtn = document.querySelector('#submitBtn')
 const addTaskbtn = document.querySelector('.addTask');
-let inputFieldEl = document.querySelector('.task-title');
-let descriptionFieldEl = document.querySelector('.description');
-let selectPriorityEl = document.querySelector('#priority');
-let dueDate = document.querySelector('#datePicker');
+
 
 let inbox = document.querySelector('.inbox');
 const toDoContainer = document.createElement('section');
@@ -35,9 +32,95 @@ class getList {
     }
 }
 
-// console.log(newProjectFormEl);
+// function createForm() {
+// const form = document.createElement('form');
+//     const inputContainerDivEl = document.createElement('div');
+//     console.log(inputContainerDivEl)
+//     const firstInputContainer = document.createElement('p');
+//     const secondInputContainer = document.createElement('p');
+
+//     const taskTitle = document.createElement('input');
+//     const taskDescription = document.createElement('input');
+//     const formFooter = document.createElement('section');
+//     const priorityDueDateContainer = document.createElement('div');
+//     const selectOptionEl = document.createElement('select');
+//     const opition1 = document.createElement('option');
+//     const opition2 = document.createElement('option');
+//     const opition3 = document.createElement('option');
+//     const opition4 = document.createElement('option');
+//     const opition5 = document.createElement('option');
+
+//     const dueDateEl = document.createElement('input');
+//     const buttonsContainerEl = document.createElement('div')
+//     const cancelBtn = document.createElement('button');
+//     const submitBtn = document.createElement('button');
+
+//     form.setAttribute('id', 'form');
+//     taskTitle.setAttribute('type', 'text');
+//     taskDescription.setAttribute('type', 'text');
+//     selectOptionEl.setAttribute('id', 'priority')
+
+//     opition1.setAttribute('value', 'Select Priority');
+//     opition2.setAttribute('value', 'Urgent');
+//     opition3.setAttribute('value', 'Important');
+//     opition4.setAttribute('value', 'Low priority');
+//     opition5.setAttribute('value', 'Done');
+
+//     dueDateEl.setAttribute('id', 'datePicker');
+
+//     inputContainerDivEl.classList.add('inputContainerDivEl');
+//     firstInputContainer.classList.add('firstInputContainer');
+//     secondInputContainer.classList.add('secondInputContainer');
+
+//     taskTitle.classList.add('taskTitle');
+//     taskDescription.classList.add('taskDescription');
+//     formFooter.classList.add('formFooter');
+//     priorityDueDateContainer.classList.add('priorityDueDateContainer');
+//     buttonsContainerEl.classList.add('buttonsContainerEl');
+//     cancelBtn.classList.add('cancelBtn');
+//     submitBtn.classList.add('submitBtn')
+
+//     taskTitle.placeholder = 'Add task Title';
+//     taskDescription.placeholder = 'Add description';
+
+//     opition1.textContent = 'Select Priority';
+//     opition2.textContent = 'Urgent';
+//     opition3.textContent = 'Important';
+//     opition4.textContent = 'Low priority';
+//     opition5.textContent = 'Done';
+
+//     cancelBtn.textContent = 'Cancel';
+//     submitBtn.textContent = 'Submit task';
+
+//     dueDateEl.type = 'date';
+//     dueDateEl.placeholder = 'dd/mm/yyy';
+//     dueDateEl.min = '1900-03-23';
+//     dueDateEl.max = '2090-18-23';
+
+//     firstInputContainer.appendChild(taskTitle);
+//     secondInputContainer.appendChild(taskDescription);
+
+//     inputContainerDivEl.append(firstInputContainer, secondInputContainer);
+//     selectOptionEl.append(opition1, opition2, opition3, opition4, opition5);
+
+//     priorityDueDateContainer.appendChild(selectOptionEl);
+//     priorityDueDateContainer.appendChild(dueDateEl);
+
+//     buttonsContainerEl.append(cancelBtn, submitBtn)
+//     formFooter.append(priorityDueDateContainer, buttonsContainerEl);
+
+//     form.append(inputContainerDivEl, formFooter)
+//     mainContainer.appendChild(form);
+
+
+//     acceptInput(taskTitle.value, taskDescription.value, selectOptionEl.value, dueDateEl.value);
+
+//     return
+// }
+
 
 export const myProjects = document.querySelector('#projects h3');
+import { CreateNewProjectTaskBtn } from './dom-El-2'
 const defaultProjects = document.querySelector('#projects');
 
 //  function getInboxForm() {
@@ -133,14 +216,12 @@ const defaultProjects = document.querySelector('#projects');
 //
 
 // Display form in block
-export function displayForm(event) {
+function displayForm(event) {
     const header = document.querySelector('header h1');
     header.textContent = 'Inbox';
     form.style.display = 'block';
 
-    if (newProjectTasksContainer) {
-        newProjectTasksContainer.style.display = 'none'
-    }
+
 }
 addTaskbtn.addEventListener('click', displayForm);
 
@@ -153,22 +234,27 @@ cancelForm.addEventListener('click', cancelFormDisplay)
 let toDos = JSON.parse(localStorage.getItem('toDos')) || [];
 
 //Display all To-dos after complete load of html dom.
-document.addEventListener('DOMContentLoaded', () => {
-    displayToDos()
-})
+// document.addEventListener('DOMContentLoaded', () => {
+//     displayToDos()
+// })
 
 //Accept user data from form
-export default function acceptInput() {
-    let taskInputValue = inputFieldEl.value;
-    let descriptionInputValue = descriptionFieldEl.value;
-    let priorityValueEl = selectPriorityEl.value;
+ function acceptInput() {
+
+    let taskTitle = document.querySelector('.task-title');
+    let taskDescription = document.querySelector('.description');
+    let taskPriority = document.querySelector('#priority');
+    let dueDate = document.querySelector('#datePicker');
+    let taskInputValue = taskTitle.value;
+    let descriptionInputValue = taskDescription.value;
+    let priorityValueEl = taskPriority.value;
     let dueDateValueEl = dueDate.value;
 
     let userToDo = new getList(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl);
-    inputFieldEl.value = '';
-    descriptionFieldEl.value = '';
+    taskTitle.value = '';
+    taskDescription.value = '';
     dueDate.value = '';
-    selectPriorityEl.value = 'Select Priority';
+    taskPriority.value = 'Select Priority';
 
     toDos.push(userToDo);
 
@@ -177,7 +263,7 @@ export default function acceptInput() {
 //Display To-dos
 function displayToDos() {
     toDos?.forEach(todoObj => {
-       displayTask(todoObj.Title, todoObj.Description, todoObj.Priority, todoObj.Date);
+        displayTask(todoObj.Title, todoObj.Description, todoObj.Priority, todoObj.Date);
     });
 }
 
@@ -237,13 +323,40 @@ function displayTask(saveTitleData, saveDescriptionData, savePriorityData, saveD
     taskTitle.addEventListener('dblclick', edittask);
 
     deleteTask.addEventListener('click', deleteToDo);
+
+    // handleCheckBox(checkBox, taskTitle, taskDescription)
+}
+
+function handleCheckBox(checkBox, taskTitle, taskDescription) {
+
+    checkBox.addEventListener('change', () => {
+
+        if (checkBox.checked === true) {
+
+            taskTitle.style.textDecoration = 'line-through';
+            taskTitle.style.textDecorationColor = 'red';
+            taskTitle.style.textDecorationThickness = '2px';
+            localStorage.setItem('toDos', JSON.stringify(toDos));
+            console.log(toDos);
+
+            taskDescription.style.textDecoration = 'line-through';
+
+            console.log("true")
+        }
+        else {
+            taskTitle.style.textDecoration = 'none'
+            taskDescription.style.textDecoration = 'none';
+            console.log("false")
+        }
+    })
+
 }
 
 function deleteToDo() {
     const listContainerEl = document.querySelector('.listContainer')
-   var index = parseInt(this.id.split('_')[1]);
-   listContainerEl.remove(listContainerEl);
-   
+    let index = parseInt(this.id.split('_')[1]);
+    listContainerEl.remove(listContainerEl);
+
     toDos.splice(index, 1);
     //update To-do item in local stor
     localStorage.setItem('toDos', JSON.stringify(toDos));
@@ -288,35 +401,152 @@ function deleteToDo() {
 
 // }
 
-console.log(toDos);
 
 function submitForm(event) {
 
     event.preventDefault();
     acceptInput();
-
-    userList.textContent = ''
-    localStorage.setItem('toDos', JSON.stringify(toDos));
-    displayToDos()
+    // displayToDos()
 
 }
 form.addEventListener('submit', submitForm);
 
-function getdayfromDateInput() {
-    const selectDay = new Date(dueDate.value);
-    console.log(selectDay);
-}
-getdayfromDateInput()
+// function getdayfromDateInput() {
+//     const selectDay = new Date(dueDate.value);
+//     console.log(selectDay);
+// }
+// getdayfromDateInput()
 
 export function displayInboxForm() {
     const header = document.querySelector('header h1');
     header.textContent = 'Inbox'
     const screenDisplay = document.querySelector('.display');
-    // displayInboxTask();
+    displayInboxTask();
     // screenDisplay.textContent = '';
-
-    form.style.display = 'block';
+    form.style.display = 'none';
+    CreateNewProjectTaskBtn()
     displayToDos()
 
 }
 inbox.addEventListener('click', displayInboxForm);
+
+// function addTodoToSelectedProject() {
+//   let taskInputValue = inputFieldEl.value;
+//   console.log(taskInputValue);
+//   let descriptionInputValue = descriptionFieldEl.value;
+//   console.log(descriptionInputValue);
+//   let priorityValueEl = selectPriorityEl.value;
+//   let dueDateValueEl = dueDate.value;
+//   let selectedProject = projectDropDown.value;
+
+//   if (selectedProject) {
+//     let projectTodos = [];
+
+//     projectTodos =
+//       JSON.parse(localStorage.getItem(`project-${selectedProject}`)) || [];
+
+//     let userTodo = new getList(
+//       taskInputValue,
+//       descriptionInputValue,
+//       priorityValueEl,
+//       dueDateValueEl
+//     );
+
+//     projectTodos.push(userTodo);
+
+//     localStorage.setItem(
+//       `projects-${selectedProject}`,
+//       JSON.stringify(projectTodos)
+//     );
+
+//     displayToDos(projectTodos);
+//     inputFieldEl.value = "";
+//     descriptionFieldEl.value = "";
+//     selectPriorityEl.value = "Select Priority";
+//     dueDate.value = "";
+//   }
+// }
+
+// function addTodoToSelectedProject() {
+//     let taskInputValue = inputFieldEl.value;
+//     console.log(taskInputValue);
+//     let descriptionInputValue = descriptionFieldEl.value;
+//     console.log(descriptionInputValue);
+//     let priorityValueEl = selectPriorityEl.value;
+//     let dueDateValueEl = dueDate.value;
+//     let selectedProject = projectDropDown.value;
+
+//     const inputNewProjectName = document.querySelector('.inputNewProjectName');
+//     const projectName = inputNewProjectName.value.trim();
+//     console.log(projectName)
+
+//     //Check if a project is selected or a new project name is provided
+//     if (selectedProject || projectName) {
+//         let projectTodos = [];
+
+//         if (selectedProject) {
+//             projectTodos = JSON.parse(localStorage.getItem(`project-${selectedProject}`)) || [];
+//         }
+//         else {
+//             addProjectName(projectName);
+//             projectTodos = JSON.parse(localStorage.getItem(`project-${projectName}`)) || [];
+//         }
+
+//         if (form.style.display === 'block') {
+//             console.log(selectedProject);
+
+//             let userTodo = new getList(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl);
+//             console.log(userTodo);
+
+//             // let toDos = JSON.parse(localStorage.getItem(`projects-${selectedProject}`)) || [];
+//             console.log(projectTodos);
+//             projectTodos.push(userTodo);
+
+//             localStorage.setItem(`projects-${selectedProject || projectName}`, JSON.stringify(projectTodos));
+
+//             console.log(toDos);
+//             // saveToDosForProject(selectedProject, toDos);
+
+//             fillProjectDropDown();
+//             displayToDos(selectedProject || projectName);
+//         }
+//     }
+//     inputFieldEl.value = '';
+//     descriptionFieldEl.value = '';
+//     selectPriorityEl.value = 'Select Priority';
+//     dueDate.value = '';
+// }
+
+
+// function fillProjectDropDown(currentProjectName) {
+//   projectDropDown.textContent = "";
+//   let projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+//   if (projects) {
+//     const option = document.createElement("option");
+//     option.value = "";
+//     option.textContent = "Select project";
+//     projectDropDown.appendChild(option);
+
+//     projects?.forEach((project) => {
+//       const option = document.createElement("option");
+//       option.value = project;
+//       option.textContent = project;
+//       projectDropDown.appendChild(option);
+//     });
+//   }
+//   if (form.style.display === "block") {
+//     projects = JSON.parse(
+//       localStorage.getItem(
+//         `newProject-${currentProjectName.reduce((acc, current) => current)}`
+//       )
+//     );
+//     console.log(projects);
+
+//     const option = document.createElement("option");
+//     option.value = projects;
+//     option.textContent = projects;
+//     projectDropDown.appendChild(option);
+//   }
+// }
+// fillProjectDropDown();

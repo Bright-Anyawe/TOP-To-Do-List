@@ -101,13 +101,15 @@ svg {
 /* .innerTaskContainer :first-child {
 } */
 
-.taskTitle, .editableSaveTaskEl {
+.taskTitle, .newProject-task-title, .editableSaveTaskEl {
     margin: 0;
     font-size: 18px;
+    text-decoration: none;
+    text-decoration-color: red;
 
 }
 
-.taskDescription {
+.taskDescription, .newProject-description {
     margin: 0;
     font-size: 14px;
 
@@ -186,7 +188,6 @@ svg {
    box-shadow:  #FFEB3B -4px 5px 0px 2px;
 }
 
-
 .first-inputContainer input {
     width: 838px;
     height: 25px;
@@ -231,10 +232,16 @@ svg {
     border-radius: 9px;
 }
 
-
+.addProjectsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
 
 #addNewProjectEl {
-    display: none;
+    margin: 0;
+    font-size: 18px;
 }
 
 #newProjectsFormContainerEl {
@@ -257,6 +264,27 @@ svg {
     box-shadow: 0px 9px 3px 0px;
 }
 
-/* #newProjectTasksContainer {
-    display: none;
-} */
+#newProjectTasksContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 10px;
+    box-shadow: #5c5555 1px 3px 3px 1px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+svg.addTask {
+    border-radius: 50%;
+    fill: wheat;
+    background-color: red;
+}
+
+.newProjectAddBtn {
+    border: 0;
+    background-color: inherit;
+    font-weight: 500;
+}
+
+
