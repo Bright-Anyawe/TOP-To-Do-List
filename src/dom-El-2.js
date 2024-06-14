@@ -6,7 +6,6 @@ const myProjects = document.querySelector("#projects h3");
 const screenContainer = document.querySelector("#Container");
 const userList = document.querySelector("#userlist");
 const addNewProjectEl = document.querySelector("#addNewProjectEl");
-// const form = document.querySelector('#form2');
 const newProjectsFormContainerEl = document.querySelector(
   "#newProjectsFormContainerEl"
 );
@@ -15,17 +14,19 @@ const inputNewprojectFormName = document.querySelector(
 );
 const newProjectNameRequest = document.querySelector(".newProjectNameRequest");
 const newProjectNameTitle = document.querySelector(".headerTextContent");
-export const newProjectTasksContainer = document.createElement("section");
+const newProjectTasksContainer = document.createElement("section");
 const newProjectTask = document.querySelector(".newProjectTask");
-export const newProjectAddBtn = document.createElement("button");
+const newProjectAddBtn = document.createElement("button");
 const submitTaskBtn = document.querySelector("#submitBtn");
+const cancelTaskBtn = document.querySelector(".cancelForProjectBtn");
 const displayProjectTodos = document.querySelector("#displayProjectTodos");
-console.log(submitTaskBtn);
 
-const inputFieldEl = document.querySelector(".task-title");
-const descriptionFieldEl = document.querySelector(".description");
-const selectPriorityEl = document.querySelector("#priority");
-const dueDate = document.querySelector("#datePicker");
+let projectForm = document.querySelector("#ProjectForm");
+let form = document.querySelector("#form");
+let inputFieldEl = document.querySelector(".pTitle");
+let descriptionFieldEl = document.querySelector(".pDescription");
+let selectPriorityEl = document.querySelector("#projectPriority");
+let dueDate = document.querySelector("#ProjectdatePicker");
 
 class getList {
   constructor(Title, Description, Priority, Date) {
@@ -43,7 +44,10 @@ function displayRequestNewProjectFormName() {
     userList.textContent = "";
   }
 
-  // form.style.display === "none";
+  // projectForm.style.display = "none";
+  if (form.style.display === "block") {
+    form.style.display = "none";
+  }
   return { inputNewprojectFormName };
 }
 addNewProjectEl.addEventListener("click", displayRequestNewProjectFormName);
@@ -99,7 +103,7 @@ export function CreateNewProjectTaskBtn() {
 }
 
 function displayNewProjectForm() {
-  form.style.display = "block";
+  projectForm.style.display = "block";
   if (newProjectTasksContainer) {
     newProjectTasksContainer.style.display = "none";
   }
@@ -155,10 +159,10 @@ fillProjectDropDown();
 projectDropDown.addEventListener("change", () => {
   displayProjectTodos.textContent = "";
   newProjectTasksContainer.textContent = "";
-  
+
   selectedProject = projectDropDown.value;
-  displayToDosForCurrentProject(currentProjectName);
-  displayToDos(selectedProject);
+  displayToDosForCurrentProject();
+  displaySelectedToDos(selectedProject);
   CreateNewProjectTaskBtn();
 });
 
@@ -223,18 +227,17 @@ projectDropDown.addEventListener("change", () => {
 //     }
 //   }
 // }
-
+let currentProjectName;
 function addTodosNewProject() {
-  let currentProjectName = JSON.parse(localStorage.getItem("projects")) || [];
+   currentProjectName = JSON.parse(localStorage.getItem("projects")) || [];
   // let inputNewProjectName = document.querySelector(".inputNewProjectName");
   // let projectName = inputNewProjectName.value;
   // console.log(projectName)
-  if (form.style.display === "block") {
+  if (projectForm.style.display === "block") {
     console.log(currentProjectName);
     let toDo =
-      JSON.parse(
-        localStorage.getItem(`newProject-${currentProjectName.slice().pop()}`)
-      ) || [];
+      JSON.parse(localStorage.getItem(`${currentProjectName.slice().pop()}`)) ||
+      [];
 
     // let toDo =
     //   JSON.parse(localStorage.getItem(`newProject-${projectName}`)) || [];
@@ -255,7 +258,7 @@ function addTodosNewProject() {
 
     toDo.push(userTodo);
     localStorage.setItem(
-      `newProject-${currentProjectName.slice().pop()}`,
+      `${currentProjectName.slice().pop()}`,
       JSON.stringify(toDo)
     );
 
@@ -270,9 +273,8 @@ function addTodosNewProject() {
 
 function displayToDosForCurrentProject(currentProjectName) {
   const currentTodos =
-    JSON.parse(
-      localStorage.getItem(`newProject-${currentProjectName.slice().pop()}`)
-    ) || [];
+    JSON.parse(localStorage.getItem(`${currentProjectName.slice().pop()}`)) ||
+    [];
 
   console.log(currentTodos);
 
@@ -283,13 +285,12 @@ function displayToDosForCurrentProject(currentProjectName) {
 
 let selectedProject = projectDropDown.value;
 function addTodoToselectedProject() {
-  console.log(selectedProject);
 
   if (selectedProject) {
     let projectTodo =
-      JSON.parse(localStorage.getItem(`project-${selectedProject}`)) || [];
+      JSON.parse(localStorage.getItem(`${selectedProject}`)) || [];
 
-    if (form.style.display === "block") {
+    if (projectForm.style.display === "block") {
       let taskInputValue = inputFieldEl.value;
       console.log(taskInputValue);
       let descriptionInputValue = descriptionFieldEl.value;
@@ -307,13 +308,10 @@ function addTodoToselectedProject() {
 
       projectTodo.push(userTodo);
 
-      localStorage.setItem(
-        `project-${selectedProject}`,
-        JSON.stringify(projectTodo)
-      );
+      localStorage.setItem(`${selectedProject}`, JSON.stringify(projectTodo));
       console.log(projectTodo);
 
-      displayToDos(selectedProject);
+      displaySelectedToDos(selectedProject);
 
       inputFieldEl.value = "";
       descriptionFieldEl.value = "";
@@ -330,7 +328,7 @@ function clearTaskDisplay() {
   }
 }
 
-function displayToDos(selectedProject) {
+function displaySelectedToDos(selectedProject) {
   if (selectedProject) {
     console.log(selectedProject);
 
@@ -406,23 +404,38 @@ function displayTask(
   listContainer.appendChild(checkBoxContainer);
 
   listContainer.appendChild(taskContainer);
-  displayProjectTodos.appendChild(listContainer);
+  userList.appendChild(listContainer);
 
   taskTitle.addEventListener("dblclick", edittask);
 
   deleteTask.addEventListener("click", deleteToDo);
 }
 
+//Delete the todo that get clicked
 function deleteToDo() {
-  const listContainerEl = document.querySelector(".listContainer");
-  var index = parseInt(this.id.split("_")[1]);
-  listContainerEl.remove(listContainerEl);
+  const listContainerEl = this.closest('.listContainer');
+  const buttons = document.querySelectorAll(".deleteTask");
+  const index = Array.from(buttons).indexOf(this);
 
-  toDos.splice(index, 1);
-  //update To-do item in local stor
-  // localStorage.setItem('toDos', JSON.stringify(toDos));
-  console.log(toDos);
+  if (index !== -1) {
+
+    listContainerEl.remove(listContainerEl);
+    toDos.splice(index, 1);
+    //update To-do item in local storage
+    localStorage.setItem("toDos", JSON.stringify(toDos));
+    console.log(toDos);
+  }
 }
+function cancelFormDisplay() {
+  inputFieldEl.value = "";
+  descriptionFieldEl.value = "";
+  selectPriorityEl.value = "Select Priority";
+  dueDate.value = "";
+  projectForm.style.display = "none";
+  addTodosNewProject();
+  displayToDosForCurrentProject(currentProjectName.slice().pop());
+}
+cancelTaskBtn.addEventListener("click", cancelFormDisplay);
 
 //Prevent form Default when submit
 const submitNewProjectFormName = (event) => {
@@ -437,11 +450,11 @@ newProjectTasksContainer.addEventListener("click", displayNewProjectForm);
 function submitForm(event) {
   event.preventDefault();
 
-  displayProjectTodos.textContent = "";
+  userList.textContent = "";
   addTodosNewProject();
   // displayToDosForCurrentProject(projectName);
 
   addTodoToselectedProject();
   //   addTodosNewProject();
 }
-form.addEventListener("submit", submitForm);
+projectForm.addEventListener("submit", submitForm);

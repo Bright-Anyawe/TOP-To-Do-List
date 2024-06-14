@@ -1,35 +1,36 @@
-import { edittask } from './logics';
-import { newProjectTasksContainer } from './dom-El-2';
-import { getnewProjectInputValue } from './dom-El-2';
+import { edittask } from "./logics";
+import { newProjectTasksContainer } from "./dom-El-2";
+import { getnewProjectInputValue } from "./dom-El-2";
 
+const mainContainer = document.querySelector("main");
+const header = document.querySelector("header h1");
+const userList = document.querySelector("#userlist");
+const inboxTaskDisplay = document.querySelector(".displayInboxTask");
+const form = document.querySelector("#form");
+const cancelForm = document.querySelector(".cancel");
+const submitBtn = document.querySelector("#submitBtn");
+const addTaskbtn = document.querySelector(".addTask");
 
-const mainContainer = document.querySelector('main');
-const header = document.querySelector('header h1');
-const userList = document.querySelector('#userlist');
-const inboxTaskDisplay = document.querySelector('.displayInboxTask');
-const form = document.querySelector('#form');
-const cancelForm = document.querySelector('.cancel');
-const submitBtn = document.querySelector('#submitBtn')
-const addTaskbtn = document.querySelector('.addTask');
+let inbox = document.querySelector(".inbox");
+const toDoContainer = document.createElement("section");
+toDoContainer.classList.add("toDoContainerInbox");
+const inboxForm = document.createElement("form");
+inboxForm.classList.add("inboxForm");
+const inboxTask = document.createElement("div");
+inboxTask.classList.add("inboxTask");
 
-
-let inbox = document.querySelector('.inbox');
-const toDoContainer = document.createElement('section');
-toDoContainer.classList.add('toDoContainerInbox');
-const inboxForm = document.createElement('form');
-inboxForm.classList.add('inboxForm');
-const inboxTask = document.createElement('div');
-inboxTask.classList.add('inboxTask');
-
-
+let taskTitle = document.querySelector(".task-title");
+let taskDescription = document.querySelector(".description");
+let taskPriority = document.querySelector("#priority");
+let dueDate = document.querySelector("#datePicker");
 
 class getList {
-    constructor(Title, Description, Priority, Date) {
-        this.Title = Title;
-        this.Description = Description;
-        this.Priority = Priority;
-        this.Date = Date;
-    }
+  constructor(Title, Description, Priority, Date) {
+    this.Title = Title;
+    this.Description = Description;
+    this.Priority = Priority;
+    this.Date = Date;
+  }
 }
 
 // function createForm() {
@@ -112,304 +113,231 @@ class getList {
 //     form.append(inputContainerDivEl, formFooter)
 //     mainContainer.appendChild(form);
 
-
 //     acceptInput(taskTitle.value, taskDescription.value, selectOptionEl.value, dueDateEl.value);
 
 //     return
 // }
 
+export const myProjects = document.querySelector("#projects h3");
+import { CreateNewProjectTaskBtn } from "./dom-El-2";
+const defaultProjects = document.querySelector("#projects");
 
-export const myProjects = document.querySelector('#projects h3');
-import { CreateNewProjectTaskBtn } from './dom-El-2'
-const defaultProjects = document.querySelector('#projects');
-
-//  function getInboxForm() {
-
-//     const inputInboxTask = document.createElement('input');
-//     inputInboxTask.classList.add('inputInboxTask');
-//     inputInboxTask.setAttribute('placeholder', 'add title task');
-
-//     const inputInboxDescription = document.createElement('input');
-//     inputInboxDescription.classList.add('inputInboxDescription');
-//     inputInboxDescription.setAttribute('placeholder', 'add description');
-
-//     const inboxSelectEl = document.createElement('select');
-//     inboxSelectEl.classList.add('priority');
-
-//     const sOption1 = document.createElement('option');
-//     const sOption2 = document.createElement('option');
-//     const sOption3 = document.createElement('option');
-//     const sOption4 = document.createElement('option');
-//     const sOption5 = document.createElement('option');
-
-//     const submitTaskBtn = document.createElement('button');
-//     submitTaskBtn.classList.add('submitInboxForm');
-//     submitTaskBtn.textContent = 'Submit Task';
-
-//     sOption1.setAttribute('value', 'Select Priority');
-//     sOption1.textContent = 'Select Priority';
-//     sOption2.setAttribute('value', 'Urgent');
-//     sOption2.textContent = 'Urgent';
-//     sOption3.setAttribute('value', 'Important');
-//     sOption3.textContent = 'Important';
-//     sOption4.setAttribute('value', 'Low priority');
-//     sOption4.textContent = 'Low priority';
-//     sOption5.setAttribute('value', 'Done');
-//     sOption5.textContent = 'Done';
-
-
-//     inboxSelectEl.appendChild(sOption1);
-//     inboxSelectEl.appendChild(sOption2);
-//     inboxSelectEl.appendChild(sOption3);
-//     inboxSelectEl.appendChild(sOption4);
-//     inboxSelectEl.appendChild(sOption5);
-
-//     inboxTask.appendChild(inputInboxTask);
-//     inboxTask.appendChild(inputInboxDescription);
-//     inboxTask.appendChild(inboxSelectEl);
-//     inboxTask.appendChild(submitTaskBtn);
-//     inboxForm.appendChild(inboxTask);
-
-//     toDoContainer.appendChild(inboxForm);
-//     inboxTaskDisplay.appendChild(toDoContainer);
-
-//     inboxForm.addEventListener('submit', function(event) {
-//         event.preventDefault();
-//         acceptInboxInput(inputInboxTask, inputInboxDescription, inboxSelectEl);
-//     });
-// }
-
-//  function acceptInboxInput(inputInboxTask, inputInboxDescription,inboxSelectEl) {
-//     let inboxTaskInputValue = inputInboxTask.value;
-//     let inboxDescriptionInputValue = inputInboxDescription.value;
-//     let inboxPriorityValueEl = inboxSelectEl.value;
-//     let userInfo = new mylogic.getList(inboxTaskInputValue, inboxDescriptionInputValue, inboxPriorityValueEl);
-//     inputInboxTask.value = '';
-//     inputInboxDescription.value = '';
-//     inboxSelectEl.value = 'Select Priority';
-//     console.log(userInfo);
-//     // console.log(toDos);
-//     displayTask(userInfo)
-//     userToDos.push(userInfo);
-//     console.log(userToDos);
-// }
-
-// function displayDefaultTask() {
-//     Object.entries(defaultProject).forEach(([key, value]) => {
-//         console.log(defaultProject);
-//         const task = document.createElement('p');
-//         task.textContent = `${key}:  ${value}`;
-//         defaultProjects.appendChild(task);
-
-//         // console.log(`${key}: ${value}`)
-//     })
-// }
-// projects.addEventListener('click', displayDefaultTask);
-
-
-//Display Initial form
-
-//
-
-
-
-//
-
-// Display form in block
+//Display form in block
 function displayForm(event) {
-    const header = document.querySelector('header h1');
-    header.textContent = 'Inbox';
-    form.style.display = 'block';
-
-
+  const header = document.querySelector("header h1");
+  header.textContent = "Inbox";
+  form.style.display = "block";
 }
-addTaskbtn.addEventListener('click', displayForm);
+addTaskbtn.addEventListener("click", displayForm);
 
-function cancelFormDisplay() {
-    form.style.display = 'none';
+
+// Display all To-dos after complete load of html dom.
+document.addEventListener("DOMContentLoaded", () => {
+  displayToDos();
+});
+
+
+let toDos = JSON.parse(localStorage.getItem("toDos")) || [];
+
+//Accept user data from form on (add task) click
+function acceptInput() {
+  let taskInputValue = taskTitle.value;
+  let descriptionInputValue = taskDescription.value;
+  let priorityValueEl = taskPriority.value;
+  let dueDateValueEl = dueDate.value;
+
+
+  let userToDo = new getList(
+    taskInputValue,
+    descriptionInputValue,
+    priorityValueEl,
+    dueDateValueEl
+  );
+  
+  toDos.push(userToDo);
+
+  // Save todos in local storage
+  localStorage.setItem("toDos", JSON.stringify(toDos));
+
+
+  clearForm(); 
 }
-cancelForm.addEventListener('click', cancelFormDisplay)
 
-//Get To-do array from local storage.
-let toDos = JSON.parse(localStorage.getItem('toDos')) || [];
-
-//Display all To-dos after complete load of html dom.
-// document.addEventListener('DOMContentLoaded', () => {
-//     displayToDos()
-// })
-
-//Accept user data from form
- function acceptInput() {
-
-    let taskTitle = document.querySelector('.task-title');
-    let taskDescription = document.querySelector('.description');
-    let taskPriority = document.querySelector('#priority');
-    let dueDate = document.querySelector('#datePicker');
-    let taskInputValue = taskTitle.value;
-    let descriptionInputValue = taskDescription.value;
-    let priorityValueEl = taskPriority.value;
-    let dueDateValueEl = dueDate.value;
-
-    let userToDo = new getList(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl);
-    taskTitle.value = '';
-    taskDescription.value = '';
-    dueDate.value = '';
-    taskPriority.value = 'Select Priority';
-
-    toDos.push(userToDo);
-
+function clearForm() {
+  taskTitle.value = "";
+  taskDescription.value = "";
+  dueDate.value = "";
+  taskPriority.value = "Select Priority";
 }
 
 //Display To-dos
 function displayToDos() {
-    toDos?.forEach(todoObj => {
-        displayTask(todoObj.Title, todoObj.Description, todoObj.Priority, todoObj.Date);
-    });
+  let toDos = JSON.parse(localStorage.getItem("toDos")) || [];
+
+  toDos?.forEach((todoObj) => {
+    getElementForTaskDisplay(
+      todoObj.Title,
+      todoObj.Description,
+      todoObj.Priority,
+      todoObj.Date
+    );
+  });
 }
 
+function getElementForTaskDisplay(
+  saveTitleData,
+  saveDescriptionData,
+  savePriorityData,
+  saveDueDateData
+) {
+  header.textContent = "Create Your To-Do List.";
+  const listContainer = document.createElement("div");
+  const taskContainer = document.createElement("p");
+  const innerTaskContainer = document.createElement("div");
+  const innerTaskHandler = document.createElement("div");
+  innerTaskHandler.classList.add("innerTaskHandler");
+  innerTaskContainer.classList.add("innerTaskContainer");
+  taskContainer.classList.add("taskContainer");
+  listContainer.classList.add("listContainer");
 
-function displayTask(saveTitleData, saveDescriptionData, savePriorityData, saveDueDateData) {
-    header.textContent = 'Create Your To-Do List.';
-    const listContainer = document.createElement('div');
-    const taskContainer = document.createElement('p');
-    const innerTaskContainer = document.createElement('div');
-    const innerTaskHandler = document.createElement('div');
-    innerTaskHandler.classList.add('innerTaskHandler');
-    innerTaskContainer.classList.add('innerTaskContainer');
-    taskContainer.classList.add('taskContainer');
-    listContainer.classList.add('listContainer');
+  const checkBoxContainer = document.createElement("p");
+  checkBoxContainer.classList.add("checkBoxContainer");
+  const checkBox = document.createElement("input");
+  checkBox.classList.add("checkBox");
+  checkBox.setAttribute("type", "checkbox");
 
-    const checkBoxContainer = document.createElement('p');
-    checkBoxContainer.classList.add('checkBoxContainer');
-    const checkBox = document.createElement('input');
-    checkBox.classList.add('checkBox');
-    checkBox.setAttribute('type', 'checkbox');
+  const taskTitle = document.createElement("h4");
+  const taskDescription = document.createElement("p");
+  const dueDate = document.createElement("p");
+  const taskPriority = document.createElement("p");
+  const deleteTask = document.createElement("button");
 
-    const taskTitle = document.createElement('h4');
-    const taskDescription = document.createElement('p');
-    const dueDate = document.createElement('p');
-    const taskPriority = document.createElement('p');
-    const deleteTask = document.createElement('button');
+  taskTitle.classList.add("taskTitle");
+  taskDescription.classList.add("taskDescription");
+  dueDate.classList.add("dueDate");
+  deleteTask.classList.add("deleteTask");
+  taskPriority.classList.add("taskPriority");
 
+  taskTitle.textContent = ` ${saveTitleData}`;
+  taskDescription.textContent = `${saveDescriptionData}`;
+  taskPriority.textContent = `${savePriorityData}`;
+  dueDate.textContent = `${saveDueDateData}`;
+  deleteTask.textContent = "Delete task";
 
-    taskTitle.classList.add('taskTitle');
-    taskDescription.classList.add('taskDescription');
-    dueDate.classList.add('dueDate');
-    deleteTask.classList.add('deleteTask');
-    taskPriority.classList.add('taskPriority');
+  innerTaskContainer.appendChild(taskTitle);
+  innerTaskContainer.appendChild(taskDescription);
+  innerTaskContainer.appendChild(dueDate);
 
-    taskTitle.textContent = ` ${saveTitleData}`;
-    taskDescription.textContent = `${saveDescriptionData}`;
-    taskPriority.textContent = `${savePriorityData}`;
-    dueDate.textContent = `${saveDueDateData}`;
-    deleteTask.textContent = 'Delete task';
+  innerTaskHandler.appendChild(taskPriority);
+  innerTaskHandler.appendChild(deleteTask);
 
-    innerTaskContainer.appendChild(taskTitle);
-    innerTaskContainer.appendChild(taskDescription);
-    innerTaskContainer.appendChild(dueDate);
+  taskContainer.appendChild(innerTaskContainer);
+  taskContainer.appendChild(innerTaskHandler);
 
-    innerTaskHandler.appendChild(taskPriority);
-    innerTaskHandler.appendChild(deleteTask);
+  checkBoxContainer.appendChild(checkBox);
+  listContainer.appendChild(checkBoxContainer);
 
-    taskContainer.appendChild(innerTaskContainer);
-    taskContainer.appendChild(innerTaskHandler);
+  listContainer.appendChild(taskContainer);
+  userList.appendChild(listContainer);
 
-    checkBoxContainer.appendChild(checkBox);
-    listContainer.appendChild(checkBoxContainer);
+  taskTitle.addEventListener("dblclick", edittask);
 
-    listContainer.appendChild(taskContainer);
-    userList.appendChild(listContainer);
+  deleteTask.addEventListener("click", deleteToDo);
 
-    taskTitle.addEventListener('dblclick', edittask);
-
-    deleteTask.addEventListener('click', deleteToDo);
-
-    // handleCheckBox(checkBox, taskTitle, taskDescription)
+  // handleCheckBox(checkBox, taskTitle, taskDescription)
 }
 
 function handleCheckBox(checkBox, taskTitle, taskDescription) {
+  checkBox.addEventListener("change", () => {
+    if (checkBox.checked === true) {
+      taskTitle.style.textDecoration = "line-through";
+      taskTitle.style.textDecorationColor = "red";
+      taskTitle.style.textDecorationThickness = "2px";
+      localStorage.setItem("toDos", JSON.stringify(toDos));
+      console.log(toDos);
 
-    checkBox.addEventListener('change', () => {
+      taskDescription.style.textDecoration = "line-through";
 
-        if (checkBox.checked === true) {
-
-            taskTitle.style.textDecoration = 'line-through';
-            taskTitle.style.textDecorationColor = 'red';
-            taskTitle.style.textDecorationThickness = '2px';
-            localStorage.setItem('toDos', JSON.stringify(toDos));
-            console.log(toDos);
-
-            taskDescription.style.textDecoration = 'line-through';
-
-            console.log("true")
-        }
-        else {
-            taskTitle.style.textDecoration = 'none'
-            taskDescription.style.textDecoration = 'none';
-            console.log("false")
-        }
-    })
-
+      console.log("true");
+    } else {
+      taskTitle.style.textDecoration = "none";
+      taskDescription.style.textDecoration = "none";
+      console.log("false");
+    }
+  });
 }
 
+//Delete the todo that get clicked
 function deleteToDo() {
-    const listContainerEl = document.querySelector('.listContainer')
-    let index = parseInt(this.id.split('_')[1]);
+  const listContainerEl = this.closest('.listContainer');
+  const buttons = document.querySelectorAll(".deleteTask");
+  const index = Array.from(buttons).indexOf(this);
+
+  if (index !== -1) {
+
     listContainerEl.remove(listContainerEl);
-
     toDos.splice(index, 1);
-    //update To-do item in local stor
-    localStorage.setItem('toDos', JSON.stringify(toDos));
+    //update To-do item in local storage
+    localStorage.setItem("toDos", JSON.stringify(toDos));
     console.log(toDos);
+  }
 }
+
 // function displayInboxTask(PriorityValue) {
-//     const header = document.querySelector('header h1');
-//     header.textContent = 'Inbox';
+//   const header = document.querySelector("header h1");
+//   header.textContent = "Inbox";
 
-//     const inboxListContainer = document.createElement('div');
-//     const inboxTaskContainer = document.createElement('p');
-//     const inboxInnerTaskContainer = document.createElement('div');
-//     inboxInnerTaskContainer.classList.add('inboxInnerTaskContainer');
-//     inboxTaskContainer.classList.add('inboxTaskContainer');
-//     inboxListContainer.classList.add('inboxListContainer');
+//   const inboxListContainer = document.createElement("div");
+//   const inboxTaskContainer = document.createElement("p");
+//   const inboxInnerTaskContainer = document.createElement("div");
+//   inboxInnerTaskContainer.classList.add("inboxInnerTaskContainer");
+//   inboxTaskContainer.classList.add("inboxTaskContainer");
+//   inboxListContainer.classList.add("inboxListContainer");
 
-//     const inboxCheckBoxContainer = document.createElement('p');
-//     inboxCheckBoxContainer.classList.add('inboxCheckBoxContainer');
-//     const inboxCheckBox = document.createElement('input');
-//     inboxCheckBox.classList.add('inboxCheckBox');
-//     inboxCheckBox.setAttribute('type', 'checkbox');
+//   const inboxCheckBoxContainer = document.createElement("p");
+//   inboxCheckBoxContainer.classList.add("inboxCheckBoxContainer");
+//   const inboxCheckBox = document.createElement("input");
+//   inboxCheckBox.classList.add("inboxCheckBox");
+//   inboxCheckBox.setAttribute("type", "checkbox");
 
-//     const inboxTaskTitle = document.createElement('h4');
-//     inboxTaskTitle.classList.add('inboxTaskTitle');
-//     const inboxTaskDescription = document.createElement('p');
-//     inboxTaskDescription.classList.add('inboxTaskDescription');
-//     const inboxTaskPriority = document.createElement('p');
-//     inboxTaskPriority.classList.add('inboxTaskPriority');
-//     inboxTaskTitle.textContent = "Ironing";
-//     inboxTaskDescription.textContent = "Black trouser and pink shirt";
-//     inboxTaskPriority.textContent = `${PriorityValue}`;
+//   const inboxTaskTitle = document.createElement("h4");
+//   inboxTaskTitle.classList.add("inboxTaskTitle");
+//   const inboxTaskDescription = document.createElement("p");
+//   inboxTaskDescription.classList.add("inboxTaskDescription");
+//   const inboxTaskPriority = document.createElement("p");
+//   inboxTaskPriority.classList.add("inboxTaskPriority");
+//   inboxTaskTitle.textContent = "Ironing";
+//   inboxTaskDescription.textContent = "Black trouser and pink shirt";
+//   inboxTaskPriority.textContent = `${PriorityValue}`;
 
-//     inboxInnerTaskContainer.appendChild(inboxTaskTitle);
-//     inboxInnerTaskContainer.appendChild(inboxTaskDescription);
-//     inboxTaskContainer.appendChild(inboxInnerTaskContainer);
-//     inboxTaskContainer.appendChild(inboxInnerTaskContainer);
-//     inboxTaskContainer.appendChild(inboxTaskPriority);
-//     inboxCheckBoxContainer.appendChild(inboxCheckBox);
-//     inboxListContainer.appendChild(inboxCheckBoxContainer);
-//     inboxListContainer.appendChild(inboxTaskContainer);
-//     userList.appendChild(inboxListContainer);
-
+//   inboxInnerTaskContainer.appendChild(inboxTaskTitle);
+//   inboxInnerTaskContainer.appendChild(inboxTaskDescription);
+//   inboxTaskContainer.appendChild(inboxInnerTaskContainer);
+//   inboxTaskContainer.appendChild(inboxInnerTaskContainer);
+//   inboxTaskContainer.appendChild(inboxTaskPriority);
+//   inboxCheckBoxContainer.appendChild(inboxCheckBox);
+//   inboxListContainer.appendChild(inboxCheckBoxContainer);
+//   inboxListContainer.appendChild(inboxTaskContainer);
+//   userList.appendChild(inboxListContainer);
 // }
 
+function cancelFormDisplay() {
+  taskTitle.value = "";
+  taskDescription.value = "";
+  dueDate.value = "";
+  taskPriority.value = "Select Priority";
+  form.style.display = "none";
+}
+cancelForm.addEventListener("click", cancelFormDisplay);
 
 function submitForm(event) {
+  event.preventDefault();
+    userlist.textContent = "";
 
-    event.preventDefault();
-    acceptInput();
-    // displayToDos()
-
+  acceptInput();
+  displayToDos()
 }
-form.addEventListener('submit', submitForm);
+form.addEventListener("submit", submitForm);
 
 // function getdayfromDateInput() {
 //     const selectDay = new Date(dueDate.value);
@@ -417,136 +345,12 @@ form.addEventListener('submit', submitForm);
 // }
 // getdayfromDateInput()
 
-export function displayInboxForm() {
-    const header = document.querySelector('header h1');
-    header.textContent = 'Inbox'
-    const screenDisplay = document.querySelector('.display');
-    displayInboxTask();
-    // screenDisplay.textContent = '';
-    form.style.display = 'none';
-    CreateNewProjectTaskBtn()
-    displayToDos()
+function displayInboxForm() {
+  const header = document.querySelector("header h1");
+  header.textContent = "Inbox";
+  userlist.textContent = '';
 
+  displayToDos();
+  form.style.display = "block";
 }
-inbox.addEventListener('click', displayInboxForm);
-
-// function addTodoToSelectedProject() {
-//   let taskInputValue = inputFieldEl.value;
-//   console.log(taskInputValue);
-//   let descriptionInputValue = descriptionFieldEl.value;
-//   console.log(descriptionInputValue);
-//   let priorityValueEl = selectPriorityEl.value;
-//   let dueDateValueEl = dueDate.value;
-//   let selectedProject = projectDropDown.value;
-
-//   if (selectedProject) {
-//     let projectTodos = [];
-
-//     projectTodos =
-//       JSON.parse(localStorage.getItem(`project-${selectedProject}`)) || [];
-
-//     let userTodo = new getList(
-//       taskInputValue,
-//       descriptionInputValue,
-//       priorityValueEl,
-//       dueDateValueEl
-//     );
-
-//     projectTodos.push(userTodo);
-
-//     localStorage.setItem(
-//       `projects-${selectedProject}`,
-//       JSON.stringify(projectTodos)
-//     );
-
-//     displayToDos(projectTodos);
-//     inputFieldEl.value = "";
-//     descriptionFieldEl.value = "";
-//     selectPriorityEl.value = "Select Priority";
-//     dueDate.value = "";
-//   }
-// }
-
-// function addTodoToSelectedProject() {
-//     let taskInputValue = inputFieldEl.value;
-//     console.log(taskInputValue);
-//     let descriptionInputValue = descriptionFieldEl.value;
-//     console.log(descriptionInputValue);
-//     let priorityValueEl = selectPriorityEl.value;
-//     let dueDateValueEl = dueDate.value;
-//     let selectedProject = projectDropDown.value;
-
-//     const inputNewProjectName = document.querySelector('.inputNewProjectName');
-//     const projectName = inputNewProjectName.value.trim();
-//     console.log(projectName)
-
-//     //Check if a project is selected or a new project name is provided
-//     if (selectedProject || projectName) {
-//         let projectTodos = [];
-
-//         if (selectedProject) {
-//             projectTodos = JSON.parse(localStorage.getItem(`project-${selectedProject}`)) || [];
-//         }
-//         else {
-//             addProjectName(projectName);
-//             projectTodos = JSON.parse(localStorage.getItem(`project-${projectName}`)) || [];
-//         }
-
-//         if (form.style.display === 'block') {
-//             console.log(selectedProject);
-
-//             let userTodo = new getList(taskInputValue, descriptionInputValue, priorityValueEl, dueDateValueEl);
-//             console.log(userTodo);
-
-//             // let toDos = JSON.parse(localStorage.getItem(`projects-${selectedProject}`)) || [];
-//             console.log(projectTodos);
-//             projectTodos.push(userTodo);
-
-//             localStorage.setItem(`projects-${selectedProject || projectName}`, JSON.stringify(projectTodos));
-
-//             console.log(toDos);
-//             // saveToDosForProject(selectedProject, toDos);
-
-//             fillProjectDropDown();
-//             displayToDos(selectedProject || projectName);
-//         }
-//     }
-//     inputFieldEl.value = '';
-//     descriptionFieldEl.value = '';
-//     selectPriorityEl.value = 'Select Priority';
-//     dueDate.value = '';
-// }
-
-
-// function fillProjectDropDown(currentProjectName) {
-//   projectDropDown.textContent = "";
-//   let projects = JSON.parse(localStorage.getItem("projects")) || [];
-
-//   if (projects) {
-//     const option = document.createElement("option");
-//     option.value = "";
-//     option.textContent = "Select project";
-//     projectDropDown.appendChild(option);
-
-//     projects?.forEach((project) => {
-//       const option = document.createElement("option");
-//       option.value = project;
-//       option.textContent = project;
-//       projectDropDown.appendChild(option);
-//     });
-//   }
-//   if (form.style.display === "block") {
-//     projects = JSON.parse(
-//       localStorage.getItem(
-//         `newProject-${currentProjectName.reduce((acc, current) => current)}`
-//       )
-//     );
-//     console.log(projects);
-
-//     const option = document.createElement("option");
-//     option.value = projects;
-//     option.textContent = projects;
-//     projectDropDown.appendChild(option);
-//   }
-// }
-// fillProjectDropDown();
+inbox.addEventListener("click", displayInboxForm);

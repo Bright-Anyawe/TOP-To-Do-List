@@ -88,9 +88,8 @@ svg {
     grid-template-columns: 10px fr;
     grid-template-rows: 20px 10px; */
 }
-.checkBoxContainer {
-    
-}
+
+.checkBoxContainer {}
 
 .taskContainer {
     display: flex;
@@ -145,7 +144,7 @@ svg {
 .inboxListContainer {
     display: flex;
     gap: 5px;
-  
+
 }
 
 .inboxTaskContainer {
@@ -185,10 +184,19 @@ svg {
     border-radius: 10px;
     height: 140px;
     display: none;
-   box-shadow:  #FFEB3B -4px 5px 0px 2px;
+    box-shadow: #FFEB3B -4px 5px 0px 2px;
 }
 
-.first-inputContainer input {
+#ProjectForm {
+    background-color: #64748b;
+    border-radius: 10px;
+    height: 140px;
+    display: none;
+    box-shadow: #FFEB3B -4px 5px 0px 2px;
+}
+
+
+.first-inputContainer input, .PtitleInputContainer input {
     width: 838px;
     height: 25px;
     border: none;
@@ -198,14 +206,14 @@ svg {
     background-color: inherit;
 }
 
-.first-inputContainer input::placeholder {
+.first-inputContainer input::placeholder, .PtitleInputContainer input::placeholder {
     color: white;
     padding: 0 10px;
     opacity: 1;
     /* Firefox */
 }
 
-.second-inputContainer input {
+.second-inputContainer input, .PdescriptionInputContainer input {
     width: 838px;
     height: 25px;
     border: none;
@@ -214,20 +222,25 @@ svg {
     background-color: inherit;
 }
 
-.second-inputContainer input::placeholder {
+.second-inputContainer input::placeholder, .PdescriptionInputContainer input::placeholder {
     padding: 0 10px;
     color: white;
     opacity: 1;
     /* Firefox */
 }
 
-.other-options-on-forms {
+.other-options-on-forms, .footer {
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
 }
 
 .other-options-on-forms button, #priority {
+    padding: 7px;
+    border-radius: 9px;
+}
+
+#projectPriority, .footer {
     padding: 7px;
     border-radius: 9px;
 }
@@ -286,5 +299,3 @@ svg.addTask {
     background-color: inherit;
     font-weight: 500;
 }
-
-
