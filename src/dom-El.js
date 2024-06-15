@@ -3,7 +3,7 @@ import { newProjectTasksContainer } from "./dom-El-2";
 import { getnewProjectInputValue } from "./dom-El-2";
 
 const mainContainer = document.querySelector("main");
-const header = document.querySelector("header h1");
+const header = document.querySelector(".headerTextContent");
 const userList = document.querySelector("#userlist");
 const inboxTaskDisplay = document.querySelector(".displayInboxTask");
 const form = document.querySelector("#form");
@@ -120,6 +120,7 @@ class getList {
 
 export const myProjects = document.querySelector("#projects h3");
 import { CreateNewProjectTaskBtn } from "./dom-El-2";
+import { inputNewprojectFormName } from "./dom-El-2";
 const defaultProjects = document.querySelector("#projects");
 
 //Display form in block
@@ -130,12 +131,10 @@ function displayForm(event) {
 }
 addTaskbtn.addEventListener("click", displayForm);
 
-
 // Display all To-dos after complete load of html dom.
 document.addEventListener("DOMContentLoaded", () => {
   displayToDos();
 });
-
 
 let toDos = JSON.parse(localStorage.getItem("toDos")) || [];
 
@@ -146,21 +145,19 @@ function acceptInput() {
   let priorityValueEl = taskPriority.value;
   let dueDateValueEl = dueDate.value;
 
-
   let userToDo = new getList(
     taskInputValue,
     descriptionInputValue,
     priorityValueEl,
     dueDateValueEl
   );
-  
+
   toDos.push(userToDo);
 
   // Save todos in local storage
   localStorage.setItem("toDos", JSON.stringify(toDos));
 
-
-  clearForm(); 
+  clearForm();
 }
 
 function clearForm() {
@@ -269,12 +266,11 @@ function handleCheckBox(checkBox, taskTitle, taskDescription) {
 
 //Delete the todo that get clicked
 function deleteToDo() {
-  const listContainerEl = this.closest('.listContainer');
+  const listContainerEl = this.closest(".listContainer");
   const buttons = document.querySelectorAll(".deleteTask");
   const index = Array.from(buttons).indexOf(this);
 
   if (index !== -1) {
-
     listContainerEl.remove(listContainerEl);
     toDos.splice(index, 1);
     //update To-do item in local storage
@@ -332,10 +328,10 @@ cancelForm.addEventListener("click", cancelFormDisplay);
 
 function submitForm(event) {
   event.preventDefault();
-    userlist.textContent = "";
+  userlist.textContent = "";
 
   acceptInput();
-  displayToDos()
+  displayToDos();
 }
 form.addEventListener("submit", submitForm);
 
@@ -347,10 +343,15 @@ form.addEventListener("submit", submitForm);
 
 function displayInboxForm() {
   const header = document.querySelector("header h1");
+  userlist.textContent = "";
   header.textContent = "Inbox";
-  userlist.textContent = '';
 
   displayToDos();
   form.style.display = "block";
+
+  if (inputNewprojectFormName.style.display === "block") {
+    inputNewprojectFormName.style.display = "none";
+  }
 }
 inbox.addEventListener("click", displayInboxForm);
+

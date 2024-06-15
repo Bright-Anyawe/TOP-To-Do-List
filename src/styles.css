@@ -82,7 +82,7 @@ svg {
     display: flex;
     gap: 5px;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px;
+    box-shadow: 1px 0px 3px 0px;
     margin: 14px 14px 0 0;
     /* display: grid;
     grid-template-columns: 10px fr;
