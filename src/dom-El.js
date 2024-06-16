@@ -1,4 +1,5 @@
 import { edittask } from "./logics";
+import { getUserTodo } from "./dom-El-2";
 import { newProjectTasksContainer } from "./dom-El-2";
 import { getnewProjectInputValue } from "./dom-El-2";
 
@@ -145,11 +146,22 @@ function acceptInput() {
   let priorityValueEl = taskPriority.value;
   let dueDateValueEl = dueDate.value;
 
+    const date = new Date(dueDateValueEl);
+
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    };
+
+    const dayOfWeek = date.toLocaleDateString("en-Us", options);
+
   let userToDo = new getList(
     taskInputValue,
     descriptionInputValue,
     priorityValueEl,
-    dueDateValueEl
+    dayOfWeek
   );
 
   toDos.push(userToDo);

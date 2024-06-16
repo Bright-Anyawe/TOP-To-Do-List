@@ -169,7 +169,7 @@ projectDropDown.addEventListener("change", () => {
   CreateNewProjectTaskBtn();
 });
 
-function getUserTodo() {
+export function getUserTodo() {
   let taskInputValue = inputFieldEl.value;
   console.log(taskInputValue);
   let descriptionInputValue = descriptionFieldEl.value;
@@ -177,11 +177,22 @@ function getUserTodo() {
   let priorityValueEl = selectPriorityEl.value;
   let dueDateValueEl = dueDate.value;
 
+  const date = new Date(dueDateValueEl);
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+
+  const dayOfWeek = date.toLocaleDateString("en-Us", options);
+
   let userTodo = new getList(
     taskInputValue,
     descriptionInputValue,
     priorityValueEl,
-    dueDateValueEl
+    dayOfWeek
   );
 
   return userTodo;
@@ -210,8 +221,7 @@ function addNewProjectTodos() {
     console.log(toDo);
     clearInputForm();
     displayToDosForCurrentProject(currentProject);
-
-    }
+  }
 }
 
 function displayToDosForCurrentProject(projectName) {
@@ -223,7 +233,14 @@ function displayToDosForCurrentProject(projectName) {
   // console.log(currentTodos);
 
   projectTodos.forEach((todo, index) => {
-    displayTask(todo.Title, todo.Description, todo.Priority, todo.Date, index,projectName);
+    displayTask(
+      todo.Title,
+      todo.Description,
+      todo.Priority,
+      todo.Date,
+      index,
+      projectName
+    );
   });
 }
 
@@ -352,7 +369,7 @@ function displayTask(
 function deleteToDo(event) {
   const button = event.target;
   const index = button.dataset.index;
-  const currentProject = button.dataset.project
+  const currentProject = button.dataset.project;
   console.log(currentProject);
 
   // const currentProject = currentProjectName[currentProjectName.length - 1];
@@ -365,7 +382,7 @@ function deleteToDo(event) {
     //update To-do item in local storage
     localStorage.setItem(currentProject, JSON.stringify(toDo));
     console.log(toDo);
-    userList.textContent = '';
+    userList.textContent = "";
     displayToDosForCurrentProject(currentProject);
   }
 }

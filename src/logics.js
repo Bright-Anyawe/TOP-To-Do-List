@@ -4,13 +4,6 @@ import { displayTask } from "./dom-El";
 
 
 
-const date = {
-    dueDate: function getDate() {
-
-    }
-}
-
-
 export function edittask(event) {
     let task = event.target.textContent;
     let taskInput = document.createElement('input');
