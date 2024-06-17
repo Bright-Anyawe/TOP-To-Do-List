@@ -1,6 +1,6 @@
 // import { myProjects } from './dom-El'
 import { displayForm } from "./dom-El";
-import { edittask } from "./logics";
+// import { editTask } from "./logics";
 
 const myProjects = document.querySelector("#projects h3");
 const screenContainer = document.querySelector("#Container");
@@ -27,6 +27,8 @@ let inputFieldEl = document.querySelector(".pTitle");
 let descriptionFieldEl = document.querySelector(".pDescription");
 let selectPriorityEl = document.querySelector("#projectPriority");
 let dueDate = document.querySelector("#ProjectdatePicker");
+const projectDropDown = document.querySelector("#project-dropdown");
+let selectedProject = projectDropDown.value;
 
 class getList {
   constructor(Title, Description, Priority, Date) {
@@ -119,8 +121,6 @@ function addProjectName(projectName) {
   return { projectName };
 }
 
-const projectDropDown = document.querySelector("#project-dropdown");
-
 function fillProjectDropDown() {
   projectDropDown.textContent = "";
   let projects = JSON.parse(localStorage.getItem("projects")) || [];
@@ -198,7 +198,7 @@ export function getUserTodo() {
   return userTodo;
 }
 
-let currentProjectName = [];
+ let currentProjectName = [];
 let toDo = [];
 function addNewProjectTodos() {
   currentProjectName = JSON.parse(localStorage.getItem("projects")) || [];
@@ -224,9 +224,10 @@ function addNewProjectTodos() {
   }
 }
 
-function displayToDosForCurrentProject(projectName) {
+export function displayToDosForCurrentProject(projectName) {
   console.log(projectName);
 
+  // saveTask(projectName);
   let projectTodos = JSON.parse(localStorage.getItem(projectName)) || [];
 
   console.log(projectTodos);
@@ -244,37 +245,83 @@ function displayToDosForCurrentProject(projectName) {
   });
 }
 
-let selectedProject = projectDropDown.value;
-function addTodoToselectedProject() {
-  if (selectedProject) {
-    let projectTodo =
-      JSON.parse(localStorage.getItem(`${selectedProject}`)) || [];
+function editTask(event) {
+  const target = event.target;
+  const fieldType = target.dataset.fieldType; // Identify the field type(title,description,priority,date)
+  const index = target.dataset.index;
 
-    if (projectForm.style.display === "block") {
-      let taskInputValue = inputFieldEl.value;
-      console.log(taskInputValue);
-      let descriptionInputValue = descriptionFieldEl.value;
-      console.log(descriptionInputValue);
-      let priorityValueEl = selectPriorityEl.value;
-      let dueDateValueEl = dueDate.value;
+  let taskInput;
 
-      let userTodo = new getList(
-        taskInputValue,
-        descriptionInputValue,
-        priorityValueEl,
-        dueDateValueEl
-      );
-      console.log(userTodo);
+  if (fieldType === "title" || fieldType === "description") {
+    taskInput = document.createElement("input");
+    taskInput.type = "text";
+    taskInput.value = target.textContent;
+  }
 
-      projectTodo.push(userTodo);
+  taskInput.addEventListener("keypress", saveTask); // Save task on pressing Enter
+  taskInput.addEventListener("blur", saveTask); // Save task when task lose focus on input element.
 
-      localStorage.setItem(`${selectedProject}`, JSON.stringify(projectTodo));
-      console.log(projectTodo);
+  taskInput.classList.add("edit");
+  //Store the fieldType in the input dataset
+  taskInput.dataset.fieldType = fieldType;
 
-      // displaySelectedToDos(selectedProject);
+  target.style.display = "none";
+  target.parentNode.insertBefore(taskInput, target.nextSibling); // Insert the input field next to target element
 
-      clearInputForm();
+  taskInput.select(); // Automatically select the content of the input field
+}
+
+function saveTask(event) {
+  if (
+    event.type === "blur" ||
+    (event.type === "keypress" && event.key === "Enter")
+  ) {
+    const input = event.target;
+    const fieldType = input.dataset.fieldType;
+    const index = input.dataset.index; // Get the index from the input dataset
+    const newValue = input.value;
+
+    const currentProject = currentProjectName[currentProjectName.length - 1];
+    console.log(currentProject);
+
+    //Get the task from the local storage
+    let toDo = JSON.parse(localStorage.getItem(currentProject)) || [];
+    console.log(toDo);
+
+    //Check if the index is not out of bounds in the array
+    if (index < toDo.length) {
+      if (fieldType === "title") {
+        toDo[index].title = newValue;
+      } else if (fieldType === "description") {
+        toDo[index].description = newValue;
+      }
     }
+
+    // Save the updated tasks to local storage
+    localStorage.setItem(currentProject, JSON.stringify(toDo));
+
+    // Update the original element's text content and show it again
+    const originalElement = input.previousSibling;
+
+    if (fieldType === "title") {
+      originalElement.textContent = toDo[index].title;
+    }
+    else if (fieldType === 'description') {
+      originalElement.textContent = toDo[index].description;
+    }
+
+    originalElement.style.display = "block";
+
+    // Remove the input field if it is still part of the DOM
+    if (input.parentNode) {
+      input.remove();
+    }
+
+    // Re-render the todo list if necessary
+    displayToDosForCurrentProject(currentProject);
+  }
+  else {
+    console.log('invalid task index or empty toDo array');
   }
 }
 
@@ -292,12 +339,6 @@ function clearTaskDisplay() {
     userList.textContent = "";
   }
 }
-
-// function handleDeleteBtn(event) {
-//   const currentProjectName = addNewProjectTodos().currentProject;
-//   console.log(currentProjectName);
-
-// }
 
 function displayTask(
   saveTitleData,
@@ -344,6 +385,11 @@ function displayTask(
   deleteTask.dataset.index = index;
   deleteTask.dataset.project = projectName;
 
+  taskTitle.dataset.fieldType = "title";
+  taskDescription.dataset.fieldType = "discription";
+  // taskContainer.dataset.fieldType = "priority";
+  // taskContainer.dataset.fieldType = "date";
+
   innerTaskContainer.appendChild(taskTitle);
   innerTaskContainer.appendChild(taskDescription);
   innerTaskContainer.appendChild(dueDate);
@@ -360,7 +406,7 @@ function displayTask(
   listContainer.appendChild(taskContainer);
   userList.appendChild(listContainer);
 
-  taskTitle.addEventListener("dblclick", edittask);
+  taskContainer.addEventListener("dblclick", editTask);
 
   deleteTask.addEventListener("click", (event) => deleteToDo(event));
 }
