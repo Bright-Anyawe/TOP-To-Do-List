@@ -1,8 +1,8 @@
 import { addDate, format, compareAsc } from "date-fns";
 import acceptUserInput from "./dom-El";
 import { displayTask } from "./dom-El";
-import { currentProjectName } from "./dom-El-2";
-import { displayToDosForCurrentProject } from "./dom-El-2";
+// import { currentProjectName } from "./dom-El-2";
+// import { displayToDosForCurrentProject } from "./dom-El-2";
 
 // export function edittask(event) {
 //     let task = event.target.textContent;
@@ -64,6 +64,7 @@ import { displayToDosForCurrentProject } from "./dom-El-2";
 //   taskInput.addEventListener("keypress", saveTask); // Save task on pressing Enter
 //   taskInput.addEventListener("blur", saveTask); // Save task when task lose focus on input element.
 
+
 //   taskInput.classList.add("edit");
 //   //Store the fieldType in the input dataset
 //   taskInput.dataset.fieldType = fieldType;
@@ -74,59 +75,59 @@ import { displayToDosForCurrentProject } from "./dom-El-2";
 //   taskInput.select(); // Automatically select the content of the input field
 // }
 
- function saveTaskF(event) {
-  if (
-    event.type === "blur" ||
-    (event.type === "keypress" && event.key === "Enter")
-  ) {
-    const input = event.target;
-    const fieldType = input.dataset.fieldType;
-    const index = input.dataset.index; // Get the index from the input dataset
-    const newValue = input.value;
+//  function saveTaskF(event) {
+//   if (
+//     event.type === "blur" ||
+//     (event.type === "keypress" && event.key === "Enter")
+//   ) {
+//     const input = event.target;
+//     const fieldType = input.dataset.fieldType;
+//     const index = input.dataset.index; // Get the index from the input dataset
+//     const newValue = input.value;
 
-    const currentProject = currentProjectName[currentProjectName.length - 1];
-    console.log(currentProject);
+//     const currentProject = currentProjectName[currentProjectName.length - 1];
+//     console.log(currentProject);
 
-    //Get the task from the local storage
-    let toDo = JSON.parse(localStorage.getItem(currentProject)) || [];
-    console.log(toDo);
+//     //Get the task from the local storage
+//     let toDo = JSON.parse(localStorage.getItem(currentProject)) || [];
+//     console.log(toDo);
 
-    if (fieldType === "title") {
-      toDo[index].title = newValue;
-    } else if (fieldType === "description") {
-      toDo[index].description = newValue;
-    } else if (fieldType === "priority") {
-      toDo[index].priority = newValue;
-    } else if (fieldType === "date") {
-      const date = new Date(newValue);
-      const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      };
-      toDo[index].date = date.toLocaleDateString("en-US", options); // Format the date
-      input.dataset.value = newValue; // Update data-value attribute        }
-    }
+//     if (fieldType === "title") {
+//       toDo[index].title = newValue;
+//     } else if (fieldType === "description") {
+//       toDo[index].description = newValue;
+//     } else if (fieldType === "priority") {
+//       toDo[index].priority = newValue;
+//     } else if (fieldType === "date") {
+//       const date = new Date(newValue);
+//       const options = {
+//         weekday: "long",
+//         year: "numeric",
+//         month: "long",
+//         day: "numeric",
+//       };
+//       toDo[index].date = date.toLocaleDateString("en-US", options); // Format the date
+//       input.dataset.value = newValue; // Update data-value attribute        }
+//     }
 
-    // Save the updated tasks to local storage
-    localStorage.setItem(currentProject, JSON.stringify(toDo));
+//     // Save the updated tasks to local storage
+//     localStorage.setItem(currentProject, JSON.stringify(toDo));
 
-    // Update the original element's text content and show it again
-    const originalElement = input.previousSibling;
-    if (originalElement) {
-      originalElement.textContent =
-        fieldType === "date" ? toDo[index].date : newValue;
-      originalElement.style.display = "block";
-    }
+//     // Update the original element's text content and show it again
+//     const originalElement = input.previousSibling;
+//     if (originalElement) {
+//       originalElement.textContent =
+//         fieldType === "date" ? toDo[index].date : newValue;
+//       originalElement.style.display = "block";
+//     }
 
-    // Remove the input field if it is still part of the DOM
-    if (input.parentNode) {
-      input.remove();
-    }
+//     // Remove the input field if it is still part of the DOM
+//     if (input.parentNode) {
+//       input.remove();
+//     }
 
-    // Re-render the todo list if necessary
-    displayToDosForCurrentProject(currentProject);
-  }
-}
+//     // Re-render the todo list if necessary
+//     displayToDosForCurrentProject(currentProject);
+//   }
+// }
 

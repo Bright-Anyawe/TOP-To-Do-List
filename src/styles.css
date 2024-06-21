@@ -9,7 +9,7 @@ body {
 
 main {
     display: grid;
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 170px 1fr;
     grid-template-rows: 50px 550px;
     gap: 10px;
 }
@@ -29,6 +29,40 @@ aside {
     border-radius: 5px;
     background-color: #e2e8f0;
 
+
+}
+
+.checkBox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+
+}
+
+
+
+.checkBox::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: green;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.checkBox:hover::before {
+    content: "✓";
+    opacity: 0.5;
 }
 
 #Container {
@@ -175,6 +209,11 @@ svg {
 
 }
 
+.edit {
+    width: 800px;
+    border: 0;
+}
+
 #projects h3 {
     margin: 0 0 0 10px;
 }
@@ -183,6 +222,9 @@ svg {
     background-color: #64748b;
     border-radius: 10px;
     height: 140px;
+    min-width: 30%;
+    max-width: 100%;
+
     display: none;
     box-shadow: #FFEB3B -4px 5px 0px 2px;
 }
@@ -252,9 +294,34 @@ svg {
     gap: 5px;
 }
 
+.addProjectsContainer svg {
+    width: 25px;
+    height: 25px;
+}
+
 #addNewProjectEl {
     margin: 0;
-    font-size: 18px;
+    font-size: 19px;
+}
+
+.choose_projects {
+    margin: 0 0 10px 10px;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+}
+
+#project-dropdown {
+    border: 0;
+    background-color: inherit;
+    margin: 0 0 0 15px;
+    font-size: 15px;
+    font-weight: 550;
+}
+
+#project-dropdown:focus {
+    border: none;
+    outline: none;
 }
 
 #newProjectsFormContainerEl {
@@ -270,11 +337,18 @@ svg {
 .inputNewprojectFormName {
     display: none;
     background-color: #cee3e3;
-    width: 300px;
+    width: 320px;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
     box-shadow: 0px 9px 3px 0px;
+}
+
+.inputNewProjectName {
+    width: 200px;
+    height: 19px;
+
+
 }
 
 #newProjectTasksContainer {
