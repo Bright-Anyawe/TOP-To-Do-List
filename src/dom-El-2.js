@@ -225,24 +225,8 @@ function addNewProjectTodos() {
   console.log(currentProjectName);
 
   if (projectForm.style.display === "block") {
-    if (currentProject) {
-
-      const currentProject = currentProjectName[currentProjectName.length - 1];
-      console.log(currentProject);
-      //If there is an existing project get it from the local storage
-      const toDo = JSON.parse(localStorage.getItem(currentProject)) || [];
-
-      const newToDo = getUserTodo();
-
-      toDo.push(newToDo);
-
-      localStorage.setItem(currentProject, JSON.stringify(toDo));
-
-      console.log(toDo);
-      // clearInputForm();
-      displayToDosForCurrentProject(currentProject);
-    }
-   else if (selectedProject) {
+    
+     if (selectedProject) {
       const toDo = JSON.parse(localStorage.getItem(selectedProject)) || [];
 
       const newToDo = getUserTodo();
@@ -255,8 +239,28 @@ function addNewProjectTodos() {
       clearInputForm();
       displayToDosForCurrentProject(selectedProject);
 
-      // }
-    }
+      } else {
+
+        
+              const currentProject = currentProjectName[currentProjectName.length - 1];
+              console.log(currentProject);
+              //If there is an existing project get it from the local storage
+              const toDo = JSON.parse(localStorage.getItem(currentProject)) || [];
+        
+              const newToDo = getUserTodo();
+        
+              toDo.push(newToDo);
+        
+              localStorage.setItem(currentProject, JSON.stringify(toDo));
+        
+              console.log(toDo);
+              // clearInputForm();
+              displayToDosForCurrentProject(currentProject);
+       
+      }
+    
+  
+    
   }
 }
 
