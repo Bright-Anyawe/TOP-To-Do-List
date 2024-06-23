@@ -29,11 +29,11 @@ let taskPriority = document.querySelector("#priority");
 let dueDate = document.querySelector("#datePicker");
 
 class getList {
-  constructor(Title, Description, Priority, Date) {
-    this.Title = Title;
-    this.Description = Description;
-    this.Priority = Priority;
-    this.Date = Date;
+  constructor(title, description, priority, date) {
+    this.title = title;
+    this.description = description;
+    this.priority = priority;
+    this.date = date;
   }
 }
 
@@ -133,7 +133,9 @@ function displayForm(event) {
   let newProjectBtn = createNewProjectTaskBtn();
   newProjectBtn.style.display = "none";
   form.style.display = "block";
-  projectForm.style.display = "none";
+  if ((projectForm.style.display = "block")) {
+    projectForm.style.display = 'none'
+  }
 }
 addTaskbtn.addEventListener("click", displayForm);
 
@@ -175,6 +177,7 @@ function acceptInput() {
   localStorage.setItem("toDos", JSON.stringify(toDos));
 
   clearForm();
+  // displayToDos(toDos)
 }
 
 function clearForm() {
@@ -186,14 +189,15 @@ function clearForm() {
 
 //Display To-dos
 function displayToDos() {
-  toDos = JSON.parse(localStorage.getItem("toDos")) || [];
+  let userTodos = JSON.parse(localStorage.getItem("toDos")) || [];
+  console.log(userTodos);
 
-  toDos?.forEach((todoObj, index) => {
+  userTodos?.forEach((todoObj, index) => {
     getElementForTaskDisplay(
-      todoObj.Title,
-      todoObj.Description,
-      todoObj.Priority,
-      todoObj.Date,
+      todoObj.title,
+      todoObj.description,
+      todoObj.priority,
+      todoObj.date,
       index
     );
   });
@@ -339,7 +343,7 @@ function saveEditedTask(event) {
     userList.textContent = "";
 
     // Re-render the todo list if necessary
-    displayToDos(toDos);
+    displayToDos();
   }
 }
 
@@ -447,8 +451,8 @@ function submitForm() {
   acceptInput();
   displayToDos();
 }
-submitBtn.addEventListener("click", submitForm);
 form.addEventListener("submit", (event) => event.preventDefault());
+submitBtn.addEventListener("click", submitForm);
 
 function displayInboxForm() {
   const header = document.querySelector("header h1");
@@ -461,5 +465,6 @@ function displayInboxForm() {
   if (inputNewprojectFormName.style.display === "block") {
     inputNewprojectFormName.style.display = "none";
   }
+  projectForm.style.display = "none";
 }
 inbox.addEventListener("click", displayInboxForm);

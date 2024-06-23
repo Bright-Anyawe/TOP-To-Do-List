@@ -7,16 +7,21 @@ body {
     background-repeat: no-repeat; */
 }
 
+:root {
+    --hover-color: #fda4af;
+
+}
+
 main {
     display: grid;
-    grid-template-columns: 170px 1fr;
+    grid-template-columns: 190px 1fr;
     grid-template-rows: 50px 550px;
-    gap: 10px;
+    /* gap: 10px; */
 }
 
 header {
     grid-area: 1 / 2 / 2 / 3;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color: #fda4af;
     text-align: center;
     display: flex;
@@ -73,15 +78,15 @@ aside {
 }
 
 svg {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
 }
 
 #task {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin: 20px 0 0 10px;
+    margin: 27px 0 11px 26px;
 }
 
 /* #task:hover {
@@ -117,13 +122,16 @@ svg {
     gap: 5px;
     border-radius: 10px;
     box-shadow: 1px 0px 3px 0px;
-    margin: 14px 14px 0 0;
+    margin: 14px 14px 0 19px;
     /* display: grid;
     grid-template-columns: 10px fr;
     grid-template-rows: 20px 10px; */
 }
 
-.checkBoxContainer {}
+
+.excluded {
+    color: red;
+}
 
 .taskContainer {
     display: flex;
@@ -167,11 +175,19 @@ svg {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin: 10px 0 0 10px;
+    margin: 0px 0 0 16px;
+    height: 26px;
+    padding: 9px;
+    border-radius: 5px 0px 0px 5px;
 }
 
+.inbox-container:hover {
+    background-color: var(--hover-color);
+}
+
+
 .inbox {
-    font-size: 17px;
+    font-size: 20px;
 
 }
 
@@ -211,9 +227,15 @@ svg {
 
 .edit {
     width: 800px;
-    border: 0;
+    border: none;
+    outline: none;
+
 }
 
+/* .edit input {
+    outline: none;
+    border: none;
+}  */
 #projects h3 {
     margin: 0 0 0 10px;
 }
@@ -234,6 +256,7 @@ svg {
     border-radius: 10px;
     height: 140px;
     display: none;
+    margin: 0 15px 0 20px;
     box-shadow: #FFEB3B -4px 5px 0px 2px;
 }
 
@@ -289,9 +312,18 @@ svg {
 
 .addProjectsContainer {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+    margin: 0 0 0 20px;
+    padding: 7px;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
+    height: 25px;
+    border-radius: 5px 0px 0px 5px;
+
+}
+
+.addProjectsContainer:hover {
+    background-color: var(--hover-color);
 }
 
 .addProjectsContainer svg {
@@ -304,20 +336,40 @@ svg {
     font-size: 19px;
 }
 
-.choose_projects {
-    margin: 0 0 10px 10px;
+
+.project_text {
+    margin: 0 0 10px 17px;
     display: flex;
     align-self: center;
     justify-self: center;
+    padding: 9px;
+    border-radius: 5px 0px 0px 5px;
+
+
 }
+
+.project_text:hover {
+    background-color: var(--hover-color);
+}
+
+
 
 #project-dropdown {
     border: 0;
     background-color: inherit;
-    margin: 0 0 0 15px;
-    font-size: 15px;
+    margin: 5px 0 0 17px;
+    font-size: 18px;
     font-weight: 550;
+    padding: 8px;
+    border-radius: 5px 0px 0px 5px;
+
 }
+
+#project-dropdown:hover {
+    background-color: var(--hover-color);
+
+}
+
 
 #project-dropdown:focus {
     border: none;
@@ -329,6 +381,9 @@ svg {
     justify-content: center;
     align-items: center;
     justify-items: center;
+    position: relative;
+    top: 120px;
+    /* box-shadow: 1px 3px 3px 1px;
     /* box-shadow: 1px 3px 3px 1px; */
 }
 
@@ -372,4 +427,22 @@ svg.addTask {
     border: 0;
     background-color: inherit;
     font-weight: 500;
+}
+
+#ProjectdatePicker {
+    padding: 6px;
+    border-radius: 9px;
+
+}
+
+
+#submitBtnForProject {
+    padding: 7px;
+    border-radius: 9px;
+
+}
+
+.cancelForProjectBtn {
+    padding: 7px;
+    border-radius: 9px;
 }
