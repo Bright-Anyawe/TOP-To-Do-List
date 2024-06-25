@@ -5,6 +5,9 @@ body {
     /* background-image: url('./images/Bg_To_Do_List.webp');
     background-size: cover;
     background-repeat: no-repeat; */
+    /* background-image: url('./images/istockphoto-921437050-170667a.webp');
+    background-size: cover; */
+
 }
 
 :root {
@@ -14,13 +17,13 @@ body {
 
 main {
     display: grid;
-    grid-template-columns: 190px 1fr;
-    grid-template-rows: 50px 550px;
+    grid-template-columns: 190px 20px 650px 100px;
+    grid-template-rows: 70px 570px;
     /* gap: 10px; */
 }
 
 header {
-    grid-area: 1 / 2 / 2 / 3;
+    grid-area: 1 / 2 / 2 / 6;
     /* border-radius: 5px; */
     background-color: #fda4af;
     text-align: center;
@@ -30,7 +33,7 @@ header {
 }
 
 aside {
-    grid-area: 1/ 1/ 3/ 2;
+    grid-area: 1/ 1/ 4/ 2;
     border-radius: 5px;
     background-color: #e2e8f0;
 
@@ -51,7 +54,6 @@ aside {
 }
 
 
-
 .checkBox::before {
     content: "";
     display: block;
@@ -60,7 +62,7 @@ aside {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 16px;
-    color: green;
+    color: rgb(22, 252, 22);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -71,10 +73,18 @@ aside {
 }
 
 #Container {
-    grid-area: 2 / 2 / 3 / 3;
+    grid-area: 2 / 3 / 3 / 4;
     border-radius: 5px;
+    /* padding: 2rem 12rem; */
     /* background-color: #94a3b8; */
 
+}
+
+.empty {
+    grid-area: 2 / 4 / 3 / 6;
+    background-color: #f8f8f8;
+    background-image: url('./images/Todo-1.jpg');
+    background-size: cover;
 }
 
 svg {
@@ -117,15 +127,17 @@ svg {
     -webkit-transform: scale(1.09);
 }
 
+.inner_container {}
+
+
 .listContainer {
     display: flex;
     gap: 5px;
     border-radius: 10px;
     box-shadow: 1px 0px 3px 0px;
     margin: 14px 14px 0 19px;
-    /* display: grid;
-    grid-template-columns: 10px fr;
-    grid-template-rows: 20px 10px; */
+
+
 }
 
 
@@ -244,11 +256,12 @@ svg {
     background-color: #64748b;
     border-radius: 10px;
     height: 140px;
-    min-width: 30%;
-    max-width: 100%;
-
     display: none;
-    box-shadow: #FFEB3B -4px 5px 0px 2px;
+    /* box-shadow: #FFEB3B -4px 5px 0px 2px; */
+    /* min-width: 20%;
+    max-width: 70%; */
+    padding-left: 1rem;
+    margin: 0 0 0 1rem;
 }
 
 #ProjectForm {
@@ -381,12 +394,18 @@ svg {
     justify-content: center;
     align-items: center;
     justify-items: center;
-    position: relative;
-    top: 120px;
+    /* position: relative;
+    top: 120px; */
     /* box-shadow: 1px 3px 3px 1px;
     /* box-shadow: 1px 3px 3px 1px; */
 }
 
+#ProjectsFormNameContainerEl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
 
 
 .inputNewprojectFormName {
@@ -396,6 +415,7 @@ svg {
     border-radius: 10px;
     padding: 20px;
     text-align: center;
+    margin: 60px 0 0 0;
     box-shadow: 0px 9px 3px 0px;
 }
 
@@ -415,6 +435,9 @@ svg {
     box-shadow: #5c5555 1px 3px 3px 1px;
     border-radius: 10px;
     padding: 10px;
+    width: 110px;
+    position: relative;
+    left: 250px;
 }
 
 svg.addTask {

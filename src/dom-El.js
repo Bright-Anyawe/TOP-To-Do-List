@@ -13,7 +13,7 @@ const form = document.querySelector("#form");
 let projectForm = document.querySelector("#ProjectForm");
 const cancelForm = document.querySelector(".cancel");
 const submitBtn = document.querySelector("#submitBtn");
-const addTaskbtn = document.querySelector(".addTask");
+const addTaskbtn = document.querySelector("#task");
 
 let inbox = document.querySelector(".inbox");
 const toDoContainer = document.createElement("section");
@@ -130,6 +130,7 @@ function displayForm(event) {
   const header = document.querySelector("header h1");
   header.textContent = "Add your To do";
   userList.textContent = "";
+  
   let newProjectBtn = createNewProjectTaskBtn();
   newProjectBtn.style.display = "none";
   form.style.display = "block";
@@ -350,9 +351,7 @@ function saveEditedTask(event) {
 function handleCheckBox(checkBox, taskTitle, taskDescription) {
   checkBox.addEventListener("change", (event) => {
     if (checkBox.checked === true) {
-      taskTitle.style.textDecoration = "line-through";
-      taskTitle.style.textDecorationColor = "grey";
-      taskTitle.style.textDecorationThickness = "2px";
+      
       localStorage.setItem("toDos", JSON.stringify(toDos));
       console.log(toDos);
 
