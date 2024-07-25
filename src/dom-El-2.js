@@ -49,15 +49,6 @@ function displayRequestNewProjectFormName() {
     userList.textContent = "";
   }
 
-  // if(  inputNewprojectFormName.style.display = "none") {
-  //   inputNewprojectFormName.style.display = "block";
-  // }
-
-  // if (newProjectTasksContainer.style.display = "block") {
-  //   newProjectTasksContainer.style.display = "none";
-  // }
-
-  // projectForm.style.display = "none";
   if (form.style.display === "block") {
     form.style.display = "none";
   }
@@ -65,9 +56,6 @@ function displayRequestNewProjectFormName() {
     projectForm.style.display = "none";
   }
 
-  // if (newProjectsFormContainerEl.style.display === 'none') {
-  //   newProjectsFormContainerEl.style.display = 'block'
-  // }
   inputNewprojectFormName.style.display = "block";
   return { inputNewprojectFormName };
 }
@@ -147,6 +135,7 @@ function addProjectName(projectName) {
   return { projectName };
 }
 
+// Populate project drop-down
 function fillProjectDropDown() {
   projectDropDown.textContent = "";
   let projects = JSON.parse(localStorage.getItem("projects")) || [];
@@ -164,21 +153,6 @@ function fillProjectDropDown() {
       projectDropDown.appendChild(option);
     });
   }
-  //   if (form.style.display === "block") {
-  //     projects = JSON.parse(
-  //       localStorage.getItem(
-  //         `newProject-${currentProjectName.reduce((acc, current) => current)}`
-  //       )
-  //     );
-  //     console.log(projects);
-
-  //     projects?.forEach((project) => {
-  //       const option = document.createElement("option");
-  //       option.value = project;
-  //       option.textContent = project;
-  //       projectDropDown.appendChild(option);
-  // //     });
-  //   }
 }
 fillProjectDropDown();
 
@@ -349,11 +323,18 @@ function displayTask(
 
   deleteTask.dataset.index = index;
   deleteTask.dataset.project = projectName;
+  checkBox.dataset.index = index;
+  checkBox.dataset.project = projectName;
 
   taskTitle.dataset.fieldType = "title";
   taskDescription.dataset.fieldType = "description";
+  taskPriority.dataset.fieldType = "taskPriority";
+  dueDate.dataset.fieldType = "dueDate";
+
   taskTitle.dataset.index = index;
   taskDescription.dataset.index = index;
+  taskPriority.dataset.index = index;
+  dueDate.dataset.index = index;
 
   innerTaskContainer.appendChild(taskTitle);
   innerTaskContainer.appendChild(taskDescription);
@@ -373,6 +354,8 @@ function displayTask(
 
   taskTitle.addEventListener("dblclick", editTask);
   taskDescription.addEventListener("dblclick", editTask);
+  taskPriority.addEventListener("dblclick", editTask);
+  dueDate.addEventListener("dblclick", editTask);
 
   deleteTask.addEventListener("click", (event) => deleteToDo(event));
 
@@ -381,17 +364,41 @@ function displayTask(
 
 export function editTask(event) {
   const target = event.target;
-  console.log(target);
+
   const fieldType = target.dataset.fieldType; // Identify the field type(title,description,priority,date)
   const index = target.dataset.index;
+  const taskPriority = ["Urgent", "Important", "Low priority"];
 
   let taskInput;
-
-  if (fieldType === "title" || fieldType === "description") {
+   if (fieldType === "title" || fieldType === "description") {
     taskInput = document.createElement("input");
     taskInput.type = "text";
     taskInput.value = target.textContent;
   }
+  
+   else if(fieldType === 'dueDate') {
+    taskInput = document.createElement("input");
+    taskInput.type = "date";
+    taskInput.value = target.textContent;
+
+  }
+  else
+     if (fieldType === "taskPriority") {
+    taskInput = document.createElement("select");
+
+    taskPriority.forEach((priority, index) => {
+      const option = document.createElement("option");
+      option.value = priority;
+      option.textContent = priority;
+
+      if (priority === target.textContent) {
+        option.selected = true;
+      }
+      taskInput.appendChild(option);
+      
+    });
+  }
+ 
 
   //Store the fieldType in the input dataset
   taskInput.dataset.fieldType = fieldType;
@@ -401,8 +408,13 @@ export function editTask(event) {
   target.parentNode.insertBefore(taskInput, target.nextSibling); // Insert the input field next to target element
 
   taskInput.classList.add("edit");
+//   const selectedValue = taskInput.value;
+// console.log(selectedValue);
+
+if(taskInput.type === 'text') {
 
   taskInput.select(); // Automatically select the content of the input field
+}
 
   taskInput.addEventListener("blur", saveEditedTask); // Save task when task lose focus on input element.
   taskInput.addEventListener("keypress", saveEditedTask); // Save task on pressing Enter
@@ -410,18 +422,23 @@ export function editTask(event) {
 
 export function saveEditedTask(event) {
   console.log(toDo);
+
   if (event.type === "blur" || event.key === "Enter") {
     const input = event.target;
-    console.log(input);
 
     let fieldType = input.dataset.fieldType;
     let index = input.dataset.index; // Get the index from the input dataset
-    console.log(index);
-    let newValue = input.value;
-    console.log(newValue);
 
-    console.log(currentProjectName);
+    let newValue;
+//If select element, get it value else get input value
+if(input.tagName === 'SELECT') {
+newValue = input.options[input.selectedIndex].value;
+        toDo[index].priority = newValue
+        console.log(toDo[index].priority)
 
+} else {
+  newValue = input.value
+}
     // const currentProject = currentProjectName[currentProjectName.length - 1];
 
     //Get the task from the local storage
@@ -433,9 +450,22 @@ export function saveEditedTask(event) {
       if (fieldType === "title") {
         toDo[index].title = newValue;
         console.log(toDo[index].title);
-        console.log(newValue);
+
       } else if (fieldType === "description") {
         toDo[index].description = newValue;
+      }
+      else if (fieldType === 'dueDate') {
+  let dueDate = newValue
+      const date = new Date(dueDate);
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+
+        toDo[index].date = date.toLocaleDateString("en-Us", options);
       }
     }
 
@@ -460,30 +490,31 @@ export function saveEditedTask(event) {
   }
 }
 
+
 function handleCheckBox(checkBox, taskTitle, taskDescription) {
   checkBox.addEventListener("change", (event) => {
     if (checkBox.checked === true) {
-      taskTitle.style.textDecoration = "line-through";
-      taskTitle.style.textDecorationColor = "grey";
-      taskTitle.style.textDecorationThickness = "2px";
-      console.log(toDo);
+      // taskTitle.style.textDecoration = "line-through";
+      // taskTitle.style.textDecorationColor = "grey";
+      // taskTitle.style.textDecorationThickness = "2px";
+      // console.log(toDo);
+      // taskDescription.style.textDecoration = "line-through";
 
-      taskDescription.style.textDecoration = "line-through";
+      const checkBox = event.target;
+      console.log(checkBox);
+      const index = checkBox.dataset.index;
+      const projectName = checkBox.dataset.project;
 
-      const listContainerEl = event.target;
-      console.log(listContainerEl);
-      const index = listContainerEl.dataset.index;
-      // const buttons = document.querySelectorAll(".deleteTask");
-      // const index = Array.from(buttons).indexOf(this);
+      toDo = JSON.parse(localStorage.getItem(projectName)) || [];
 
       if (index !== -1) {
-        listContainerEl.remove(listContainerEl);
+        checkBox.remove(checkBox);
         toDo.splice(index, 1);
         //update To-do item in local storage
-        localStorage.setItem(currentProjectName, JSON.stringify(toDo));
+        localStorage.setItem(projectName, JSON.stringify(toDo));
         console.log(toDo);
         userList.textContent = "";
-        displayToDosForCurrentProject(currentProjectName);
+        displayToDosForCurrentProject(projectName);
         alert("Task completed!");
       }
       console.log("true");
