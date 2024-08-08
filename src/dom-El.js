@@ -14,6 +14,7 @@ let projectForm = document.querySelector("#ProjectForm");
 const cancelForm = document.querySelector(".cancel");
 const submitBtn = document.querySelector("#submitBtn");
 const addTaskbtn = document.querySelector("#task");
+const addTaskMobileBtn = document.querySelector('#addTodoBtnContainer')
 
 let inbox = document.querySelector(".inbox");
 const toDoContainer = document.createElement("section");
@@ -37,90 +38,6 @@ class getList {
   }
 }
 
-// function createForm() {
-// const form = document.createElement('form');
-//     const inputContainerDivEl = document.createElement('div');
-//     console.log(inputContainerDivEl)
-//     const firstInputContainer = document.createElement('p');
-//     const secondInputContainer = document.createElement('p');
-
-//     const taskTitle = document.createElement('input');
-//     const taskDescription = document.createElement('input');
-//     const formFooter = document.createElement('section');
-//     const priorityDueDateContainer = document.createElement('div');
-//     const selectOptionEl = document.createElement('select');
-//     const opition1 = document.createElement('option');
-//     const opition2 = document.createElement('option');
-//     const opition3 = document.createElement('option');
-//     const opition4 = document.createElement('option');
-//     const opition5 = document.createElement('option');
-
-//     const dueDateEl = document.createElement('input');
-//     const buttonsContainerEl = document.createElement('div')
-//     const cancelBtn = document.createElement('button');
-//     const submitBtn = document.createElement('button');
-
-//     form.setAttribute('id', 'form');
-//     taskTitle.setAttribute('type', 'text');
-//     taskDescription.setAttribute('type', 'text');
-//     selectOptionEl.setAttribute('id', 'priority')
-
-//     opition1.setAttribute('value', 'Select Priority');
-//     opition2.setAttribute('value', 'Urgent');
-//     opition3.setAttribute('value', 'Important');
-//     opition4.setAttribute('value', 'Low priority');
-//     opition5.setAttribute('value', 'Done');
-
-//     dueDateEl.setAttribute('id', 'datePicker');
-
-//     inputContainerDivEl.classList.add('inputContainerDivEl');
-//     firstInputContainer.classList.add('firstInputContainer');
-//     secondInputContainer.classList.add('secondInputContainer');
-
-//     taskTitle.classList.add('taskTitle');
-//     taskDescription.classList.add('taskDescription');
-//     formFooter.classList.add('formFooter');
-//     priorityDueDateContainer.classList.add('priorityDueDateContainer');
-//     buttonsContainerEl.classList.add('buttonsContainerEl');
-//     cancelBtn.classList.add('cancelBtn');
-//     submitBtn.classList.add('submitBtn')
-
-//     taskTitle.placeholder = 'Add task Title';
-//     taskDescription.placeholder = 'Add description';
-
-//     opition1.textContent = 'Select Priority';
-//     opition2.textContent = 'Urgent';
-//     opition3.textContent = 'Important';
-//     opition4.textContent = 'Low priority';
-//     opition5.textContent = 'Done';
-
-//     cancelBtn.textContent = 'Cancel';
-//     submitBtn.textContent = 'Submit task';
-
-//     dueDateEl.type = 'date';
-//     dueDateEl.placeholder = 'dd/mm/yyy';
-//     dueDateEl.min = '1900-03-23';
-//     dueDateEl.max = '2090-18-23';
-
-//     firstInputContainer.appendChild(taskTitle);
-//     secondInputContainer.appendChild(taskDescription);
-
-//     inputContainerDivEl.append(firstInputContainer, secondInputContainer);
-//     selectOptionEl.append(opition1, opition2, opition3, opition4, opition5);
-
-//     priorityDueDateContainer.appendChild(selectOptionEl);
-//     priorityDueDateContainer.appendChild(dueDateEl);
-
-//     buttonsContainerEl.append(cancelBtn, submitBtn)
-//     formFooter.append(priorityDueDateContainer, buttonsContainerEl);
-
-//     form.append(inputContainerDivEl, formFooter)
-//     mainContainer.appendChild(form);
-
-//     acceptInput(taskTitle.value, taskDescription.value, selectOptionEl.value, dueDateEl.value);
-
-//     return
-// }
 
 export const myProjects = document.querySelector("#projects h3");
 const defaultProjects = document.querySelector("#projects");
@@ -139,6 +56,7 @@ function displayForm(event) {
   }
 }
 addTaskbtn.addEventListener("click", displayForm);
+addTaskMobileBtn.addEventListener("click", displayForm);
 
 // Display all To-dos after complete load of html dom.
 document.addEventListener("DOMContentLoaded", () => {
@@ -153,6 +71,19 @@ function acceptInput() {
   let descriptionInputValue = taskDescription.value;
   let priorityValueEl = taskPriority.value;
   let dueDateValueEl = dueDate.value;
+
+  console.log(taskInputValue.length)
+  if (taskInputValue.length > 35) {
+    return alert(
+      `Input should be less or equal to the 35 characters, you have entered ${
+        taskInputValue.length
+      } characters`
+    );
+  } else if(descriptionInputValue.length > 40) {
+    return alert(
+      `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`
+    );
+  }
 
   const date = new Date(dueDateValueEl);
 
@@ -191,7 +122,6 @@ function clearForm() {
 //Display To-dos
 function displayToDos() {
   let userTodos = JSON.parse(localStorage.getItem("toDos")) || [];
-  console.log(userTodos);
 
   userTodos?.forEach((todoObj, index) => {
     getElementForTaskDisplay(
@@ -235,6 +165,7 @@ function getElementForTaskDisplay(
 
   taskTitle.classList.add("taskTitle");
   taskDescription.classList.add("taskDescription");
+  
   dueDate.classList.add("dueDate");
   deleteTask.classList.add("deleteTask");
   taskPriority.classList.add("taskPriority");
@@ -247,8 +178,13 @@ function getElementForTaskDisplay(
 
   taskTitle.dataset.fieldType = "title";
   taskDescription.dataset.fieldType = "description";
+taskPriority.dataset.fieldType = "taskPriority";
+dueDate.dataset.fieldType = "dueDate";
+
   taskTitle.dataset.index = index;
   taskDescription.dataset.index = index;
+  taskPriority.dataset.index = index;
+  dueDate.dataset.index = index;
   checkBox.dataset.index = index;
 
   innerTaskContainer.appendChild(taskTitle);
@@ -268,9 +204,22 @@ function getElementForTaskDisplay(
   userList.appendChild(listContainer);
 
   taskTitle.addEventListener("dblclick", editTask);
+  taskTitle.addEventListener("touchstart", editTask);
+
   taskDescription.addEventListener("dblclick", editTask);
+  taskDescription.addEventListener("touchstart", editTask);
+
+  taskPriority.addEventListener("dblclick", editTask);
+  taskPriority.addEventListener("touchstart", editTask);
+
+  dueDate.addEventListener("dblclick", editTask);
+  dueDate.addEventListener("touchstart", editTask);
+
+
 
   deleteTask.addEventListener("click", deleteToDo);
+  deleteTask.addEventListener("touchstart", deleteToDo);
+
 
   handleCheckBox(checkBox, taskTitle, taskDescription);
 }
@@ -280,6 +229,8 @@ function editTask(event) {
   console.log(target);
   const fieldType = target.dataset.fieldType; // Identify the field type(title,description,priority,date)
   const index = target.dataset.index;
+  console.log(index);
+  const taskPriority = ["Urgent", "Important", "Low priority"];
 
   let taskInput;
 
@@ -287,6 +238,23 @@ function editTask(event) {
     taskInput = document.createElement("input");
     taskInput.type = "text";
     taskInput.value = target.textContent;
+  } else if (fieldType === "dueDate") {
+    taskInput = document.createElement("input");
+    taskInput.type = "date";
+    taskInput.value = target.textContent;
+  } else if (fieldType === "taskPriority") {
+    taskInput = document.createElement("select");
+
+    taskPriority.forEach((priority) => {
+      const option = document.createElement("option");
+      option.value = priority;
+      option.textContent = priority;
+
+      if (priority === target.textContent) {
+        option.selected = true;
+      }
+      taskInput.appendChild(option);
+    });
   }
 
   //Store the fieldType in the input dataset
@@ -298,7 +266,9 @@ function editTask(event) {
 
   taskInput.classList.add("edit");
 
-  taskInput.select(); // Automatically select the content of the input field
+  if (taskInput.type === "text") {
+    taskInput.select(); // Automatically select the content of the input field
+  }
 
   taskInput.addEventListener("blur", saveEditedTask); // Save task when task lose focus on input element.
   taskInput.addEventListener("keypress", saveEditedTask); // Save task on pressing Enter
@@ -306,16 +276,22 @@ function editTask(event) {
 
 function saveEditedTask(event) {
   if (event.type === "blur" || event.key === "Enter") {
-    const input = event.target;
-    console.log(input);
 
+    let input = event.target;
+    console.log(input);
     let fieldType = input.dataset.fieldType;
     let index = input.dataset.index; // Get the index from the input dataset
-    console.log(index);
-    let newValue = input.value;
-    console.log(newValue);
+    
+        console.log(toDos);
 
-    console.log(toDos);
+    let newValue;
+    if (input.tagName === "SELECT") {
+      newValue = input.options[input.selectedIndex].value;
+      toDos[index].priority = newValue;
+      console.log(toDos[index].priority);
+    } else {
+      newValue = input.value;
+    }
 
     //Check if the index is not out of bounds in the array
     if (index < toDos.length) {
@@ -325,8 +301,25 @@ function saveEditedTask(event) {
         console.log(newValue);
       } else if (fieldType === "description") {
         toDos[index].description = newValue;
+        console.log(index)
+        console.log(toDos[description]);
+      }
+      else if (fieldType === "dueDate") {
+        let dueDate = newValue;
+        const date = new Date(dueDate);
+
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        };
+    console.log(toDos);
+
+        toDos[index].date = date.toLocaleDateString("en-Us", options);
       }
     }
+    
 
     // Save the updated tasks to local storage
     localStorage.setItem("toDos", JSON.stringify(toDos));
@@ -346,7 +339,10 @@ function saveEditedTask(event) {
     // Re-render the todo list if necessary
     displayToDos();
   }
+
 }
+
+
 
 function handleCheckBox(checkBox, taskTitle, taskDescription) {
   checkBox.addEventListener("change", (event) => {
@@ -397,43 +393,6 @@ function deleteToDo() {
   }
 }
 
-// function displayInboxTask(PriorityValue) {
-//   const header = document.querySelector("header h1");
-//   header.textContent = "Inbox";
-
-//   const inboxListContainer = document.createElement("div");
-//   const inboxTaskContainer = document.createElement("p");
-//   const inboxInnerTaskContainer = document.createElement("div");
-//   inboxInnerTaskContainer.classList.add("inboxInnerTaskContainer");
-//   inboxTaskContainer.classList.add("inboxTaskContainer");
-//   inboxListContainer.classList.add("inboxListContainer");
-
-//   const inboxCheckBoxContainer = document.createElement("p");
-//   inboxCheckBoxContainer.classList.add("inboxCheckBoxContainer");
-//   const inboxCheckBox = document.createElement("input");
-//   inboxCheckBox.classList.add("inboxCheckBox");
-//   inboxCheckBox.setAttribute("type", "checkbox");
-
-//   const inboxTaskTitle = document.createElement("h4");
-//   inboxTaskTitle.classList.add("inboxTaskTitle");
-//   const inboxTaskDescription = document.createElement("p");
-//   inboxTaskDescription.classList.add("inboxTaskDescription");
-//   const inboxTaskPriority = document.createElement("p");
-//   inboxTaskPriority.classList.add("inboxTaskPriority");
-//   inboxTaskTitle.textContent = "Ironing";
-//   inboxTaskDescription.textContent = "Black trouser and pink shirt";
-//   inboxTaskPriority.textContent = `${PriorityValue}`;
-
-//   inboxInnerTaskContainer.appendChild(inboxTaskTitle);
-//   inboxInnerTaskContainer.appendChild(inboxTaskDescription);
-//   inboxTaskContainer.appendChild(inboxInnerTaskContainer);
-//   inboxTaskContainer.appendChild(inboxInnerTaskContainer);
-//   inboxTaskContainer.appendChild(inboxTaskPriority);
-//   inboxCheckBoxContainer.appendChild(inboxCheckBox);
-//   inboxListContainer.appendChild(inboxCheckBoxContainer);
-//   inboxListContainer.appendChild(inboxTaskContainer);
-//   userList.appendChild(inboxListContainer);
-// }
 
 function cancelFormDisplay() {
   taskTitle.value = "";

@@ -279,7 +279,7 @@ function displayToDosForCurrentProject(projectName) {
   });
 }
 
-function displayTask(
+export function displayTask(
   saveTitleData,
   saveDescriptionData,
   savePriorityData,
@@ -357,7 +357,8 @@ function displayTask(
   taskPriority.addEventListener("dblclick", editTask);
   dueDate.addEventListener("dblclick", editTask);
 
-  deleteTask.addEventListener("click", (event) => deleteToDo(event));
+  deleteTask.addEventListener("click", deleteToDo);
+  deleteTask.addEventListener("touchstart", deleteToDo);
 
   handleCheckBox(checkBox, taskTitle, taskDescription);
 }
@@ -370,23 +371,18 @@ export function editTask(event) {
   const taskPriority = ["Urgent", "Important", "Low priority"];
 
   let taskInput;
-   if (fieldType === "title" || fieldType === "description") {
+  if (fieldType === "title" || fieldType === "description") {
     taskInput = document.createElement("input");
     taskInput.type = "text";
     taskInput.value = target.textContent;
-  }
-  
-   else if(fieldType === 'dueDate') {
+  } else if (fieldType === "dueDate") {
     taskInput = document.createElement("input");
     taskInput.type = "date";
     taskInput.value = target.textContent;
-
-  }
-  else
-     if (fieldType === "taskPriority") {
+  } else if (fieldType === "taskPriority") {
     taskInput = document.createElement("select");
 
-    taskPriority.forEach((priority, index) => {
+    taskPriority.forEach((priority) => {
       const option = document.createElement("option");
       option.value = priority;
       option.textContent = priority;
@@ -395,10 +391,8 @@ export function editTask(event) {
         option.selected = true;
       }
       taskInput.appendChild(option);
-      
     });
   }
- 
 
   //Store the fieldType in the input dataset
   taskInput.dataset.fieldType = fieldType;
@@ -408,13 +402,12 @@ export function editTask(event) {
   target.parentNode.insertBefore(taskInput, target.nextSibling); // Insert the input field next to target element
 
   taskInput.classList.add("edit");
-//   const selectedValue = taskInput.value;
-// console.log(selectedValue);
+  //   const selectedValue = taskInput.value;
+  // console.log(selectedValue);
 
-if(taskInput.type === 'text') {
-
-  taskInput.select(); // Automatically select the content of the input field
-}
+  if (taskInput.type === "text") {
+    taskInput.select(); // Automatically select the content of the input field
+  }
 
   taskInput.addEventListener("blur", saveEditedTask); // Save task when task lose focus on input element.
   taskInput.addEventListener("keypress", saveEditedTask); // Save task on pressing Enter
@@ -430,15 +423,14 @@ export function saveEditedTask(event) {
     let index = input.dataset.index; // Get the index from the input dataset
 
     let newValue;
-//If select element, get it value else get input value
-if(input.tagName === 'SELECT') {
-newValue = input.options[input.selectedIndex].value;
-        toDo[index].priority = newValue
-        console.log(toDo[index].priority)
-
-} else {
-  newValue = input.value
-}
+    //If select element, get it value else get input value
+    if (input.tagName === "SELECT") {
+      newValue = input.options[input.selectedIndex].value;
+      toDo[index].priority = newValue;
+      console.log(toDo[index].priority);
+    } else {
+      newValue = input.value;
+    }
     // const currentProject = currentProjectName[currentProjectName.length - 1];
 
     //Get the task from the local storage
@@ -450,20 +442,18 @@ newValue = input.options[input.selectedIndex].value;
       if (fieldType === "title") {
         toDo[index].title = newValue;
         console.log(toDo[index].title);
-
       } else if (fieldType === "description") {
         toDo[index].description = newValue;
-      }
-      else if (fieldType === 'dueDate') {
-  let dueDate = newValue
-      const date = new Date(dueDate);
+      } else if (fieldType === "dueDate") {
+        let dueDate = newValue;
+        const date = new Date(dueDate);
 
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  };
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        };
 
         toDo[index].date = date.toLocaleDateString("en-Us", options);
       }
@@ -490,16 +480,9 @@ newValue = input.options[input.selectedIndex].value;
   }
 }
 
-
 function handleCheckBox(checkBox, taskTitle, taskDescription) {
   checkBox.addEventListener("change", (event) => {
     if (checkBox.checked === true) {
-      // taskTitle.style.textDecoration = "line-through";
-      // taskTitle.style.textDecorationColor = "grey";
-      // taskTitle.style.textDecorationThickness = "2px";
-      // console.log(toDo);
-      // taskDescription.style.textDecoration = "line-through";
-
       const checkBox = event.target;
       console.log(checkBox);
       const index = checkBox.dataset.index;

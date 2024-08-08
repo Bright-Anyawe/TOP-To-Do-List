@@ -1,471 +1,1263 @@
-body {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    /* background-image: url('./images/Bg_To_Do_List.webp');
-    background-size: cover;
-    background-repeat: no-repeat; */
-    /* background-image: url('./images/istockphoto-921437050-170667a.webp');
-    background-size: cover; */
+    body {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
 
-}
+    :root {
+        --hover-color: #fda4af;
+    }
 
-:root {
-    --hover-color: #fda4af;
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        /* font-family: 'arial' */
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
 
-}
+    @media (max-width: 500px) {
 
-main {
-    display: grid;
-    grid-template-columns: 190px 20px 650px 100px;
-    grid-template-rows: 70px 570px;
-    /* gap: 10px; */
-}
+        body main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 1;
+        }
 
-header {
-    grid-area: 1 / 2 / 2 / 6;
-    /* border-radius: 5px; */
-    background-color: #fda4af;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-aside {
-    grid-area: 1/ 1/ 4/ 2;
-    border-radius: 5px;
-    background-color: #e2e8f0;
-
-
-}
-
-.checkBox {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    outline: none;
-    cursor: pointer;
-    position: relative;
-
-}
+        main header {
+            background-color: #fda4af;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
 
 
-.checkBox::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 16px;
-    color: rgb(22, 252, 22);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
 
-.checkBox:hover::before {
-    content: "✓";
-    opacity: 0.5;
-}
 
-#Container {
-    grid-area: 2 / 3 / 3 / 4;
-    border-radius: 5px;
-    /* padding: 2rem 12rem; */
-    /* background-color: #94a3b8; */
+        #toggleMenuIcon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #6b8888;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            transition: top 0.3s;
 
-}
+            z-index: 1000;
+        }
 
-.empty {
-    grid-area: 2 / 4 / 3 / 6;
-    background-color: #f8f8f8;
-    background-image: url('./images/Todo-1.jpg');
-    background-size: cover;
-}
+        #toggleMenuIcon::before {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 2px;
+            background-color: #fff;
+            transform: translateY(-5px);
+            transition: 0.2s;
+        }
 
-svg {
-    width: 25px;
-    height: 25px;
-}
+        #toggleMenuIcon::after {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 2px;
+            background-color: #fff;
+            transform: translateY(5px);
+            transition: 0.2s;
+        }
 
-#task {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin: 27px 0 11px 26px;
-}
+        #toggleMenuIcon.active::before {
+            transform: translateY(0px) rotate(45deg);
 
-/* #task:hover {
+        }
+
+        #toggleMenuIcon.active::after {
+            transform: translateY(0px) rotate(-45deg);
+
+        }
+
+        aside#menu {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: -220px;
+            width: 220px;
+            height: 100vh;
+            color: white;
+            filter: white;
+            background-color: #7989a1;
+            transition: 0.3s;
+            z-index: 1000;
+            fill: white;
+
+        }
+
+        aside#menu.active {
+            left: 0;
+        }
+
+        main aside {
+            display: none;
+            border-radius: 5px;
+            background-color: #e2e8f0;
+        }
+
+        main #Container {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            border-radius: 5px;
+        }
+
+
+        header .menuController {
+            display: block;
+            width: 40px;
+            height: 40px;
+        }
+
+        header .menuController svg {
+            display: block;
+            width: 40px;
+            height: 40px;
+            fill: white;
+            background-color: black;
+            border-radius: 10px
+        }
+
+        #userlist {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+        }
+
+        div.listContainer {
+            display: flex;
+            gap: 5px;
+            max-width: 465px;
+            border-radius: 10px;
+            box-shadow: 1px 0px 3px 0px;
+            margin: 14px 14px 0 19px;
+
+            padding: 10px;
+
+
+        }
+
+        #userlist .intialTextDisplay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #userlist #addTodoBtnContainer {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 27px 0 11px 26px;
+        }
+
+        #task {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 27px 0 11px 26px;
+        }
+
+        #userlist #addTodoBtnContainer svg {
+            background-color: #dc2626;
+            border-radius: 50%;
+            fill: white;
+        }
+
+        #userlist #addTodoBtnContainer :hover {
+            cursor: pointer;
+            -webkit-transform: scale(1.09);
+        }
+
+        #userlist #addTodoBtnContainer button {
+            border: 0;
+            font-size: 16px;
+            color: #b91c1c;
+            background-color: inherit;
+            transition: 0.3s;
+        }
+
+        #userlist #addTodoBtnContainer button:hover {
+            cursor: pointer;
+            -webkit-transform: scale(1.09);
+        }
+
+
+        .inner_container #form {
+            background-color: #64748b;
+            border-radius: 10px;
+            max-height: 125px;
+            display: none;
+            max-width: 480px;
+            margin: 10px 10px 0 10px;
+        }
+
+
+        .inner_container #ProjectForm {
+            background-color: #64748b;
+            border-radius: 10px;
+            max-height: 125px;
+            display: none;
+            max-width: 480px;
+            margin: 10px 10px 0 10px;
+        }
+
+        .projectFormDetails {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            height: 80px;
+        }
+
+        .projectInputContainer {
+            max-width: 200px;
+        }
+
+        .projectInputContainer p input {
+            max-width: 200px;
+        }
+
+        .innerTaskContainer .edit {
+                max-width: 140px;
+        }
+
+        .projectInputContainer .PdescriptionInputContainer {
+            margin: 10px 0 0 0;
+        }
+
+        div#configPriorityDateOnMobile {
+            display: flex;
+            flex-direction: column;
+            position: static;
+            gap: 10px;
+        }
+
+        #configPriorityDateOnMobile #priority, #datePicker {
+            padding: 2px;
+            border-radius: 6px;
+            max-width: 104px;
+            min-width: 80px;
+        }
+
+        #ProjectForm .footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 10px;
+            gap: 0;
+        }
+
+
+
+
+        #ProjectForm .projectButtonsContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            gap: 0;
+        }
+
+        .formDetails {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        #formFooterOnMobile {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+
+        #formFooterOnMobile .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            gap: 0;
+        }
+
+
+
+        .priorityDateLargeScreen {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #form .inputs {
+            display: flex;
+            flex-direction: column;
+            max-width: 150px;
+
+        }
+
+        #form .first-inputContainer input, .PtitleInputContainer input {
+            max-width: 165px;
+            max-height: 15px;
+            border: none;
+            outline: none;
+            color: white;
+            margin: 10px 0;
+            background-color: inherit;
+        }
+
+        #form .second-inputContainer input, .PdescriptionInputContainer input {
+            max-width: 178px;
+            max-height: 15px;
+            border: none;
+            outline: none;
+            color: white;
+            background-color: inherit;
+            margin: 0;
+        }
+
+
+        #form .other-options-on-forms button, #configPriorityDateOnMobile #priority, #datePicker {
+            padding: 4px;
+            border-radius: 6px;
+            max-width: 104px;
+            min-width: 80px;
+        }
+
+    }
+
+    @media (min-width: 501px) and (max-width: 768px) {
+
+        body main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+        }
+
+
+        main header {
+
+            background-color: #fda4af;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        main aside {
+            display: none;
+            border-radius: 5px;
+            background-color: #e2e8f0;
+            z-index: 2;
+        }
+
+        main #Container {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            border-radius: 5px;
+            z-index: 1;
+
+        }
+
+        header .menuController {
+
+            display: block;
+            width: 40px;
+            height: 40px;
+
+        }
+
+
+
+
+        #toggleMenuIcon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: aqua;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            transition: top 0.3s;
+
+            z-index: 1000;
+        }
+
+        #toggleMenuIcon::before {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 2px;
+            background-color: #fff;
+            transform: translateY(-5px);
+            transition: 0.2s;
+        }
+
+        #toggleMenuIcon::after {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 2px;
+            background-color: #fff;
+            transform: translateY(5px);
+            transition: 0.2s;
+        }
+
+        #toggleMenuIcon.active::before {
+            transform: translateY(0px) rotate(45deg);
+
+        }
+
+        #toggleMenuIcon.active::after {
+            transform: translateY(0px) rotate(-45deg);
+
+        }
+
+        aside#menu {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: -220px;
+            width: 220px;
+            height: 100vh;
+            background-color: #64748b;
+            transition: 0.3s;
+
+        }
+
+        aside#menu.active {
+            left: 0;
+        }
+
+        header .menuController svg {
+            display: block;
+            width: 40px;
+            height: 40px;
+            fill: white;
+            background-color: black;
+            border-radius: 10px
+        }
+
+        #userlist .intialTextDisplay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #userlist #addTodoBtnContainer {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 27px 0 11px 26px;
+        }
+
+        #task {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 27px 0 11px 26px;
+        }
+
+        #userlist #addTodoBtnContainer svg {
+            background-color: #dc2626;
+            border-radius: 50%;
+            fill: white;
+        }
+
+        #userlist #addTodoBtnContainer :hover {
+            cursor: pointer;
+            -webkit-transform: scale(1.09);
+        }
+
+        #userlist #addTodoBtnContainer button {
+            border: 0;
+            font-size: 16px;
+            color: #b91c1c;
+            background-color: inherit;
+        }
+
+        #userlist #addTodoBtnContainer button:hover {
+            cursor: pointer;
+            -webkit-transform: scale(1.09);
+        }
+
+        .intialTextDisplay p {
+            max-width: 500px;
+            display: flex;
+            max-width: 500px;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        .inner_container #form {
+            background-color: #64748b;
+            border-radius: 10px;
+            height: 150px;
+            display: none;
+            max-width: 600px;
+            /* padding-left: 1rem; */
+            margin: 17px;
+        }
+
+
+        .formDetails {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* gap: 31px; */
+            padding: 10px;
+        }
+
+        .priorityDateLargeScreen {
+            display: none;
+        }
+
+        #form .inputs {
+            max-width: 150px
+        }
+
+        #form .first-inputContainer input, .PtitleInputContainer input {
+            max-width: 200px;
+            max-height: 15px;
+            border: none;
+            outline: none;
+            color: white;
+            margin: 10px 0 0 0;
+            background-color: inherit;
+        }
+
+        #form .second-inputContainer input, .PdescriptionInputContainer input {
+            max-width: 200px;
+            max-height: 15px;
+            border: none;
+            outline: none;
+            color: white;
+            background-color: inherit;
+            margin: 0;
+        }
+
+        p.second-inputContainer {
+            margin: 0;
+        }
+
+        #form .buttons {
+            display: flex;
+            /* justify-content: space-between; */
+            /* align-items: center; */
+            gap: 31rem;
+        }
+
+        #configPriorityDateOnMobile {
+            display: flex;
+            flex-direction: column;
+            position: static;
+            gap: 10px;
+        }
+
+        #form .other-options-on-forms button, #priority, #datePicker {
+            padding: 4px;
+            border-radius: 9px;
+        }
+
+        select#priority {
+            padding: 4px;
+            border-radius: 9px;
+        }
+
+        input#datePicker {
+
+            padding: 3px;
+            border-radius: 9px;
+        }
+
+    }
+
+    @media (min-width: 791px) and (max-width: 1000px) {
+
+        body main {
+
+            display: grid;
+
+        }
+
+
+        main header {
+            grid-area: 1 / 2 / 2 / 6;
+            /* border-radius: 5px; */
+            background-color: #fda4af;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        main aside {
+            /* display: none; */
+            border-radius: 5px;
+            background-color: #e2e8f0;
+        }
+
+        main #Container {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            border-radius: 5px;
+            z-index: 1;
+
+        }
+
+        header .menuController {
+
+            display: block;
+            width: 40px;
+            height: 40px;
+
+        }
+
+        header .menuController svg {
+            display: block;
+            width: 40px;
+            height: 40px;
+            fill: white;
+            background-color: black;
+            border-radius: 10px
+        }
+
+        #userlist .intialTextDisplay {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #userlist #addTodoBtnContainer {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            margin: 27px 0 11px 26px;
+        }
+
+        #task {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 27px 0 11px 26px;
+        }
+
+        #userlist #addTodoBtnContainer svg {
+            background-color: #dc2626;
+            border-radius: 50%;
+            fill: white;
+        }
+
+        #userlist #addTodoBtnContainer :hover {
+            cursor: pointer;
+            -webkit-transform: scale(1.09);
+        }
+
+        #userlist #addTodoBtnContainer button {
+            border: 0;
+            font-size: 16px;
+            color: #b91c1c;
+            background-color: inherit;
+        }
+
+        #userlist #addTodoBtnContainer button:hover {
+            cursor: pointer;
+            -webkit-transform: scale(1.09);
+        }
+
+
+        .inner_container #form {
+            background-color: #64748b;
+            border-radius: 10px;
+            height: 140px;
+            display: none;
+            /* box-shadow: #FFEB3B -4px 5px 0px 2px; */
+            max-width: 325px;
+            padding-left: 1rem;
+            margin: 10px 0 0 1rem;
+        }
+
+        .formDetails {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 31px;
+        }
+
+        .priorityDateLargeScreen {
+            display: none;
+        }
+
+        #form .inputs {
+            max-width: 150px
+        }
+
+        #form .first-inputContainer input, .PtitleInputContainer input {
+            max-width: 150px;
+            max-height: 15px;
+            border: none;
+            outline: none;
+            color: white;
+            margin: 10px 0 0 0;
+            background-color: inherit;
+        }
+
+        #form .second-inputContainer input, .PdescriptionInputContainer input {
+            max-width: 150px;
+            max-height: 15px;
+            border: none;
+            outline: none;
+            color: white;
+            background-color: inherit;
+            margin: 0;
+        }
+
+        #form .buttons {
+            display: flex;
+            /* justify-content: space-between; */
+            /* align-items: center; */
+            gap: 9rem;
+        }
+
+        #configPriorityDateOnMobile {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: static;
+        }
+
+        #form .other-options-on-forms button, #priority, #datePicker {
+            padding: 5px;
+            border-radius: 9px;
+        }
+
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: 190px 1fr;
+        grid-template-rows: 70px 570px;
+    }
+
+
+    header {
+        grid-area: 1 / 2 / 2 / 6;
+        background-color: #fda4af;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    aside {
+        grid-area: 1/ 1/ 4/ 2;
+        border-radius: 5px;
+        background-color: #e2e8f0;
+
+    }
+
+    #Container {
+        grid-area: 2 / 2 / 3 / 4;
+
+        display: grid;
+        grid-template-columns: 100px 650px 350px;
+        border-radius: 5px;
+    }
+
+    /* .leftSpace {
+grid-area: 1 / 1 / 3 / 2;
+
+} */
+
+    .inner_container {
+        grid-area: 1 / 2 / 3 / 3;
+    }
+
+
+    .intialTextDisplay {
+        display: none;
+    }
+
+    #addTodoBtnContainer {
+        display: none;
+    }
+
+    .empty {
+        grid-area: 1 / 3 / 5 / 4;
+        background-color: #f8f8f8;
+        background-image: url('./images/Todo-1.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+
+
+    .menuController {
+
+        display: none;
+        width: 40px;
+        height: 40px;
+    }
+
+    .checkBox {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+
+    }
+
+
+    .checkBox::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px;
+        color: rgb(22, 252, 22);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .checkBox:hover::before {
+        content: "✓";
+        opacity: 0.5;
+    }
+
+
+    svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    #task {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 27px 0 11px 26px;
+    }
+
+    /* #task:hover {
     cursor: pointer;
     -webkit-transform: scale(1.02);
 } */
 
-#task svg {
-    background-color: #dc2626;
-    border-radius: 50%;
-    fill: white;
-}
+    #task svg {
+        background-color: #dc2626;
+        border-radius: 50%;
+        fill: white;
+    }
 
-#task :hover {
-    cursor: pointer;
-    -webkit-transform: scale(1.09);
-}
+    #task :hover {
+        cursor: pointer;
+        -webkit-transform: scale(1.09);
+    }
 
-#task button {
-    border: 0;
-    font-size: 16px;
-    color: #b91c1c;
-    background-color: inherit;
-}
+    #task button {
+        border: 0;
+        font-size: 16px;
+        color: #b91c1c;
+        background-color: inherit;
+    }
 
-#task button:hover {
-    cursor: pointer;
-    -webkit-transform: scale(1.09);
-}
+    #task button:hover {
+        cursor: pointer;
+        -webkit-transform: scale(1.09);
+    }
 
-.inner_container {}
-
-
-.listContainer {
-    display: flex;
-    gap: 5px;
-    border-radius: 10px;
-    box-shadow: 1px 0px 3px 0px;
-    margin: 14px 14px 0 19px;
+    .inner_container {}
 
 
-}
+    .listContainer {
+        display: flex;
+        gap: 5px;
+        max-width: 700px;
+        /* width: 600px; */
+        border-radius: 10px;
+        box-shadow: 1px 0px 3px 0px;
+        margin: 14px 14px 0 19px;
+        padding: 10px;
 
 
-.excluded {
-    color: red;
-}
+    }
 
-.taskContainer {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-}
 
-/* .innerTaskContainer :first-child {
+    .priorityDateOnLargeScreen {
+        display: flex;
+        position: relative;
+        top: 34px;
+        max-width: 200px;
+    }
+
+
+    .excluded {
+        color: red;
+    }
+
+    .taskContainer {
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+    }
+
+    /* .innerTaskContainer :first-child {
 } */
 
-.taskTitle, .newProject-task-title, .editableSaveTaskEl {
-    margin: 0;
-    font-size: 18px;
-    text-decoration: none;
-    text-decoration-color: red;
+    .taskTitle, .newProject-task-title, .editableSaveTaskEl {
+        margin: 0;
+        font-size: 18px;
+        text-decoration: none;
+        text-decoration-color: red;
 
-}
+    }
 
-.taskDescription, .newProject-description {
-    margin: 0;
-    font-size: 14px;
+    .taskDescription, .newProject-description {
+        margin: 0;
+        font-size: 14px;
 
-}
+    }
 
-.taskPriority {
-    margin: 0;
-    font-size: 20px;
+    .taskPriority {
+        margin: 0;
+        font-size: 20px;
 
-}
+    }
 
-.innerTaskHandler {
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    justify-content: center;
-    align-items: center;
-    margin: 0px 35px 0 0;
-}
+    .innerTaskHandler {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        justify-content: center;
+        align-items: center;
+        margin: 0px 35px 0 0;
+    }
 
-.inbox-container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin: 0px 0 0 16px;
-    height: 26px;
-    padding: 9px;
-    border-radius: 5px 0px 0px 5px;
-}
+    .inbox-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0px 0 0 16px;
+        height: 26px;
+        padding: 9px;
+        border-radius: 5px 0px 0px 5px;
+    }
 
-.inbox-container:hover {
-    background-color: var(--hover-color);
-}
-
-
-.inbox {
-    font-size: 20px;
-
-}
-
-.inboxListContainer {
-    display: flex;
-    gap: 5px;
-
-}
-
-.inboxTaskContainer {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-}
-
-.inboxTaskTitle {
-    margin: 0;
-    font-size: 18px;
-}
-
-.inboxTaskDescription {
-    margin: 0;
-    font-size: 14px;
-
-}
-
-.inboxTaskPriority {
-    margin: 0 20px 0 0;
-    font-size: 20px;
-
-}
-
-.dueDate {
-    margin: 0;
-
-}
-
-.edit {
-    width: 800px;
-    border: none;
-    outline: none;
-
-}
-
-/* .edit input {
-    outline: none;
-    border: none;
-}  */
-#projects h3 {
-    margin: 0 0 0 10px;
-}
-
-#form {
-    background-color: #64748b;
-    border-radius: 10px;
-    height: 140px;
-    display: none;
-    /* box-shadow: #FFEB3B -4px 5px 0px 2px; */
-    /* min-width: 20%;
-    max-width: 70%; */
-    padding-left: 1rem;
-    margin: 0 0 0 1rem;
-}
-
-#ProjectForm {
-    background-color: #64748b;
-    border-radius: 10px;
-    height: 140px;
-    display: none;
-    margin: 0 15px 0 20px;
-    box-shadow: #FFEB3B -4px 5px 0px 2px;
-}
+    .inbox-container:hover {
+        background-color: var(--hover-color);
+    }
 
 
-.first-inputContainer input, .PtitleInputContainer input {
-    width: 838px;
-    height: 25px;
-    border: none;
-    outline: none;
-    color: white;
-    margin: 10px 0 0 0;
-    background-color: inherit;
-}
+    .inbox {
+        font-size: 20px;
 
-.first-inputContainer input::placeholder, .PtitleInputContainer input::placeholder {
-    color: white;
-    padding: 0 10px;
-    opacity: 1;
-    /* Firefox */
-}
+    }
 
-.second-inputContainer input, .PdescriptionInputContainer input {
-    width: 838px;
-    height: 25px;
-    border: none;
-    outline: none;
-    color: white;
-    background-color: inherit;
-}
+    .inboxListContainer {
+        display: flex;
+        gap: 5px;
 
-.second-inputContainer input::placeholder, .PdescriptionInputContainer input::placeholder {
-    padding: 0 10px;
-    color: white;
-    opacity: 1;
-    /* Firefox */
-}
+    }
 
-.other-options-on-forms, .footer {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 10px;
-}
+    .inboxTaskContainer {
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+    }
 
-.other-options-on-forms button, #priority {
-    padding: 7px;
-    border-radius: 9px;
-}
+    .inboxTaskTitle {
+        margin: 0;
+        font-size: 18px;
+    }
 
-#projectPriority, .footer {
-    padding: 7px;
-    border-radius: 9px;
-}
+    .inboxTaskDescription {
+        margin: 0;
+        font-size: 14px;
 
-.addProjectsContainer {
-    display: flex;
-    /* justify-content: center; */
-    margin: 0 0 0 20px;
-    padding: 7px;
-    align-items: center;
-    gap: 10px;
-    height: 25px;
-    border-radius: 5px 0px 0px 5px;
+    }
 
-}
+    .inboxTaskPriority {
+        margin: 0 20px 0 0;
+        font-size: 20px;
 
-.addProjectsContainer:hover {
-    background-color: var(--hover-color);
-}
+    }
 
-.addProjectsContainer svg {
-    width: 25px;
-    height: 25px;
-}
+    .dueDate {
+        margin: 0;
 
-#addNewProjectEl {
-    margin: 0;
-    font-size: 19px;
-}
+    }
+
+    .edit {
+        border: none;
+        outline: none;
+
+    }
+
+    #projects h3 {
+        margin: 0 0 0 10px;
+    }
+
+    #form {
+        background-color: #64748b;
+        border-radius: 10px;
+        height: 140px;
+        display: none;
+        padding-left: 1rem;
+        margin: 10px 10px 0 0;
+    }
+
+    #ProjectForm {
+        background-color: #64748b;
+        border-radius: 10px;
+        height: 150px;
+        display: none;
+        padding: 10px;
+        margin: 10px 0 0 0;
+    }
 
 
-.project_text {
-    margin: 0 0 10px 17px;
-    display: flex;
-    align-self: center;
-    justify-self: center;
-    padding: 9px;
-    border-radius: 5px 0px 0px 5px;
+    .first-inputContainer input, .PtitleInputContainer input {
+        width: 600px;
+        height: 25px;
+        border: none;
+        outline: none;
+        color: white;
+        margin: 10px 0 0 0;
+        background-color: inherit;
+    }
+
+    .first-inputContainer input::placeholder, .PtitleInputContainer input::placeholder {
+        color: white;
+        padding: 0 10px;
+        opacity: 1;
+        /* Firefox */
+    }
+
+    .second-inputContainer input, .PdescriptionInputContainer input {
+        width: 600px;
+        height: 25px;
+        border: none;
+        outline: none;
+        color: white;
+        background-color: inherit;
+        margin: 0;
+    }
+
+    .second-inputContainer input::placeholder, .PdescriptionInputContainer input::placeholder {
+        padding: 0 10px;
+        color: white;
+        opacity: 1;
+        /* Firefox */
+    }
+
+    .other-options-on-forms, .footer {
+        display: flex;
+        justify-content: end;
+        padding: 0 10px;
+    }
+
+    .submitBtn:active {
+        transform: active scale(1.1);
+    }
+
+    .other-options-on-forms button, #priority {
+        transition: transform .3s ease-in;
+        padding: 7px;
+        border-radius: 9px;
+    }
+
+    #projectPriority, .footer {
+        padding: 7px;
+        border-radius: 9px;
+        margin: 0 0 5px 0;
+    }
+
+    .addProjectsContainer {
+        display: flex;
+        /* justify-content: center; */
+        margin: 0 0 0 20px;
+        padding: 7px;
+        align-items: center;
+        gap: 10px;
+        height: 25px;
+        border-radius: 5px 0px 0px 5px;
+
+    }
+
+    .addProjectsContainer:hover {
+        background-color: var(--hover-color);
+    }
+
+    .addProjectsContainer svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    #addNewProjectEl {
+        margin: 0;
+        font-size: 19px;
+    }
 
 
-}
-
-.project_text:hover {
-    background-color: var(--hover-color);
-}
-
-
-
-#project-dropdown {
-    border: 0;
-    background-color: inherit;
-    margin: 5px 0 0 17px;
-    font-size: 18px;
-    font-weight: 550;
-    padding: 8px;
-    border-radius: 5px 0px 0px 5px;
-
-}
-
-#project-dropdown:hover {
-    background-color: var(--hover-color);
-
-}
+    .project_text {
+        margin: 0 0 10px 17px;
+        display: flex;
+        align-self: center;
+        justify-self: center;
+        padding: 9px;
+        border-radius: 5px 0px 0px 5px;
 
 
-#project-dropdown:focus {
-    border: none;
-    outline: none;
-}
+    }
 
-#newProjectsFormContainerEl {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-    /* position: relative;
+    .project_text:hover {
+        background-color: var(--hover-color);
+    }
+
+
+
+    #project-dropdown {
+        border: 0;
+        background-color: inherit;
+        margin: 5px 0 0 17px;
+        font-size: 18px;
+        font-weight: 550;
+        padding: 8px;
+        border-radius: 5px 0px 0px 5px;
+        max-width: 160px;
+
+    }
+
+    #project-dropdown:hover {
+        background-color: var(--hover-color);
+
+    }
+
+
+    #project-dropdown:focus {
+        border: none;
+        outline: none;
+    }
+
+    #newProjectsFormContainerEl {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        /* position: relative;
     top: 120px; */
-    /* box-shadow: 1px 3px 3px 1px;
+        /* box-shadow: 1px 3px 3px 1px;
     /* box-shadow: 1px 3px 3px 1px; */
-}
+    }
 
-#ProjectsFormNameContainerEl {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-}
-
-
-.inputNewprojectFormName {
-    display: none;
-    background-color: #cee3e3;
-    width: 320px;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    margin: 60px 0 0 0;
-    box-shadow: 0px 9px 3px 0px;
-}
-
-.inputNewProjectName {
-    width: 200px;
-    height: 19px;
+    #ProjectsFormNameContainerEl {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+    }
 
 
-}
+    .inputNewprojectFormName {
+        display: none;
+        background-color: #cee3e3;
+        width: 320px;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        margin: 60px 0 0 0;
+        box-shadow: 0px 9px 3px 0px;
+    }
 
-#newProjectTasksContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    margin: 10px;
-    box-shadow: #5c5555 1px 3px 3px 1px;
-    border-radius: 10px;
-    padding: 10px;
-    width: 110px;
-    position: relative;
-    left: 250px;
-}
-
-svg.addTask {
-    border-radius: 50%;
-    fill: wheat;
-    background-color: red;
-}
-
-.newProjectAddBtn {
-    border: 0;
-    background-color: inherit;
-    font-weight: 500;
-}
-
-#ProjectdatePicker {
-    padding: 6px;
-    border-radius: 9px;
-
-}
+    .inputNewProjectName {
+        width: 200px;
+        height: 19px;
 
 
-#submitBtnForProject {
-    padding: 7px;
-    border-radius: 9px;
+    }
 
-}
+    #newProjectTasksContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        margin: 10px;
+        box-shadow: #5c5555 1px 3px 3px 1px;
+        border-radius: 10px;
+        padding: 10px;
+        width: 95px;
+        position: relative;
+        left: 250px;
+    }
 
-.cancelForProjectBtn {
-    padding: 7px;
-    border-radius: 9px;
-}
+    svg.addTask {
+        border-radius: 50%;
+        fill: wheat;
+        background-color: red;
+    }
+
+    .newProjectAddBtn {
+        border: 0;
+        background-color: inherit;
+        font-weight: 500;
+        position: relative;
+        bottom: 5px;
+    }
+
+    #ProjectdatePicker {
+        padding: 2px;
+        border-radius: 9px;
+        border: none;
+        height: 25px;
+
+    }
+
+
+    #submitBtnForProject {
+        padding: 7px;
+        border-radius: 9px;
+
+    }
+
+    #submitBtnForProject:active {
+        transform: scale(1.1)
+    }
+
+    .cancelForProjectBtn {
+        padding: 7px;
+        border-radius: 9px;
+    }
