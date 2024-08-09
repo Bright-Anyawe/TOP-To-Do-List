@@ -185,6 +185,16 @@ export function getUserTodo() {
   let priorityValueEl = selectPriorityEl.value;
   let dueDateValueEl = dueDate.value;
 
+  if (taskInputValue.length > 35) {
+    return alert(
+      `Input should be less or equal to the 35 characters, you have entered ${taskInputValue.length} characters`
+    );
+  } else if (descriptionInputValue.length > 40) {
+    return alert(
+      `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`
+    );
+  }
+
   const date = new Date(dueDateValueEl);
 
   const options = {

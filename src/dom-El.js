@@ -73,13 +73,13 @@ function acceptInput() {
   let dueDateValueEl = dueDate.value;
 
   console.log(taskInputValue.length)
-  if (taskInputValue.length > 35) {
+  if (taskInputValue.length > 30) {
     return alert(
       `Input should be less or equal to the 35 characters, you have entered ${
         taskInputValue.length
       } characters`
     );
-  } else if(descriptionInputValue.length > 40) {
+  } else if(descriptionInputValue.length > 35) {
     return alert(
       `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`
     );

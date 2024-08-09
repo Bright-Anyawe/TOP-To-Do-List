@@ -18,7 +18,7 @@
         font-style: normal;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
 
         body main {
             display: flex;
@@ -138,13 +138,13 @@
         #userlist {
             display: flex;
             flex-direction: column;
-            max-width: 500px;
+            max-width: 550px;
         }
 
         div.listContainer {
             display: flex;
             gap: 5px;
-            max-width: 465px;
+            max-width: 515px;
             border-radius: 10px;
             box-shadow: 1px 0px 3px 0px;
             margin: 14px 14px 0 19px;
@@ -204,6 +204,7 @@
             background-color: #64748b;
             border-radius: 10px;
             max-height: 125px;
+            max-width: 515px !important;
             display: none;
             max-width: 480px;
             margin: 10px 10px 0 10px;
@@ -213,11 +214,11 @@
         .inner_container #ProjectForm {
             background-color: #64748b;
             border-radius: 10px;
-            max-height: 125px;
-            max-width: 380px;
+            max-height: 134px;
+            max-width: 515px;
             display: none;
-            max-width: 480px;
-            margin: 10px 10px 0 10px;
+            max-width: 500px;
+            margin: 9px 10px 0 23px;
         }
 
         .projectFormDetails {
@@ -352,8 +353,7 @@
 
     }
 
-    @media (min-width: 501px) and (max-width: 768px) {
-
+    @media (min-width: 551px) and (max-width: 768px) {
         body main {
             display: flex;
             flex-direction: column;
@@ -515,6 +515,17 @@
             -webkit-transform: scale(1.09);
         }
 
+        div.listContainer {
+            display: flex;
+            gap: 5px;
+            max-width: 714px;
+            /* width: 600px; */
+            border-radius: 10px;
+            box-shadow: 1px 0px 3px 0px;
+            margin: 18px 60px;
+            padding: 15px;
+        }
+
         .intialTextDisplay p {
             max-width: 500px;
             display: flex;
@@ -550,9 +561,10 @@
             max-width: 150px
         }
 
-        #form .first-inputContainer input, .PtitleInputContainer input {
-            max-width: 200px;
-            max-height: 15px;
+        #form .first-inputContainer input, .PtitleInputContainer input,
+        #form .second-inputContainer input, .PdescriptionInputContainer input {
+            max-width: 600px;
+            height: 25px;
             border: none;
             outline: none;
             color: white;
@@ -560,7 +572,7 @@
             background-color: inherit;
         }
 
-        #form .second-inputContainer input, .PdescriptionInputContainer input {
+        /* #form .second-inputContainer input, .PdescriptionInputContainer input {
             max-width: 200px;
             max-height: 15px;
             border: none;
@@ -568,7 +580,7 @@
             color: white;
             background-color: inherit;
             margin: 0;
-        }
+        } */
 
         p.second-inputContainer {
             margin: 0;
@@ -588,9 +600,51 @@
             gap: 10px;
         }
 
+
         #form .other-options-on-forms button, #priority, #datePicker {
             padding: 4px;
             border-radius: 9px;
+        }
+
+        form#ProjectForm {
+            /* background-color: #64748b;
+            border-radius: 10px;
+            height: 150px;
+            display: none;
+            max-width: 700px;
+            padding-left: 1rem;
+            margin: 17px; */
+
+            background-color: #64748b;
+            border-radius: 10px;
+            height: 150px;
+            display: none;
+            max-width: 693px;
+            padding-left: 1rem;
+            margin: 9px 61px;
+        }
+
+        div.projectFormDetails {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            top: 0;
+        }
+
+        div.priorityDateOnLargeScreen {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            top: 0;
+            /* gap: 31px; */
+
+        }
+
+        .projectButtonsContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         select#priority {
@@ -603,10 +657,9 @@
             padding: 3px;
             border-radius: 9px;
         }
-
     }
 
-    @media (min-width: 791px) and (max-width: 1000px) {
+    @media (min-width: 769px) and (max-width: 1000px) {
 
         body main {
 
@@ -702,23 +755,38 @@
             -webkit-transform: scale(1.09);
         }
 
+        div.listContainer {
+            display: flex;
+            gap: 5px;
+            max-width: 714px;
+            /* width: 600px; */
+            border-radius: 10px;
+            box-shadow: 1px 0px 3px 0px;
+            margin: 18px 60px;
+            padding: 15px;
+        }
+
+
+
+
 
         .inner_container #form {
             background-color: #64748b;
             border-radius: 10px;
-            height: 140px;
+            height: 150px;
             display: none;
-            /* box-shadow: #FFEB3B -4px 5px 0px 2px; */
-            max-width: 325px;
-            padding-left: 1rem;
-            margin: 10px 0 0 1rem;
+            max-width: 750px;
+            /* padding-left: 1rem; */
+            margin: 17px;
         }
+
 
         .formDetails {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 31px;
+            /* gap: 31px; */
+            padding: 15px 26px;
         }
 
         .priorityDateLargeScreen {
@@ -730,18 +798,8 @@
         }
 
         #form .first-inputContainer input, .PtitleInputContainer input {
-            max-width: 150px;
-            max-height: 15px;
-            border: none;
-            outline: none;
-            color: white;
-            margin: 10px 0 0 0;
-            background-color: inherit;
-        }
-
-        #form .second-inputContainer input, .PdescriptionInputContainer input {
-            max-width: 150px;
-            max-height: 15px;
+            max-width: 420px;
+            max-height: 60px;
             border: none;
             outline: none;
             color: white;
@@ -749,11 +807,54 @@
             margin: 0;
         }
 
+        #form .second-inputContainer input, .PdescriptionInputContainer input {
+            max-width: 420px;
+            max-height: 60px;
+            border: none;
+            outline: none;
+            color: rgb(90, 77, 77);
+            background-color: inherit;
+            margin: 0;
+        }
+
+
         #form .buttons {
             display: flex;
-            /* justify-content: space-between; */
-            /* align-items: center; */
-            gap: 9rem;
+            justify-content: space-between;
+        }
+
+        form#ProjectForm {
+            background-color: #64748b;
+            border-radius: 10px;
+            height: 150px;
+            display: none;
+            max-width: 693px;
+            padding-left: 1rem;
+            margin: 9px 61px;
+
+        }
+
+        div.projectFormDetails {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            top: 0;
+        }
+
+        div.priorityDateOnLargeScreen {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            top: 0;
+            /* gap: 31px; */
+
+        }
+
+        .projectButtonsContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         #configPriorityDateOnMobile {
@@ -764,8 +865,9 @@
         }
 
         #form .other-options-on-forms button, #priority, #datePicker {
-            padding: 5px;
-            border-radius: 9px;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
         }
 
     }
@@ -909,18 +1011,36 @@ grid-area: 1 / 1 / 3 / 2;
         -webkit-transform: scale(1.09);
     }
 
-    .inner_container {}
+    button.deleteTask {
+        padding: 10px;
+        border: none;
+        border-radius: 7px;
+        font-size: 1.1rem;
+        background-color: #e0487c;
+        color: white;
+        transition: transform 0.2s ease-out;
+    }
+
+    button.deleteTask:hover {
+        transform: scale(1.1)
+    }
+
+    button.deleteTask:active {
+        transform: scale(0.9)
+    }
+
+
 
 
     .listContainer {
         display: flex;
         gap: 5px;
-        max-width: 700px;
+        max-width: 714px;
         /* width: 600px; */
         border-radius: 10px;
         box-shadow: 1px 0px 3px 0px;
-        margin: 14px 14px 0 19px;
-        padding: 10px;
+        margin: 18px 18px;
+        padding: 15px;
 
 
     }
@@ -928,9 +1048,21 @@ grid-area: 1 / 1 / 3 / 2;
 
     .priorityDateOnLargeScreen {
         display: flex;
-        position: relative;
-        top: 34px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         max-width: 200px;
+    }
+
+    .projectButtonsContainer {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .projectButtonsContainer button {
+        border: none;
+        border-radius: 7px;
+        padding: 9px;
     }
 
 
@@ -973,7 +1105,7 @@ grid-area: 1 / 1 / 3 / 2;
         justify-items: center;
         justify-content: center;
         align-items: center;
-        margin: 0px 35px 0 0;
+        margin: 0px 15px 0 40px;
     }
 
     .inbox-container {
@@ -1049,18 +1181,53 @@ grid-area: 1 / 1 / 3 / 2;
         margin: 10px 10px 0 0;
     }
 
+    .formDetails {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 12px 15px;
+    }
+
+    input#datePicker {
+        max-width: 118px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 -10px
+    }
+
+    .buttons button {
+        border: none;
+        border-radius: 7px;
+        padding: 7px;
+        transition: transform 0.2s ease-out
+    }
+
+    .buttons button:hover {
+        transform: scale(1.05)
+    }
+
     #ProjectForm {
         background-color: #64748b;
         border-radius: 10px;
         height: 150px;
         display: none;
         padding: 10px;
-        margin: 10px 0 0 0;
+        margin: 0px 15px 0 17px;
+    }
+
+    .projectFormDetails {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        top: 0;
     }
 
 
     .first-inputContainer input, .PtitleInputContainer input {
-        width: 600px;
+        max-width: 600px;
         height: 25px;
         border: none;
         outline: none;
@@ -1077,7 +1244,7 @@ grid-area: 1 / 1 / 3 / 2;
     }
 
     .second-inputContainer input, .PdescriptionInputContainer input {
-        width: 600px;
+        max-width: 600px;
         height: 25px;
         border: none;
         outline: none;
@@ -1093,26 +1260,40 @@ grid-area: 1 / 1 / 3 / 2;
         /* Firefox */
     }
 
+    .first-inputContainer, .second-inputContainer {
+        margin: 10px 0 0 0;
+        font-size: 1rem;
+    }
+
     .other-options-on-forms, .footer {
-        display: flex;
-        justify-content: end;
-        padding: 0 10px;
+        /* display: flex;
+        justify-content: end; */
+        padding: 0 40px
     }
 
     .submitBtn:active {
         transform: active scale(1.1);
     }
 
-    .other-options-on-forms button, #priority {
+    .other-options-on-forms button, #priority, input#datePicker {
         transition: transform .3s ease-in;
         padding: 7px;
-        border-radius: 9px;
+        border-radius: 7px;
+        border: none;
+        background-color: #07c4dd;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    #priority {
+        margin: 10px 0 8px 0;
     }
 
     #projectPriority, .footer {
         padding: 7px;
-        border-radius: 9px;
-        margin: 0 0 5px 0;
+        border-radius: 5px;
+        margin: 0 4px 5px 0;
     }
 
     .addProjectsContainer {
@@ -1249,9 +1430,9 @@ grid-area: 1 / 1 / 3 / 2;
 
     #ProjectdatePicker {
         padding: 2px;
-        border-radius: 9px;
+        border-radius: 5px;
         border: none;
-        height: 25px;
+        height: 32px;
 
     }
 
