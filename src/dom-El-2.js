@@ -16,7 +16,9 @@ const newProjectNameRequest = document.querySelector(".newProjectNameRequest");
 const newProjectNameTitle = document.querySelector(".headerTextContent");
 const SaveProjectName = document.querySelector(".SaveProjectName");
 const newProjectTask = document.querySelector(".newProjectTask");
-const newProjectTasksContainer = document.createElement("section");
+const newProjectTasksContainer = document.createElement("div");
+const newProjectTasksInnerContainer = document.createElement("div");
+
 const newProjectAddBtn = document.createElement("button");
 const submitTaskBtn = document.querySelector("#submitBtnForProject");
 const cancelTaskBtn = document.querySelector(".cancelForProjectBtn");
@@ -93,6 +95,8 @@ newProjectFormNameBtnEl.addEventListener(
 
 export function createNewProjectTaskBtn() {
   newProjectTasksContainer.setAttribute("id", "newProjectTasksContainer");
+  newProjectTasksInnerContainer.setAttribute("id", "newProjectTasksInnerContainer");
+
   newProjectAddBtn.textContent = "Add task";
 
   // Create the SVG element
@@ -115,8 +119,10 @@ export function createNewProjectTaskBtn() {
 
   newProjectAddBtn.classList.add("newProjectAddBtn");
 
-  newProjectTasksContainer.appendChild(svgElement);
-  newProjectTasksContainer.appendChild(newProjectAddBtn);
+  newProjectTasksInnerContainer.appendChild(svgElement);
+  newProjectTasksInnerContainer.appendChild(newProjectAddBtn);
+  newProjectTasksContainer.appendChild(newProjectTasksInnerContainer);
+
   newProjectsFormContainerEl.appendChild(newProjectTasksContainer);
 
   return newProjectsFormContainerEl;
