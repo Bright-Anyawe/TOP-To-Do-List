@@ -6,7 +6,7 @@ let projectDropDown = document.querySelector("#project-dropdown");
 let addNewProjectEl = document.querySelector('#adNewProjectEl')
 
 console.log(projectDropDown);
-// const userListDisplay = document.querySelector("#userlist")
+
 console.log(asideEl);
 
 function toggelMenu() {
@@ -39,6 +39,5 @@ projectDropDown.addEventListener("change", optionSelected);
 document.addEventListener("click", removeSideBar);
 
 
-// addNewProjectEl.addEventListener('click', () => {
-//   addNewProjectEl.classList.add('active');
-// })
+
+

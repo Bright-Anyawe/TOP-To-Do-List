@@ -6,13 +6,14 @@
 
     :root {
         --hover-color: #fda4af;
+        --background-color: #6f9e9e;
     }
 
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        /* font-family: 'arial' */
+
         font-family: "Roboto", sans-serif;
         font-weight: 400;
         font-style: normal;
@@ -163,11 +164,11 @@
         }
 
         .intialTextDisplay img {
-                    max-width: 100%;
-        height: auto;
-        padding: 18px;
-        border-radius: 30px;
-        object-fit: contain;
+            max-width: 100%;
+            height: auto;
+            padding: 18px;
+            border-radius: 30px;
+            object-fit: contain;
 
         }
 
@@ -321,7 +322,7 @@
         div#configPriorityDateOnMobile {
             display: flex;
             flex-direction: column;
-                    max-width: 200px;
+            max-width: 200px;
             position: static;
         }
 
@@ -446,6 +447,17 @@
             z-index: 2;
         }
 
+        aside ul, ul select {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            fill: white;
+        }
+
+        select#project-dropdown {
+            background-color: rgb(42, 40, 49);
+        }
+
         main #Container {
             display: flex;
             flex-direction: column;
@@ -470,15 +482,16 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: aqua;
+            width: 50px;
+            height: 50px;
+            background-color: #6f9e9e;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 8px;
             transition: top 0.3s;
+            z-index: 1000;
 
             z-index: 1000;
         }
@@ -520,13 +533,20 @@
             left: -220px;
             width: 220px;
             height: 100vh;
-            background-color: #64748b;
+            background-color: var(--background-color);
             transition: 0.3s;
 
         }
 
         aside#menu.active {
             left: 0;
+        }
+
+        aside ul {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            fill: white;
         }
 
         header .menuController svg {
@@ -580,7 +600,7 @@
             display: flex;
             gap: 5px;
             max-width: 714px;
-            /* width: 600px; */
+
             border-radius: 10px;
             box-shadow: 1px 0px 3px 0px;
             margin: 18px 60px;
@@ -604,10 +624,10 @@
         }
 
         .intialTextDisplay img {
-                    width: 100%;
-        height: auto;
-        padding: 20px;
-        border-radius: 41px;
+            width: 100%;
+            height: auto;
+            padding: 20px;
+            border-radius: 41px;
             object-fit: contain;
         }
 
@@ -617,7 +637,7 @@
             height: 150px;
             display: none;
             max-width: 600px;
-            /* padding-left: 1rem; */
+
             margin: 17px;
         }
 
@@ -626,7 +646,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* gap: 31px; */
+
             padding: 10px;
             margin: 0;
         }
@@ -650,15 +670,7 @@
             background-color: inherit;
         }
 
-        /* #form .second-inputContainer input, .PdescriptionInputContainer input {
-            max-width: 200px;
-            max-height: 15px;
-            border: none;
-            outline: none;
-            color: white;
-            background-color: inherit;
-            margin: 0;
-        } */
+
 
         p.second-inputContainer {
             margin: 0;
@@ -666,33 +678,27 @@
 
         #form .buttons {
             display: flex;
-                    margin: 1px 23px;
-            /* justify-content: space-between; */
-            /* align-items: center; */
-            /* gap: 31rem; */
+            margin: 1px 23px;
+
+
+
         }
 
         #configPriorityDateOnMobile {
             display: flex;
             flex-direction: column;
             position: static;
-            /* gap: 10px; */
+
         }
 
 
         #form .other-options-on-forms button, #priority, #datePicker {
-                    padding: 7px;
-        border-radius: 9px;
+            padding: 7px;
+            border-radius: 9px;
         }
 
         form#ProjectForm {
-            /* background-color: #64748b;
-            border-radius: 10px;
-            height: 150px;
-            display: none;
-            max-width: 700px;
-            padding-left: 1rem;
-            margin: 17px; */
+
 
             background-color: #64748b;
             border-radius: 10px;
@@ -710,33 +716,27 @@
             top: 0;
         }
 
-        /* div.priorityDateOnLargeScreen {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            top: 0;
-            /* gap: 31px; */
 
-        } */
 
-        .projectButtonsContainer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    }
 
-        select#priority {
-            padding: 4px;
-            border-radius: 9px;
-        }
+    */ .projectButtonsContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        input#datePicker {
+    select#priority {
+        padding: 4px;
+        border-radius: 9px;
+    }
 
-            padding: 3px;
-            border-radius: 9px;
-        }
-    
+    input#datePicker {
+
+        padding: 3px;
+        border-radius: 9px;
+    }
+
 
     @media (min-width: 769px) and (max-width: 1000px) {
 
@@ -749,7 +749,7 @@
 
         main header {
             grid-area: 1 / 2 / 2 / 6;
-            /* border-radius: 5px; */
+
             background-color: #fda4af;
             text-align: center;
             display: flex;
@@ -759,7 +759,7 @@
         }
 
         main aside {
-            /* display: none; */
+
             border-radius: 5px;
             background-color: #e2e8f0;
         }
@@ -797,13 +797,13 @@
             text-align: center;
         }
 
-       #userlist .intialTextDisplay p {
-    font-size: 1.2rem;
-    text-align: center;
-    font-weight: 500;
-    margin: 10px 0 0 0;
-    max-width: 600px;
-}
+        #userlist .intialTextDisplay p {
+            font-size: 1.2rem;
+            text-align: center;
+            font-weight: 500;
+            margin: 10px 0 0 0;
+            max-width: 600px;
+        }
 
         #userlist #addTodoBtnContainer {
             display: none;
@@ -846,7 +846,7 @@
             display: flex;
             gap: 5px;
             max-width: 714px;
-            /* width: 600px; */
+
             border-radius: 10px;
             box-shadow: 1px 0px 3px 0px;
             margin: 18px 60px;
@@ -863,7 +863,7 @@
             height: 150px;
             display: none;
             max-width: 750px;
-            /* padding-left: 1rem; */
+
             margin: 17px;
         }
 
@@ -872,9 +872,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* gap: 31px; */
-                    padding: 9px 20px;
-                    margin: 0;
+
+            padding: 9px 20px;
+            margin: 0;
         }
 
         .priorityDateLargeScreen {
@@ -909,7 +909,7 @@
         #form .buttons {
             display: flex;
             justify-content: space-between;
-                margin: 1px 33px
+            margin: 1px 33px
         }
 
         form#ProjectForm {
@@ -936,7 +936,7 @@
             justify-content: space-between;
             align-items: center;
             top: 0;
-            /* gap: 31px; */
+
 
         }
 
@@ -991,10 +991,7 @@
         border-radius: 5px;
     }
 
-    /* .leftSpace {
-grid-area: 1 / 1 / 3 / 2;
 
-} */
 
     .inner_container {
         grid-area: 1 / 2 / 3 / 3;
@@ -1002,27 +999,27 @@ grid-area: 1 / 1 / 3 / 2;
 
 
     .intialTextDisplay {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
     }
 
-    .intialTextDisplay p{
-            font-size: 1.2rem;
-    text-align: center;
-    font-weight: 500;
+    .intialTextDisplay p {
+        font-size: 1.2rem;
+        text-align: center;
+        font-weight: 500;
         margin: 10px 0 0 0;
     }
 
     .intialTextDisplay img {
-            width: 100%;
-    height: auto;
-    border-radius: 30px;
-    padding: 20px;
+        width: 100%;
+        height: auto;
+        border-radius: 30px;
+        padding: 20px;
 
-     }
+    }
 
     #addTodoBtnContainer {
         display: none;
@@ -1090,10 +1087,7 @@ grid-area: 1 / 1 / 3 / 2;
         margin: 27px 0 11px 26px;
     }
 
-    /* #task:hover {
-    cursor: pointer;
-    -webkit-transform: scale(1.02);
-} */
+
 
     #task svg {
         background-color: #dc2626;
@@ -1143,7 +1137,7 @@ grid-area: 1 / 1 / 3 / 2;
         display: flex;
         gap: 5px;
         max-width: 714px;
-        /* width: 600px; */
+
         border-radius: 10px;
         box-shadow: 1px 0px 3px 0px;
         margin: 18px 18px;
@@ -1183,8 +1177,7 @@ grid-area: 1 / 1 / 3 / 2;
         justify-content: space-between;
     }
 
-    /* .innerTaskContainer :first-child {
-} */
+
 
     .taskTitle, .newProject-task-title, .editableSaveTaskEl {
         margin: 0;
@@ -1308,7 +1301,7 @@ grid-area: 1 / 1 / 3 / 2;
     .buttons {
         display: flex;
         justify-content: space-between;
-            margin: 1px 33px
+        margin: 1px 33px
     }
 
     .buttons button {
@@ -1357,7 +1350,7 @@ grid-area: 1 / 1 / 3 / 2;
         color: white;
         padding: 0 10px;
         opacity: 1;
-        /* Firefox */
+
     }
 
     .second-inputContainer input, .PdescriptionInputContainer input {
@@ -1374,7 +1367,7 @@ grid-area: 1 / 1 / 3 / 2;
         padding: 0 10px;
         color: white;
         opacity: 1;
-        /* Firefox */
+
     }
 
     .first-inputContainer, .second-inputContainer {
@@ -1382,11 +1375,7 @@ grid-area: 1 / 1 / 3 / 2;
         font-size: 1rem;
     }
 
-    .other-options-on-forms, .footer {
-        /* display: flex;
-        justify-content: end; */
-        /* padding: 0 40px */
-    }
+    .other-options-on-forms, .footer {}
 
     .submitBtn:active {
         transform: active scale(1.1);
@@ -1415,7 +1404,7 @@ grid-area: 1 / 1 / 3 / 2;
 
     .addProjectsContainer {
         display: flex;
-        /* justify-content: center; */
+
         margin: 0 0 0 20px;
         padding: 7px;
         align-items: center;
@@ -1485,10 +1474,8 @@ grid-area: 1 / 1 / 3 / 2;
         justify-content: center;
         align-items: center;
         justify-items: center;
-        /* position: relative;
-    top: 120px; */
-        /* box-shadow: 1px 3px 3px 1px;
-    /* box-shadow: 1px 3px 3px 1px; */
+
+
     }
 
     #ProjectsFormNameContainerEl {
@@ -1556,22 +1543,15 @@ grid-area: 1 / 1 / 3 / 2;
         color: white;
     }
 
-    /* #newProjectTasksContainer {
+    #newProjectTasksContainer {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 5px;
-        margin: 10px;
-        box-shadow: #5c5555 1px 3px 3px 1px;
-        border-radius: 10px;
-        padding: 10px;
-        width: 95px;
-        position: relative;
-        left: 250px;
-    } */
+
+    }
 
     #newProjectTasksInnerContainer {
-         display: flex;
+        display: flex;
         justify-content: center;
         align-items: center;
         gap: 5px;
@@ -1594,8 +1574,7 @@ grid-area: 1 / 1 / 3 / 2;
         border: 0;
         background-color: inherit;
         font-weight: 500;
-        position: relative;
-        bottom: 5px;
+
     }
 
     #ProjectdatePicker {

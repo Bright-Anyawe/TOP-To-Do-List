@@ -119,6 +119,11 @@ export function createNewProjectTaskBtn() {
 
   newProjectAddBtn.classList.add("newProjectAddBtn");
 
+  if (newProjectTasksInnerContainer.contains(svgElement)) {
+  newProjectTasksInnerContainer.removeChild(svgElement);
+  
+  }
+ 
   newProjectTasksInnerContainer.appendChild(svgElement);
   newProjectTasksInnerContainer.appendChild(newProjectAddBtn);
   newProjectTasksContainer.appendChild(newProjectTasksInnerContainer);

@@ -1,4 +1,4 @@
-// import { edittask } from "./logics";
+
 import { getUserTodo } from "./dom-El-2";
 import { newProjectTasksContainer } from "./dom-El-2";
 import { getnewProjectInputValue } from "./dom-El-2";
@@ -42,11 +42,13 @@ class getList {
 export const myProjects = document.querySelector("#projects h3");
 const defaultProjects = document.querySelector("#projects");
 
-//Display form in block
+
 function displayForm(event) {
   const header = document.querySelector("header h1");
+  const intialTextDisplayContainer = document.querySelector('.intialTextDisplayContainer')
   header.textContent = "Add your To do";
   userList.textContent = "";
+  intialTextDisplayContainer.style.display = 'none'
   
   let newProjectBtn = createNewProjectTaskBtn();
   newProjectBtn.style.display = "none";
@@ -58,15 +60,15 @@ function displayForm(event) {
 addTaskbtn.addEventListener("click", displayForm);
 addTaskMobileBtn.addEventListener("click", displayForm);
 
-// Display all To-dos after complete load of html dom.
+
 document.addEventListener("DOMContentLoaded", () => {
   displayToDos();
 });
 
 let toDos = JSON.parse(localStorage.getItem("toDos")) || [];
 
-//Accept user data from form on (add task) click
-function acceptInput() {
+
+function acceptInput() {  
   let taskInputValue = taskTitle.value;
   let descriptionInputValue = taskDescription.value;
   let priorityValueEl = taskPriority.value;
@@ -105,11 +107,11 @@ function acceptInput() {
 
   toDos.push(userToDo);
 
-  // Save todos in local storage
+  
   localStorage.setItem("toDos", JSON.stringify(toDos));
 
   clearForm();
-  // displayToDos(toDos)
+  
 }
 
 function clearForm() {
@@ -119,7 +121,7 @@ function clearForm() {
   taskPriority.value = "Select Priority";
 }
 
-//Display To-dos
+
 function displayToDos() {
   let userTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 
@@ -227,7 +229,7 @@ dueDate.dataset.fieldType = "dueDate";
 function editTask(event) {
   const target = event.target;
   console.log(target);
-  const fieldType = target.dataset.fieldType; // Identify the field type(title,description,priority,date)
+  const fieldType = target.dataset.fieldType; 
   const index = target.dataset.index;
   console.log(index);
   const taskPriority = ["Urgent", "Important", "Low priority"];
@@ -257,21 +259,21 @@ function editTask(event) {
     });
   }
 
-  //Store the fieldType in the input dataset
+  
   taskInput.dataset.fieldType = fieldType;
   taskInput.dataset.index = index;
 
   target.style.display = "none";
-  target.parentNode.insertBefore(taskInput, target.nextSibling); // Insert the input field next to target element
+  target.parentNode.insertBefore(taskInput, target.nextSibling); 
 
   taskInput.classList.add("edit");
 
   if (taskInput.type === "text") {
-    taskInput.select(); // Automatically select the content of the input field
+    taskInput.select(); 
   }
 
-  taskInput.addEventListener("blur", saveEditedTask); // Save task when task lose focus on input element.
-  taskInput.addEventListener("keypress", saveEditedTask); // Save task on pressing Enter
+  taskInput.addEventListener("blur", saveEditedTask); 
+  taskInput.addEventListener("keypress", saveEditedTask); 
 }
 
 function saveEditedTask(event) {
@@ -280,7 +282,7 @@ function saveEditedTask(event) {
     let input = event.target;
     console.log(input);
     let fieldType = input.dataset.fieldType;
-    let index = input.dataset.index; // Get the index from the input dataset
+    let index = input.dataset.index; 
     
         console.log(toDos);
 
@@ -293,7 +295,7 @@ function saveEditedTask(event) {
       newValue = input.value;
     }
 
-    //Check if the index is not out of bounds in the array
+    
     if (index < toDos.length) {
       if (fieldType === "title") {
         toDos[index].title = newValue;
@@ -321,22 +323,22 @@ function saveEditedTask(event) {
     }
     
 
-    // Save the updated tasks to local storage
+    
     localStorage.setItem("toDos", JSON.stringify(toDos));
 
-    // Update the original element's text content and show it again
+    
     let originalElement = input.previousSibling;
 
     originalElement.textContent = newValue;
 
     originalElement.style.display = "block";
 
-    // Remove the input field if it is still part of the DOM
+    
     input.remove();
 
     userList.textContent = "";
 
-    // Re-render the todo list if necessary
+    
     displayToDos();
   }
 
@@ -356,13 +358,13 @@ function handleCheckBox(checkBox, taskTitle, taskDescription) {
       const listContainerEl = event.target;
       console.log(listContainerEl);
       const index = listContainerEl.dataset.index;
-      // const buttons = document.querySelectorAll(".deleteTask");
-      // const index = Array.from(buttons).indexOf(this);
+      
+      
 
       if (index !== -1) {
         listContainerEl.remove(listContainerEl);
         toDos.splice(index, 1);
-        //update To-do item in local storage
+        
         localStorage.setItem("toDos", JSON.stringify(toDos));
         console.log(toDos);
         userList.textContent = "";
@@ -378,7 +380,7 @@ function handleCheckBox(checkBox, taskTitle, taskDescription) {
   });
 }
 
-//Delete the todo that get clicked
+
 function deleteToDo() {
   const listContainerEl = this.closest(".listContainer");
   const buttons = document.querySelectorAll(".deleteTask");
@@ -387,7 +389,7 @@ function deleteToDo() {
   if (index !== -1) {
     listContainerEl.remove(listContainerEl);
     toDos.splice(index, 1);
-    //update To-do item in local storage
+    
     localStorage.setItem("toDos", JSON.stringify(toDos));
     console.log(toDos);
   }
@@ -395,6 +397,10 @@ function deleteToDo() {
 
 
 function cancelFormDisplay() {
+  
+  
+  
+  
   taskTitle.value = "";
   taskDescription.value = "";
   dueDate.value = "";
