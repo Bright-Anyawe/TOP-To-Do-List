@@ -45,9 +45,10 @@ const defaultProjects = document.querySelector("#projects");
 
 function displayForm(event) {
   const header = document.querySelector("header h1");
-  const intialTextDisplayContainer = document.querySelector('.intialTextDisplayContainer')
+  
   header.textContent = "Add your To do";
   userList.textContent = "";
+  const intialTextDisplayContainer = document.querySelector('.intialTextDisplayContainer')
   intialTextDisplayContainer.style.display = 'none'
   
   let newProjectBtn = createNewProjectTaskBtn();
@@ -397,15 +398,16 @@ function deleteToDo() {
 
 
 function cancelFormDisplay() {
-  
-  
-  
-  
+  const intialTextDisplayContainer = document.querySelector(
+    ".intialTextDisplayContainer"
+  );
   taskTitle.value = "";
   taskDescription.value = "";
   dueDate.value = "";
   taskPriority.value = "Select Priority";
   form.style.display = "none";
+    intialTextDisplayContainer.style.display = 'block'
+
 }
 cancelForm.addEventListener("click", cancelFormDisplay);
 
