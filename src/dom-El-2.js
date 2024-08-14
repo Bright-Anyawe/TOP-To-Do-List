@@ -93,18 +93,23 @@ newProjectFormNameBtnEl.addEventListener(
   () => (inputNewprojectFormName.style.display = "none"),
 );
 
+let svgElement = null;
 export function createNewProjectTaskBtn() {
   newProjectTasksContainer.setAttribute("id", "newProjectTasksContainer");
   newProjectTasksInnerContainer.setAttribute(
     "id",
     "newProjectTasksInnerContainer",
   );
+  
+ if (newProjectTasksInnerContainer.contains(svgElement)) {
+    newProjectTasksInnerContainer.removeChild(svgElement);
+  }
 
   newProjectAddBtn.textContent = "Add task";
 
   // Create the SVG element
   const svgNamespace = "http://www.w3.org/2000/svg";
-  const svgElement = document.createElementNS(svgNamespace, "svg");
+    svgElement = document.createElementNS(svgNamespace, "svg");
 
   // Set the class and viewBox attributes
   svgElement.setAttribute("class", "addTask");
@@ -122,9 +127,7 @@ export function createNewProjectTaskBtn() {
 
   newProjectAddBtn.classList.add("newProjectAddBtn");
 
-  if (newProjectTasksInnerContainer.contains(svgElement)) {
-    newProjectTasksInnerContainer.removeChild(svgElement);
-  }
+ 
 
   newProjectTasksInnerContainer.appendChild(svgElement);
   newProjectTasksInnerContainer.appendChild(newProjectAddBtn);
@@ -172,6 +175,11 @@ fillProjectDropDown();
 // Display each project's to-dos when selected
 projectDropDown.addEventListener("change", () => {
   userList.textContent = "";
+  const intialTextDisplayContainer = document.querySelector(
+    ".intialTextDisplayContainer",
+  );
+  intialTextDisplayContainer.style.display = "none";
+
   displayProjectTodos.textContent = "";
   newProjectTasksContainer.style.display = "none";
 
