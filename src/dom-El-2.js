@@ -7,10 +7,10 @@ const screenContainer = document.querySelector("#Container");
 const userList = document.querySelector("#userlist");
 const addProjectsContainer = document.querySelector(".addProjectsContainer");
 const newProjectsFormContainerEl = document.querySelector(
-  "#newProjectsFormContainerEl"
+  "#newProjectsFormContainerEl",
 );
 export const inputNewprojectFormName = document.querySelector(
-  ".inputNewprojectFormName"
+  ".inputNewprojectFormName",
 );
 const newProjectNameRequest = document.querySelector(".newProjectNameRequest");
 const newProjectNameTitle = document.querySelector(".headerTextContent");
@@ -34,7 +34,7 @@ const projectDropDown = document.querySelector("#project-dropdown");
 let selectedProject = projectDropDown.value;
 
 const newProjectFormNameBtnEl = document.querySelector(
-  ".newProjectFormNameBtnEl"
+  ".newProjectFormNameBtnEl",
 );
 
 class getList {
@@ -63,7 +63,7 @@ function displayRequestNewProjectFormName() {
 }
 addProjectsContainer.addEventListener(
   "click",
-  displayRequestNewProjectFormName
+  displayRequestNewProjectFormName,
 );
 
 //Get New Project Name Function.
@@ -90,12 +90,15 @@ export function getnewProjectInputName() {
 //Cancel project form name request
 newProjectFormNameBtnEl.addEventListener(
   "click",
-  () => (inputNewprojectFormName.style.display = "none")
+  () => (inputNewprojectFormName.style.display = "none"),
 );
 
 export function createNewProjectTaskBtn() {
   newProjectTasksContainer.setAttribute("id", "newProjectTasksContainer");
-  newProjectTasksInnerContainer.setAttribute("id", "newProjectTasksInnerContainer");
+  newProjectTasksInnerContainer.setAttribute(
+    "id",
+    "newProjectTasksInnerContainer",
+  );
 
   newProjectAddBtn.textContent = "Add task";
 
@@ -120,10 +123,9 @@ export function createNewProjectTaskBtn() {
   newProjectAddBtn.classList.add("newProjectAddBtn");
 
   if (newProjectTasksInnerContainer.contains(svgElement)) {
-  newProjectTasksInnerContainer.removeChild(svgElement);
-  
+    newProjectTasksInnerContainer.removeChild(svgElement);
   }
- 
+
   newProjectTasksInnerContainer.appendChild(svgElement);
   newProjectTasksInnerContainer.appendChild(newProjectAddBtn);
   newProjectTasksContainer.appendChild(newProjectTasksInnerContainer);
@@ -198,11 +200,11 @@ export function getUserTodo() {
 
   if (taskInputValue.length > 35) {
     return alert(
-      `Input should be less or equal to the 35 characters, you have entered ${taskInputValue.length} characters`
+      `Input should be less or equal to the 35 characters, you have entered ${taskInputValue.length} characters`,
     );
   } else if (descriptionInputValue.length > 40) {
     return alert(
-      `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`
+      `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`,
     );
   }
 
@@ -221,7 +223,7 @@ export function getUserTodo() {
     taskInputValue,
     descriptionInputValue,
     priorityValueEl,
-    dayOfWeek
+    dayOfWeek,
   );
 
   return userTodo;
@@ -295,7 +297,7 @@ function displayToDosForCurrentProject(projectName) {
       todo.priority,
       todo.date,
       index,
-      projectName
+      projectName,
     );
   });
 }
@@ -306,7 +308,7 @@ export function displayTask(
   savePriorityData,
   saveDueDateData,
   index,
-  projectName
+  projectName,
 ) {
   const listContainer = document.createElement("div");
   const taskContainer = document.createElement("p");
@@ -578,7 +580,7 @@ const submitNewProjectFormName = (event) => {
 };
 SaveProjectName.addEventListener("click", submitNewProjectFormName);
 newProjectNameRequest.addEventListener("submit", (event) =>
-  event.preventDefault()
+  event.preventDefault(),
 );
 
 newProjectTasksContainer.addEventListener("click", () => {

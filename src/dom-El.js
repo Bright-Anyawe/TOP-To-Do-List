@@ -1,4 +1,3 @@
-
 import { getUserTodo } from "./dom-El-2";
 import { newProjectTasksContainer } from "./dom-El-2";
 import { getnewProjectInputValue } from "./dom-El-2";
@@ -14,7 +13,7 @@ let projectForm = document.querySelector("#ProjectForm");
 const cancelForm = document.querySelector(".cancel");
 const submitBtn = document.querySelector("#submitBtn");
 const addTaskbtn = document.querySelector("#task");
-const addTaskMobileBtn = document.querySelector('#addTodoBtnContainer')
+const addTaskMobileBtn = document.querySelector("#addTodoBtnContainer");
 
 let inbox = document.querySelector(".inbox");
 const toDoContainer = document.createElement("section");
@@ -38,29 +37,28 @@ class getList {
   }
 }
 
-
 export const myProjects = document.querySelector("#projects h3");
 const defaultProjects = document.querySelector("#projects");
 
-
 function displayForm(event) {
   const header = document.querySelector("header h1");
-  
+
   header.textContent = "Add your To do";
   userList.textContent = "";
-  const intialTextDisplayContainer = document.querySelector('.intialTextDisplayContainer')
-  intialTextDisplayContainer.style.display = 'none'
-  
+  const intialTextDisplayContainer = document.querySelector(
+    ".intialTextDisplayContainer",
+  );
+  intialTextDisplayContainer.style.display = "none";
+
   let newProjectBtn = createNewProjectTaskBtn();
   newProjectBtn.style.display = "none";
   form.style.display = "block";
   if ((projectForm.style.display = "block")) {
-    projectForm.style.display = 'none'
+    projectForm.style.display = "none";
   }
 }
 addTaskbtn.addEventListener("click", displayForm);
 addTaskMobileBtn.addEventListener("click", displayForm);
-
 
 document.addEventListener("DOMContentLoaded", () => {
   displayToDos();
@@ -68,23 +66,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let toDos = JSON.parse(localStorage.getItem("toDos")) || [];
 
-
-function acceptInput() {  
+function acceptInput() {
   let taskInputValue = taskTitle.value;
   let descriptionInputValue = taskDescription.value;
   let priorityValueEl = taskPriority.value;
   let dueDateValueEl = dueDate.value;
 
-  console.log(taskInputValue.length)
+  console.log(taskInputValue.length);
   if (taskInputValue.length > 30) {
     return alert(
       `Input should be less or equal to the 35 characters, you have entered ${
         taskInputValue.length
-      } characters`
+      } characters`,
     );
-  } else if(descriptionInputValue.length > 35) {
+  } else if (descriptionInputValue.length > 35) {
     return alert(
-      `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`
+      `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`,
     );
   }
 
@@ -103,16 +100,14 @@ function acceptInput() {
     taskInputValue,
     descriptionInputValue,
     priorityValueEl,
-    dayOfWeek
+    dayOfWeek,
   );
 
   toDos.push(userToDo);
 
-  
   localStorage.setItem("toDos", JSON.stringify(toDos));
 
   clearForm();
-  
 }
 
 function clearForm() {
@@ -121,7 +116,6 @@ function clearForm() {
   dueDate.value = "";
   taskPriority.value = "Select Priority";
 }
-
 
 function displayToDos() {
   let userTodos = JSON.parse(localStorage.getItem("toDos")) || [];
@@ -132,7 +126,7 @@ function displayToDos() {
       todoObj.description,
       todoObj.priority,
       todoObj.date,
-      index
+      index,
     );
   });
 }
@@ -142,7 +136,7 @@ function getElementForTaskDisplay(
   saveDescriptionData,
   savePriorityData,
   saveDueDateData,
-  index
+  index,
 ) {
   header.textContent = "Create Your To-Do List.";
   const listContainer = document.createElement("div");
@@ -168,7 +162,7 @@ function getElementForTaskDisplay(
 
   taskTitle.classList.add("taskTitle");
   taskDescription.classList.add("taskDescription");
-  
+
   dueDate.classList.add("dueDate");
   deleteTask.classList.add("deleteTask");
   taskPriority.classList.add("taskPriority");
@@ -181,8 +175,8 @@ function getElementForTaskDisplay(
 
   taskTitle.dataset.fieldType = "title";
   taskDescription.dataset.fieldType = "description";
-taskPriority.dataset.fieldType = "taskPriority";
-dueDate.dataset.fieldType = "dueDate";
+  taskPriority.dataset.fieldType = "taskPriority";
+  dueDate.dataset.fieldType = "dueDate";
 
   taskTitle.dataset.index = index;
   taskDescription.dataset.index = index;
@@ -218,11 +212,8 @@ dueDate.dataset.fieldType = "dueDate";
   dueDate.addEventListener("dblclick", editTask);
   dueDate.addEventListener("touchstart", editTask);
 
-
-
   deleteTask.addEventListener("click", deleteToDo);
   deleteTask.addEventListener("touchstart", deleteToDo);
-
 
   handleCheckBox(checkBox, taskTitle, taskDescription);
 }
@@ -230,7 +221,7 @@ dueDate.dataset.fieldType = "dueDate";
 function editTask(event) {
   const target = event.target;
   console.log(target);
-  const fieldType = target.dataset.fieldType; 
+  const fieldType = target.dataset.fieldType;
   const index = target.dataset.index;
   console.log(index);
   const taskPriority = ["Urgent", "Important", "Low priority"];
@@ -260,32 +251,30 @@ function editTask(event) {
     });
   }
 
-  
   taskInput.dataset.fieldType = fieldType;
   taskInput.dataset.index = index;
 
   target.style.display = "none";
-  target.parentNode.insertBefore(taskInput, target.nextSibling); 
+  target.parentNode.insertBefore(taskInput, target.nextSibling);
 
   taskInput.classList.add("edit");
 
   if (taskInput.type === "text") {
-    taskInput.select(); 
+    taskInput.select();
   }
 
-  taskInput.addEventListener("blur", saveEditedTask); 
-  taskInput.addEventListener("keypress", saveEditedTask); 
+  taskInput.addEventListener("blur", saveEditedTask);
+  taskInput.addEventListener("keypress", saveEditedTask);
 }
 
 function saveEditedTask(event) {
   if (event.type === "blur" || event.key === "Enter") {
-
     let input = event.target;
     console.log(input);
     let fieldType = input.dataset.fieldType;
-    let index = input.dataset.index; 
-    
-        console.log(toDos);
+    let index = input.dataset.index;
+
+    console.log(toDos);
 
     let newValue;
     if (input.tagName === "SELECT") {
@@ -296,7 +285,6 @@ function saveEditedTask(event) {
       newValue = input.value;
     }
 
-    
     if (index < toDos.length) {
       if (fieldType === "title") {
         toDos[index].title = newValue;
@@ -304,10 +292,9 @@ function saveEditedTask(event) {
         console.log(newValue);
       } else if (fieldType === "description") {
         toDos[index].description = newValue;
-        console.log(index)
+        console.log(index);
         console.log(toDos[description]);
-      }
-      else if (fieldType === "dueDate") {
+      } else if (fieldType === "dueDate") {
         let dueDate = newValue;
         const date = new Date(dueDate);
 
@@ -317,40 +304,31 @@ function saveEditedTask(event) {
           month: "short",
           day: "numeric",
         };
-    console.log(toDos);
+        console.log(toDos);
 
         toDos[index].date = date.toLocaleDateString("en-Us", options);
       }
     }
-    
 
-    
     localStorage.setItem("toDos", JSON.stringify(toDos));
 
-    
     let originalElement = input.previousSibling;
 
     originalElement.textContent = newValue;
 
     originalElement.style.display = "block";
 
-    
     input.remove();
 
     userList.textContent = "";
 
-    
     displayToDos();
   }
-
 }
 
-
-
 function handleCheckBox(checkBox, taskTitle, taskDescription) {
-  checkBox.addEventListener("change", (event) => {
+  checkBox.addEventListener("click", (event) => {
     if (checkBox.checked === true) {
-      
       localStorage.setItem("toDos", JSON.stringify(toDos));
       console.log(toDos);
 
@@ -359,13 +337,11 @@ function handleCheckBox(checkBox, taskTitle, taskDescription) {
       const listContainerEl = event.target;
       console.log(listContainerEl);
       const index = listContainerEl.dataset.index;
-      
-      
 
       if (index !== -1) {
         listContainerEl.remove(listContainerEl);
         toDos.splice(index, 1);
-        
+
         localStorage.setItem("toDos", JSON.stringify(toDos));
         console.log(toDos);
         userList.textContent = "";
@@ -381,7 +357,6 @@ function handleCheckBox(checkBox, taskTitle, taskDescription) {
   });
 }
 
-
 function deleteToDo() {
   const listContainerEl = this.closest(".listContainer");
   const buttons = document.querySelectorAll(".deleteTask");
@@ -390,24 +365,22 @@ function deleteToDo() {
   if (index !== -1) {
     listContainerEl.remove(listContainerEl);
     toDos.splice(index, 1);
-    
+
     localStorage.setItem("toDos", JSON.stringify(toDos));
     console.log(toDos);
   }
 }
 
-
 function cancelFormDisplay() {
   const intialTextDisplayContainer = document.querySelector(
-    ".intialTextDisplayContainer"
+    ".intialTextDisplayContainer",
   );
   taskTitle.value = "";
   taskDescription.value = "";
   dueDate.value = "";
   taskPriority.value = "Select Priority";
   form.style.display = "none";
-    intialTextDisplayContainer.style.display = 'block'
-
+  intialTextDisplayContainer.style.display = "block";
 }
 cancelForm.addEventListener("click", cancelFormDisplay);
 
