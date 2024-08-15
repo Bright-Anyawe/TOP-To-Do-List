@@ -1056,7 +1056,9 @@ button.deleteTask {
 }
 
 button.deleteTask:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  background-color: #4b0707;
+
 }
 
 button.deleteTask:active {
@@ -1127,6 +1129,12 @@ button.deleteTask:active {
   color: white;
 }
 
+.taskPriority:hover {
+  transform: scale(1.05);
+  background-color: #9c1515;
+}
+
+
 .innerTaskHandler {
   display: flex;
   flex-direction: column;
@@ -1136,19 +1144,19 @@ button.deleteTask:active {
   margin: 0px 15px 0 40px;
 }
 
+ aside ul li {
+  list-style: none;
+  display: inline-block;
+  width: 100%;
+  padding: 10px 20px;
+}
+
 .inbox-container {
   display: flex;
   align-items: center;
   gap: 5px;
-  margin: 0px 0 0 16px;
-  height: 26px;
-  padding: 9px;
-  border-radius: 5px 0px 0px 5px;
 }
 
-.inbox-container:hover {
-  background-color: var(--hover-color);
-}
 
 .inbox {
   font-size: 20px;
@@ -1327,17 +1335,18 @@ input#datePicker {
 .addProjectsContainer {
   display: flex;
 
-  margin: 0 0 0 20px;
-  padding: 7px;
+  /* margin: 0 0 0 20px; */
+  /* padding: 7px; */
   align-items: center;
   gap: 10px;
-  height: 25px;
-  border-radius: 5px 0px 0px 5px;
 }
 
-.addProjectsContainer:hover {
-  background-color: var(--hover-color);
+.inbox-container:hover, .addProjectsContainer:hover, .project_text:hover, #project-dropdown:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.09);
+  text-decoration: underline;
 }
+
 
 .addProjectsContainer svg {
   width: 25px;
@@ -1358,24 +1367,15 @@ input#datePicker {
   border-radius: 5px 0px 0px 5px;
 }
 
-.project_text:hover {
-  background-color: var(--hover-color);
-}
 
 #project-dropdown {
   border: 0;
   background-color: inherit;
-  margin: 5px 0 0 17px;
   font-size: 18px;
   font-weight: 550;
-  padding: 8px;
-  border-radius: 5px 0px 0px 5px;
   max-width: 160px;
 }
 
-#project-dropdown:hover {
-  background-color: var(--hover-color);
-}
 
 #project-dropdown:focus {
   border: none;
