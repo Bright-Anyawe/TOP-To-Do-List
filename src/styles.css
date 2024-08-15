@@ -161,6 +161,14 @@ body {
     object-fit: contain;
   }
 
+  .popUpContainer {
+    display: flex;
+    max-width: 200px;
+    padding: 30px;
+    background-color: #07c4dd;
+    border: 1px solid black;
+  }
+
   #userlist #addTodoBtnContainer {
     display: flex;
     align-items: center;
@@ -924,7 +932,7 @@ aside {
   grid-area: 2 / 2 / 3 / 4;
 
   display: grid;
-  grid-template-columns: 100px 650px 350px;
+  grid-template-columns: 100px 650px minmax(250px, 350px);
   border-radius: 5px;
 }
 
@@ -1286,10 +1294,6 @@ input#datePicker {
 .second-inputContainer {
   margin: 10px 0 0 0;
   font-size: 1rem;
-}
-
-.other-options-on-forms,
-.footer {
 }
 
 .submitBtn:active {

@@ -75,9 +75,7 @@ function acceptInput() {
   console.log(taskInputValue.length);
   if (taskInputValue.length > 30) {
     return alert(
-      `Input should be less or equal to the 35 characters, you have entered ${
-        taskInputValue.length
-      } characters`,
+      `Input should be less or equal to the 35 characters, you have entered ${taskInputValue.length} characters`,
     );
   } else if (descriptionInputValue.length > 35) {
     return alert(
@@ -332,8 +330,6 @@ function handleCheckBox(checkBox, taskTitle, taskDescription) {
       localStorage.setItem("toDos", JSON.stringify(toDos));
       console.log(toDos);
 
-      taskDescription.style.textDecoration = "line-through";
-
       const listContainerEl = event.target;
       console.log(listContainerEl);
       const index = listContainerEl.dataset.index;
@@ -348,6 +344,7 @@ function handleCheckBox(checkBox, taskTitle, taskDescription) {
         displayToDos();
         alert("Task completed!");
       }
+
       console.log("true");
     } else {
       taskTitle.style.textDecoration = "none";
@@ -372,6 +369,16 @@ function deleteToDo() {
 }
 
 function cancelFormDisplay() {
+    let  addTodoBtnOnMobile= document.querySelector('#addTodoBtnContainer')
+
+  let mediaQuery = window.matchMedia('(max-width: 500px)')
+  if (mediaQuery.matches) {
+     addTodoBtnOnMobile.style.display = "block";
+    console.log('true')
+  } else {
+    console.log('false')
+
+  }
   const intialTextDisplayContainer = document.querySelector(
     ".intialTextDisplayContainer",
   );
@@ -381,6 +388,8 @@ function cancelFormDisplay() {
   taskPriority.value = "Select Priority";
   form.style.display = "none";
   intialTextDisplayContainer.style.display = "block";
+ 
+
 }
 cancelForm.addEventListener("click", cancelFormDisplay);
 
