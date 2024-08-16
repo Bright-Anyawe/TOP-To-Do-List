@@ -47,6 +47,11 @@ class getList {
 }
 
 function displayRequestNewProjectFormName() {
+   const intialTextDisplayContainer = document.querySelector(
+    ".intialTextDisplayContainer",
+  );
+
+  intialTextDisplayContainer.style.display = 'none';
   if (userList.textContent) {
     userList.textContent = "";
   }
