@@ -73,13 +73,13 @@ function acceptInput() {
   let dueDateValueEl = dueDate.value;
 
   console.log(taskInputValue.length);
-  if (taskInputValue.length > 30) {
+  if (taskInputValue.length < 35) {
     return alert(
-      `Input should be less or equal to the 35 characters, you have entered ${taskInputValue.length} characters`,
+      `task title should be less or equal to 35  characters, you have entered ${taskInputValue.length} characters`,
     );
-  } else if (descriptionInputValue.length > 35) {
+  } else if (descriptionInputValue.length <= 40) {
     return alert(
-      `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`,
+      `Description should be less or equal to  40 characters, you have entered ${descriptionInputValue.length} characters`,
     );
   }
 
@@ -382,12 +382,12 @@ function cancelFormDisplay() {
   const intialTextDisplayContainer = document.querySelector(
     ".intialTextDisplayContainer",
   );
+  intialTextDisplayContainer.style.display = "block";
   taskTitle.value = "";
   taskDescription.value = "";
   dueDate.value = "";
   taskPriority.value = "Select Priority";
   form.style.display = "none";
-  intialTextDisplayContainer.style.display = "block";
  
 
 }

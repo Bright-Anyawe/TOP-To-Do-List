@@ -17,6 +17,7 @@ const newProjectNameTitle = document.querySelector(".headerTextContent");
 const SaveProjectName = document.querySelector(".SaveProjectName");
 const newProjectTask = document.querySelector(".newProjectTask");
 const newProjectTasksContainer = document.createElement("div");
+const newProjectTaskBtnWrapper = document.createElement('div');
 const newProjectTasksInnerContainer = document.createElement("div");
 
 const newProjectAddBtn = document.createElement("button");
@@ -50,6 +51,10 @@ function displayRequestNewProjectFormName() {
    const intialTextDisplayContainer = document.querySelector(
     ".intialTextDisplayContainer",
   );
+  const projectTaskBtn = createNewProjectTaskBtn();
+
+  console.log(projectTaskBtn);
+  
 
   intialTextDisplayContainer.style.display = 'none';
   if (userList.textContent) {
@@ -62,6 +67,8 @@ function displayRequestNewProjectFormName() {
   if (projectForm.style.display === "block") {
     projectForm.style.display = "none";
   }
+  
+    projectTaskBtn.style.display = 'none';
 
   inputNewprojectFormName.style.display = "block";
   return { inputNewprojectFormName };
@@ -95,12 +102,21 @@ export function getnewProjectInputName() {
 //Cancel project form name request
 newProjectFormNameBtnEl.addEventListener(
   "click",
-  () => (inputNewprojectFormName.style.display = "none"),
+  () => { 
+inputNewprojectFormName.style.display = "none";
+    const intialTextDisplayContainer = document.querySelector(
+    ".intialTextDisplayContainer",
+  );
+
+    intialTextDisplayContainer.style.display = "block";
+
+  }
 );
 
 let svgElement = null;
 export function createNewProjectTaskBtn() {
   newProjectTasksContainer.setAttribute("id", "newProjectTasksContainer");
+  newProjectTaskBtnWrapper.setAttribute("id", "newProjectTaskBtnWrapper");
   newProjectTasksInnerContainer.setAttribute(
     "id",
     "newProjectTasksInnerContainer",
@@ -132,11 +148,10 @@ export function createNewProjectTaskBtn() {
 
   newProjectAddBtn.classList.add("newProjectAddBtn");
 
- 
-
   newProjectTasksInnerContainer.appendChild(svgElement);
   newProjectTasksInnerContainer.appendChild(newProjectAddBtn);
-  newProjectTasksContainer.appendChild(newProjectTasksInnerContainer);
+  newProjectTaskBtnWrapper.appendChild(newProjectTasksInnerContainer)
+  newProjectTasksContainer.appendChild(newProjectTaskBtnWrapper);
 
   newProjectsFormContainerEl.appendChild(newProjectTasksContainer);
 

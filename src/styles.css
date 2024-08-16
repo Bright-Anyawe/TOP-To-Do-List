@@ -13,7 +13,7 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-
+  color: #78350f;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -196,7 +196,7 @@ body {
 
   #userlist #addTodoBtnContainer button {
     border: 0;
-    font-size: 16px;
+    font-size: 1.3rem;
     color: #b91c1c;
     background-color: inherit;
     transition: 0.3s;
@@ -210,10 +210,9 @@ body {
   .inner_container #form {
     background-color: #64748b;
     border-radius: 10px;
-    max-height: 135px;
+    max-height: 200px;
     max-width: 515px !important;
-    height: 140px;
-    padding-left: 1rem;
+    height: 170px;
     display: none;
     max-width: 480px;
     margin: 10px 10px 0 10px;
@@ -307,6 +306,35 @@ body {
     margin: 10px 0 0 0;
   }
 
+  input#ProjectdatePicker {
+    padding: 2px;
+    border-radius: 5px;
+    border: none;
+    height: 32px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    background: #d4d4d8;
+    text-align: center;
+  }
+
+  select#projectPriority {
+    background-color: #44403c;
+    color: #fafafa;
+    font-size: 0.85rem;
+    font-weight: 600;
+    height: 35px;
+  }
+
+
+  div.projectButtonsContainer button {
+    border: none;
+    border-radius: 7px;
+    padding: 9px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+
   div#configPriorityDateOnMobile {
     display: flex;
     flex-direction: column;
@@ -375,19 +403,26 @@ body {
 
   #form .first-inputContainer input,
   .PtitleInputContainer input {
-    max-width: 165px;
-    max-height: 15px;
+    max-width: 305px;
+    max-height: 40px;
     border: none;
     outline: none;
     color: white;
-    margin: 10px 0;
+    /* margin: 10px 0; */
     background-color: inherit;
+  }
+
+  #form .first-inputContainer input, .second-inputContainer input {
+    max-width: 305px;
+    max-height: 40px;
+    margin: 0;
+    font-size: 1.1rem;
   }
 
   #form .second-inputContainer input,
   .PdescriptionInputContainer input {
-    max-width: 178px;
-    max-height: 15px;
+    max-width: 307px;
+    max-height: 40px;
     border: none;
     outline: none;
     color: white;
@@ -419,6 +454,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    height: 100px;
   }
 
   main aside {
@@ -436,8 +472,19 @@ body {
     fill: white;
   }
 
+  li.inbox {
+    font-size: 1.4rem;
+    color: white;
+  }
+
+  li#addNewProjectEl {
+    margin: 0;
+    font-size: 1.3rem;
+    color: white;
+  }
+
   select#project-dropdown {
-    background-color: rgb(42, 40, 49);
+    background-color: inherit;
   }
 
   main #Container {
@@ -558,7 +605,8 @@ body {
 
   #userlist #addTodoBtnContainer button {
     border: 0;
-    font-size: 16px;
+    font-size: 1.4rem;
+
     color: #b91c1c;
     background-color: inherit;
   }
@@ -690,7 +738,7 @@ body {
 }
 
 select#priority {
-  padding: 4px;
+  padding: 8px;
   border-radius: 9px;
 }
 
@@ -909,8 +957,8 @@ input#datePicker {
 
 main {
   display: grid;
-  grid-template-columns: 190px 1fr;
-  grid-template-rows: 70px 570px;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 100px 611px;
 }
 
 header {
@@ -920,6 +968,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 700;
 }
 
 aside {
@@ -951,7 +1000,8 @@ aside {
 .intialTextDisplay p {
   font-size: 1.2rem;
   text-align: center;
-  font-weight: 500;
+  font-weight: 800;
+  color: #78350f;
   margin: 10px 0 0 0;
 }
 
@@ -1035,7 +1085,7 @@ svg {
 
 #task button {
   border: 0;
-  font-size: 16px;
+  font-size: 1.4rem;
   color: #b91c1c;
   background-color: inherit;
 }
@@ -1094,6 +1144,8 @@ button.deleteTask:active {
   border: none;
   border-radius: 7px;
   padding: 9px;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .excluded {
@@ -1110,7 +1162,7 @@ button.deleteTask:active {
 .newProject-task-title,
 .editableSaveTaskEl {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.3rem;
   text-decoration: none;
   text-decoration-color: red;
 }
@@ -1118,7 +1170,7 @@ button.deleteTask:active {
 .taskDescription,
 .newProject-description {
   margin: 0;
-  font-size: 14px;
+  font-size: 1.2rem;
 }
 
 .taskPriority {
@@ -1128,6 +1180,7 @@ button.deleteTask:active {
   padding: 6px;
   margin: 0 0 7px;
   color: white;
+  text-align: center;
 }
 
 .taskPriority:hover {
@@ -1156,11 +1209,12 @@ aside ul li {
   display: flex;
   align-items: center;
   gap: 5px;
+  font-size: 1.3rem;
 }
 
 
 .inbox {
-  font-size: 20px;
+  font-size: 1.4rem;
 }
 
 .inboxListContainer {
@@ -1186,11 +1240,13 @@ aside ul li {
 
 .inboxTaskPriority {
   margin: 0 20px 0 0;
-  font-size: 20px;
+  font-size: 1.3rem;
+
 }
 
 .dueDate {
   margin: 0;
+  font-size: 1.2rem;
 }
 
 .edit {
@@ -1208,7 +1264,7 @@ aside ul li {
 #form {
   background-color: #64748b;
   border-radius: 10px;
-  height: 140px;
+  height: 170px;
   display: none;
   padding-left: 1rem;
   margin: 10px 10px 0 0;
@@ -1222,7 +1278,7 @@ aside ul li {
 }
 
 input#datePicker {
-  max-width: 118px;
+  max-width: 133px;
 }
 
 .buttons {
@@ -1245,7 +1301,7 @@ input#datePicker {
 #ProjectForm {
   background-color: #64748b;
   border-radius: 10px;
-  height: 150px;
+  height: 166px;
   display: none;
   padding: 10px;
   margin: 15px 15px 0 17px;
@@ -1273,6 +1329,8 @@ input#datePicker {
 .task-title,
 .description {
   width: 350px;
+  font-size: 1.1rem;
+
 }
 
 .first-inputContainer input::placeholder,
@@ -1322,9 +1380,9 @@ input#datePicker {
   padding: 7px;
   border-radius: 7px;
   border: none;
-  background-color: #07c4dd;
+  background-color: #083344;
   color: white;
-  font-size: 15px;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
@@ -1337,6 +1395,14 @@ input#datePicker {
   padding: 7px;
   border-radius: 5px;
   margin: 0 4px 5px 0;
+
+}
+
+#projectPriority {
+  background-color: #44403c;
+  color: #fafafa;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .addProjectsContainer {
@@ -1360,7 +1426,7 @@ input#datePicker {
 
 #addNewProjectEl {
   margin: 0;
-  font-size: 19px;
+  font-size: 1.3rem;
 }
 
 .project_text {
@@ -1376,7 +1442,7 @@ input#datePicker {
 #project-dropdown {
   border: 0;
   background-color: inherit;
-  font-size: 18px;
+  font-size: 1.3rem;
   font-weight: 550;
   max-width: 160px;
 }
@@ -1461,6 +1527,12 @@ input.SaveProjectName {
   align-items: center;
 }
 
+#newProjectTaskBtnWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #newProjectTasksInnerContainer {
   display: flex;
   justify-content: center;
@@ -1471,8 +1543,7 @@ input.SaveProjectName {
   border-radius: 10px;
   padding: 10px;
   width: 95px;
-  position: relative;
-  left: 250px;
+
 }
 
 svg.addTask {
@@ -1492,11 +1563,26 @@ svg.addTask {
   border-radius: 5px;
   border: none;
   height: 32px;
+  padding: 2px;
+  border-radius: 5px;
+  border: none;
+  height: 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: #d4d4d8;
+  /* color: #f8fafc; */
+  text-align: center;
+}
+
+#ProjectdatePicker input[type='date'] {
+  fill: white;
 }
 
 #submitBtnForProject {
   padding: 7px;
   border-radius: 9px;
+  /* font-size: 1.2rem;
+  font-weight: 600; */
 }
 
 #submitBtnForProject:active {
