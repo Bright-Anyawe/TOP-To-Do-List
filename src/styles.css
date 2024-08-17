@@ -307,7 +307,7 @@ body {
   }
 
   .projectInputContainer .PdescriptionInputContainer {
-    margin: 10px 0 0 0;
+    margin: 0;
   }
 
   input#ProjectdatePicker {
@@ -1419,12 +1419,16 @@ input#datePicker {
 
 }
 
-#projectPriority {
+
+
+#projectPriority, #projectPriority option {
   background-color: #44403c;
   color: #fafafa;
   font-size: 1.2rem;
   font-weight: 600;
 }
+
+
 
 .addProjectsContainer {
   display: flex;

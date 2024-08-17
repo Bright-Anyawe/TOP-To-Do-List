@@ -369,16 +369,17 @@ function deleteToDo() {
 }
 
 function cancelFormDisplay() {
-    let  addTodoBtnOnMobile= document.querySelector('#addTodoBtnContainer')
+  //   let addTodoBtnOnMobile = document.querySelector("#addTodoBtnContainer2");
+  //   console.log(addTodoBtnOnMobile);
 
-  let mediaQuery = window.matchMedia('(max-width: 500px)')
-  if (mediaQuery.matches) {
-     addTodoBtnOnMobile.style.display = "block";
-    console.log('true')
-  } else {
-    console.log('false')
+  // let mediaQuery = window.matchMedia('(max-width: 500px)')
+  // if (mediaQuery.matches) {
+  //    addTodoBtnOnMobile.style.display = "block";
+  //   console.log('true')
+  // } else {
+  //   console.log('false')
 
-  }
+  // }
   const intialTextDisplayContainer = document.querySelector(
     ".intialTextDisplayContainer",
   );
