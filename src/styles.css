@@ -680,9 +680,9 @@ body {
   .inner_container #form {
     background-color: #64748b;
     border-radius: 10px;
-    height: 150px;
+    height: 160px;
     display: none;
-    max-width: 600px;
+    max-width: 700px;
 
     margin: 17px;
   }
@@ -742,11 +742,11 @@ body {
   form#ProjectForm {
     background-color: #64748b;
     border-radius: 10px;
-    height: 150px;
+    height: 160px;
     display: none;
     max-width: 693px;
     padding-left: 1rem;
-    margin: 9px 61px;
+    /* margin: 9px 61px; */
   }
 
   div.projectFormDetails {
@@ -765,6 +765,11 @@ body {
   select#priority {
     padding: 8px;
     border-radius: 9px;
+  }
+
+  select#priority option {
+    color: white;
+    font-weight: 700;
   }
 
   input#datePicker {
@@ -877,17 +882,19 @@ body {
     display: flex;
     gap: 5px;
     max-width: 714px;
-
+    word-break: break-all;
+    white-space: normal;
+    overflow-wrap: break-word;
     border-radius: 10px;
     box-shadow: 1px 0px 3px 0px;
-    margin: 18px 60px;
+    /* margin: 18px 60px; */
     padding: 15px;
   }
 
   .inner_container #form {
     background-color: #64748b;
     border-radius: 10px;
-    height: 150px;
+    height: 180px;
     display: none;
     max-width: 750px;
 
@@ -942,11 +949,10 @@ body {
   form#ProjectForm {
     background-color: #64748b;
     border-radius: 10px;
-    height: 150px;
+    height: 160px;
     display: none;
     max-width: 693px;
     padding-left: 1rem;
-    margin: 9px 61px;
   }
 
   div.projectFormDetails {
@@ -990,7 +996,8 @@ body {
 main {
   display: grid;
   grid-template-columns: 250px 1fr;
-  grid-template-rows: 100px 611px;
+  grid-template-rows: 100px minmax(100vh, 600px);
+  ;
 }
 
 header {
@@ -1003,13 +1010,20 @@ header {
   font-weight: 700;
 }
 
+.headerTextContent {
+  font-weight: 700;
+
+}
+
 aside {
   grid-area: 1/ 1/ 4/ 2;
   border-radius: 5px;
   background-color: #e2e8f0;
 }
 
-.sideBarContentContainer {}
+.sideBarContentContainer {
+  margin: 40px 0 0 20px;
+}
 
 #Container {
   grid-area: 2 / 2 / 3 / 4;
@@ -1156,11 +1170,18 @@ button.deleteTask:active {
   display: flex;
   gap: 5px;
   max-width: 714px;
-
+  word-break: break-all;
+  white-space: normal;
+  overflow-wrap: break-word;
   border-radius: 10px;
   box-shadow: 1px 0px 3px 0px;
   margin: 18px 18px;
   padding: 15px;
+  transition: transform 3ms ease;
+}
+
+.listContainer:hover {
+  transform: scale(1.01);
 }
 
 .priorityDateOnLargeScreen {
@@ -1486,7 +1507,7 @@ input#datePicker {
   background-color: inherit;
   font-size: 1.3rem;
   font-weight: 550;
-  max-width: 160px;
+  max-width: 200px;
 }
 
 
@@ -1543,6 +1564,11 @@ input.SaveProjectName {
   font-size: 19px;
   background-color: rgb(240, 59, 134);
   color: white;
+  transition: transform 3ms ease;
+}
+
+input.SaveProjectName:hover {
+  transform: scale(1.03)
 }
 
 .projectNameSaverBtnContainer {
@@ -1561,6 +1587,12 @@ input.SaveProjectName {
 #ProjectsFormNameContainerEl .Cancel {
   background-color: grey;
   color: white;
+  transition: transform 3ms ease;
+
+}
+
+#ProjectsFormNameContainerEl .Cancel:hover {
+  transform: scale(1.03)
 }
 
 #newProjectTasksContainer {
@@ -1610,9 +1642,8 @@ svg.addTask {
   border: none;
   height: 32px;
   font-size: 1.1rem;
-  font-weight: 600;
-  background: #d4d4d8;
-  /* color: #f8fafc; */
+  font-weight: 700;
+  background: #f0f0f0;
   text-align: center;
 }
 

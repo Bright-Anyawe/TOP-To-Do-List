@@ -56,6 +56,10 @@ function displayForm(event) {
   if ((projectForm.style.display = "block")) {
     projectForm.style.display = "none";
   }
+
+  if(inputNewprojectFormName.style.display = 'block') {
+    inputNewprojectFormName.style.display = 'none'
+  }
 }
 addTaskbtn.addEventListener("click", displayForm);
 addTaskMobileBtn.addEventListener("click", displayForm);
