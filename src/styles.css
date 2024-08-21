@@ -186,6 +186,10 @@ body {
     border: 1px solid black;
   }
 
+  div.sideBarContentContainer {
+    margin: 40px 0 0 -4px;
+  }
+
   #userlist #addTodoBtnContainer {
     display: flex;
     align-items: center;
@@ -254,7 +258,7 @@ body {
   .inputNewprojectFormName .inputNewProjectName {
     max-width: 300px;
     max-height: 35px;
-    padding: 14px;
+    padding: 5px;
     border: none;
     border-radius: 7px;
   }
@@ -284,11 +288,11 @@ body {
   .inner_container #ProjectForm {
     background-color: #64748b;
     border-radius: 10px;
-    max-height: 134px;
+    max-height: 155px;
     max-width: 515px;
     display: none;
     max-width: 500px;
-    margin: 9px 10px 0 23px;
+    margin: 9px 10px 0 13px;
   }
 
   .projectFormDetails {
@@ -367,6 +371,10 @@ body {
     min-width: 80px;
   }
 
+  #priority option {
+    color: white;
+  }
+
   #ProjectForm .footer {
     display: flex;
     flex-direction: column;
@@ -430,15 +438,22 @@ body {
   }
 
   #form .first-inputContainer input, .second-inputContainer input {
-    max-width: 305px;
+    max-width: 230px;
     max-height: 40px;
     margin: 0;
     font-size: 1.1rem;
   }
 
+  .second-inputContainer input.description {
+    max-width: 150px;
+    font-size: 1.1rem;
+  }
+
+
+
   #form .second-inputContainer input,
   .PdescriptionInputContainer input {
-    max-width: 307px;
+    max-width: 250px;
     max-height: 40px;
     border: none;
     outline: none;
@@ -450,10 +465,15 @@ body {
   #form .other-options-on-forms button,
   #configPriorityDateOnMobile #priority,
   #datePicker {
-    padding: 4px;
+    padding: 8px;
     border-radius: 6px;
     max-width: 104px;
     min-width: 80px;
+  }
+
+  #configPriorityDateOnMobile input#datePicker {
+
+    max-width: 80px;
   }
 }
 
@@ -502,7 +522,14 @@ body {
 
   select#project-dropdown {
     background-color: inherit;
+    max-width: 180px;
   }
+
+  div.sideBarContentContainer {
+    margin: 40px 0 0 0px;
+  }
+
+
 
   main #Container {
     display: flex;
@@ -995,7 +1022,7 @@ body {
 
 main {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 230px 1fr;
   grid-template-rows: 100px minmax(100vh, 600px);
   ;
 }
@@ -1022,7 +1049,7 @@ aside {
 }
 
 .sideBarContentContainer {
-  margin: 40px 0 0 20px;
+  margin: 40px 0 0 0px;
 }
 
 #Container {
@@ -1239,7 +1266,10 @@ button.deleteTask:active {
   margin: 0 0 7px;
   color: white;
   text-align: center;
-  width: 130px;
+  max-width: 140px;
+  min-width: 70px;
+
+
 }
 
 .taskPriority:hover {

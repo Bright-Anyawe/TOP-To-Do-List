@@ -173,7 +173,7 @@ function getElementForTaskDisplay(
   taskDescription.textContent = `${saveDescriptionData}`;
   taskPriority.textContent = `${savePriorityData}`;
   dueDate.textContent = `${saveDueDateData}`;
-  deleteTask.textContent = "Delete task";
+  deleteTask.textContent = "Delete";
 
   taskTitle.dataset.fieldType = "title";
   taskDescription.dataset.fieldType = "description";

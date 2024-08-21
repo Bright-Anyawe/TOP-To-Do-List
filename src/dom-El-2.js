@@ -376,7 +376,7 @@ export function displayTask(
   taskDescription.textContent = `${saveDescriptionData}`;
   taskPriority.textContent = `${savePriorityData}`;
   dueDate.textContent = `${saveDueDateData}`;
-  deleteTask.textContent = "Delete task";
+  deleteTask.textContent = "Delete";
 
   deleteTask.dataset.index = index;
   deleteTask.dataset.project = projectName;
