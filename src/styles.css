@@ -38,10 +38,10 @@ body {
 
   #toggleMenuIcon {
     position: fixed;
-    top: 100px;
+    top: 46px;
     right: 10px;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     /* 
     top: 106px;
     right: 10px;
@@ -286,37 +286,44 @@ body {
   }
 
   .inner_container #ProjectForm {
-    background-color: #64748b;
+    /* background-color: #64748b;
     border-radius: 10px;
     max-height: 155px;
-    max-width: 515px;
+    max-width: 515px !important;
     display: none;
-    max-width: 500px;
-    margin: 9px 10px 0 13px;
+    margin: 9px 10px 0 13px; */
+
+    background-color: #64748b;
+    border-radius: 10px;
+    max-height: 200px;
+    max-width: 515px !important;
+    height: 170px;
+    display: none;
+    max-width: 480px;
+    margin: 10px 10px 0 10px;
   }
 
-  .projectFormDetails {
+  div.projectFormDetails {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 10px 0;
     height: 80px;
   }
 
   div.priorityDateOnLargeScreen {
     display: flex;
-    position: relative;
-    top: 0;
-    max-width: 200px;
+
     flex-direction: column;
   }
 
   .projectInputContainer {
-    max-width: 200px;
+    max-width: 168px;
+
   }
 
   .projectInputContainer p input {
-    max-width: 200px;
+    max-width: 168px;
   }
 
   .innerTaskContainer .edit {
@@ -334,7 +341,8 @@ body {
     height: 32px;
     font-size: 0.9rem;
     font-weight: 700;
-    background: #d4d4d8;
+    background-color: #44403c;
+    color: #fafafa;
     text-align: center;
   }
 
@@ -371,6 +379,10 @@ body {
     min-width: 80px;
   }
 
+  select #priority {
+    margin: 0 7px 5px 0;
+  }
+
   #priority option {
     color: white;
   }
@@ -381,6 +393,7 @@ body {
     justify-content: space-between;
     padding: 0 10px;
     gap: 0;
+    margin: 10px 0 0 0;
   }
 
   #ProjectForm .projectButtonsContainer {
@@ -395,7 +408,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 10px 0;
     margin: 0;
   }
 
@@ -438,7 +451,7 @@ body {
   }
 
   #form .first-inputContainer input, .second-inputContainer input {
-    max-width: 230px;
+    max-width: 200px;
     max-height: 40px;
     margin: 0;
     font-size: 1.1rem;
@@ -453,7 +466,7 @@ body {
 
   #form .second-inputContainer input,
   .PdescriptionInputContainer input {
-    max-width: 250px;
+    max-width: 220px;
     max-height: 40px;
     border: none;
     outline: none;
@@ -465,15 +478,32 @@ body {
   #form .other-options-on-forms button,
   #configPriorityDateOnMobile #priority,
   #datePicker {
-    padding: 8px;
+    /* padding: 8px;
     border-radius: 6px;
     max-width: 104px;
-    min-width: 80px;
+    min-width: 80px; */
+
+    background-color: #44403c;
+    color: #fafafa;
+    font-size: 0.85rem;
+    font-weight: 600;
+    height: 35px;
   }
 
-  #configPriorityDateOnMobile input#datePicker {
+  #priority option {}
 
-    max-width: 80px;
+  #configPriorityDateOnMobile input#datePicker {
+    padding: 2px;
+    border-radius: 5px;
+    border: none;
+    height: 32px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0 8px;
+    background-color: #44403c;
+    color: #fafafa;
+    text-align: center;
+    max-width: 110px;
   }
 }
 
@@ -1284,7 +1314,7 @@ button.deleteTask:active {
   justify-items: center;
   justify-content: center;
   align-items: center;
-  margin: 0px 15px 0 40px;
+  margin: 0px 15px 0 10px;
 }
 
 aside ul li {
@@ -1336,14 +1366,24 @@ aside ul li {
 .dueDate {
   margin: 0;
   font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .edit {
   border: none;
   outline: none;
   font-size: 17px;
-  max-width: 110px;
+  /* max-width: 110px; */
   margin: 0 0;
+  background: #663729;
+  color: white;
+  padding: 9px;
+  border-radius: 8px;
+  margin: 0 0 8px;
+}
+
+.edit option{
+  color: white
 }
 
 #projects h3 {
