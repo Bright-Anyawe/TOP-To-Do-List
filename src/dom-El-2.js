@@ -7,16 +7,17 @@ const screenContainer = document.querySelector("#Container");
 const userList = document.querySelector("#userlist");
 const addProjectsContainer = document.querySelector(".addProjectsContainer");
 const newProjectsFormContainerEl = document.querySelector(
-  "#newProjectsFormContainerEl"
+  "#newProjectsFormContainerEl",
 );
 export const inputNewprojectFormName = document.querySelector(
-  ".inputNewprojectFormName"
+  ".inputNewprojectFormName",
 );
 const newProjectNameRequest = document.querySelector(".newProjectNameRequest");
 const newProjectNameTitle = document.querySelector(".headerTextContent");
 const SaveProjectName = document.querySelector(".SaveProjectName");
 const newProjectTask = document.querySelector(".newProjectTask");
 const newProjectTasksContainer = document.createElement("div");
+const newProjectTaskBtnWrapper = document.createElement('div');
 const newProjectTasksInnerContainer = document.createElement("div");
 
 const newProjectAddBtn = document.createElement("button");
@@ -34,7 +35,7 @@ const projectDropDown = document.querySelector("#project-dropdown");
 let selectedProject = projectDropDown.value;
 
 const newProjectFormNameBtnEl = document.querySelector(
-  ".newProjectFormNameBtnEl"
+  ".newProjectFormNameBtnEl",
 );
 
 class getList {
@@ -47,6 +48,15 @@ class getList {
 }
 
 function displayRequestNewProjectFormName() {
+   const intialTextDisplayContainer = document.querySelector(
+    ".intialTextDisplayContainer",
+  );
+  const projectTaskBtn = createNewProjectTaskBtn();
+
+  console.log(projectTaskBtn);
+  
+
+  intialTextDisplayContainer.style.display = 'none';
   if (userList.textContent) {
     userList.textContent = "";
   }
@@ -57,13 +67,15 @@ function displayRequestNewProjectFormName() {
   if (projectForm.style.display === "block") {
     projectForm.style.display = "none";
   }
+  
+    projectTaskBtn.style.display = 'none';
 
   inputNewprojectFormName.style.display = "block";
   return { inputNewprojectFormName };
 }
 addProjectsContainer.addEventListener(
   "click",
-  displayRequestNewProjectFormName
+  displayRequestNewProjectFormName,
 );
 
 //Get New Project Name Function.
@@ -90,18 +102,35 @@ export function getnewProjectInputName() {
 //Cancel project form name request
 newProjectFormNameBtnEl.addEventListener(
   "click",
-  () => (inputNewprojectFormName.style.display = "none")
+  () => { 
+inputNewprojectFormName.style.display = "none";
+    const intialTextDisplayContainer = document.querySelector(
+    ".intialTextDisplayContainer",
+  );
+
+    intialTextDisplayContainer.style.display = "block";
+
+  }
 );
 
+let svgElement = null;
 export function createNewProjectTaskBtn() {
   newProjectTasksContainer.setAttribute("id", "newProjectTasksContainer");
-  newProjectTasksInnerContainer.setAttribute("id", "newProjectTasksInnerContainer");
+  newProjectTaskBtnWrapper.setAttribute("id", "newProjectTaskBtnWrapper");
+  newProjectTasksInnerContainer.setAttribute(
+    "id",
+    "newProjectTasksInnerContainer",
+  );
+  
+ if (newProjectTasksInnerContainer.contains(svgElement)) {
+    newProjectTasksInnerContainer.removeChild(svgElement);
+  }
 
   newProjectAddBtn.textContent = "Add task";
 
   // Create the SVG element
   const svgNamespace = "http://www.w3.org/2000/svg";
-  const svgElement = document.createElementNS(svgNamespace, "svg");
+    svgElement = document.createElementNS(svgNamespace, "svg");
 
   // Set the class and viewBox attributes
   svgElement.setAttribute("class", "addTask");
@@ -119,14 +148,10 @@ export function createNewProjectTaskBtn() {
 
   newProjectAddBtn.classList.add("newProjectAddBtn");
 
-  if (newProjectTasksInnerContainer.contains(svgElement)) {
-  newProjectTasksInnerContainer.removeChild(svgElement);
-  
-  }
- 
   newProjectTasksInnerContainer.appendChild(svgElement);
   newProjectTasksInnerContainer.appendChild(newProjectAddBtn);
-  newProjectTasksContainer.appendChild(newProjectTasksInnerContainer);
+  newProjectTaskBtnWrapper.appendChild(newProjectTasksInnerContainer)
+  newProjectTasksContainer.appendChild(newProjectTaskBtnWrapper);
 
   newProjectsFormContainerEl.appendChild(newProjectTasksContainer);
 
@@ -170,6 +195,11 @@ fillProjectDropDown();
 // Display each project's to-dos when selected
 projectDropDown.addEventListener("change", () => {
   userList.textContent = "";
+  const intialTextDisplayContainer = document.querySelector(
+    ".intialTextDisplayContainer",
+  );
+  intialTextDisplayContainer.style.display = "none";
+
   displayProjectTodos.textContent = "";
   newProjectTasksContainer.style.display = "none";
 
@@ -196,15 +226,21 @@ export function getUserTodo() {
   let priorityValueEl = selectPriorityEl.value;
   let dueDateValueEl = dueDate.value;
 
-  if (taskInputValue.length > 35) {
-    return alert(
-      `Input should be less or equal to the 35 characters, you have entered ${taskInputValue.length} characters`
-    );
-  } else if (descriptionInputValue.length > 40) {
-    return alert(
-      `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`
-    );
-  }
+  // let taskTitle = document.querySelector('.taskTitle');
+  // let taskDescription = document.querySelector(".taskDescription");
+
+  // if (taskTitle.textContent.length > 35) {
+  //   taskTitle.style.overflow = 'hidden'
+  //   // return alert(
+  //   //   `Input should be less or equal to the 35 characters, you have entered ${taskInputValue.length} characters`,
+  //   // );
+  // } else if (taskDescription.textContent.length > 40) {
+  //   taskDescription.style.overflow = 'hidden'
+
+  //   return alert(
+  //     `Description should be less or equal to the 40 characters, you have entered ${descriptionInputValue.length} characters`,
+  //   );
+  // }
 
   const date = new Date(dueDateValueEl);
 
@@ -221,7 +257,7 @@ export function getUserTodo() {
     taskInputValue,
     descriptionInputValue,
     priorityValueEl,
-    dayOfWeek
+    dayOfWeek,
   );
 
   return userTodo;
@@ -295,7 +331,7 @@ function displayToDosForCurrentProject(projectName) {
       todo.priority,
       todo.date,
       index,
-      projectName
+      projectName,
     );
   });
 }
@@ -306,7 +342,7 @@ export function displayTask(
   savePriorityData,
   saveDueDateData,
   index,
-  projectName
+  projectName,
 ) {
   const listContainer = document.createElement("div");
   const taskContainer = document.createElement("p");
@@ -340,7 +376,7 @@ export function displayTask(
   taskDescription.textContent = `${saveDescriptionData}`;
   taskPriority.textContent = `${savePriorityData}`;
   dueDate.textContent = `${saveDueDateData}`;
-  deleteTask.textContent = "Delete task";
+  deleteTask.textContent = "Delete";
 
   deleteTask.dataset.index = index;
   deleteTask.dataset.project = projectName;
@@ -578,7 +614,7 @@ const submitNewProjectFormName = (event) => {
 };
 SaveProjectName.addEventListener("click", submitNewProjectFormName);
 newProjectNameRequest.addEventListener("submit", (event) =>
-  event.preventDefault()
+  event.preventDefault(),
 );
 
 newProjectTasksContainer.addEventListener("click", () => {

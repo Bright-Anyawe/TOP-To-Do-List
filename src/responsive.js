@@ -3,7 +3,7 @@ let asideEl = document.querySelector("main aside");
 let toggleMenuIcon = document.querySelector("#toggleMenuIcon");
 let sideBar = document.querySelector("aside#menu");
 let projectDropDown = document.querySelector("#project-dropdown");
-let addNewProjectEl = document.querySelector('#adNewProjectEl')
+// let addNewProjectEl = document.querySelector("#adNewProjectEl");
 
 console.log(projectDropDown);
 
@@ -37,7 +37,3 @@ function optionSelected() {
 
 projectDropDown.addEventListener("change", optionSelected);
 document.addEventListener("click", removeSideBar);
-
-
-
-
